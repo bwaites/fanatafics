@@ -84,7 +84,7 @@ Public Class HeaderData
 #Region " Public Methods "
 
     Public Sub Initialize(cmd As SqlCommand)
-        _Id = cmd.Parameters("@Id").Value
+        _Id = cmd.Parameters("@ID").Value
         _Version = cmd.Parameters("@Version").Value
         _LastUpdated = cmd.Parameters("@LastUpdated").Value
         _Deleted = cmd.Parameters("@Deleted").Value

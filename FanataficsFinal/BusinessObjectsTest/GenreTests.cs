@@ -37,5 +37,36 @@ namespace BusinessObjectsTest
 
             Assert.AreEqual(expectedGenreType, actualGenreType, "Genre Types Match!");
         }
+
+        [TestMethod]
+        public void Pass_Delete()
+        {
+            // Arrange
+            GenreList expectedGenreList = new GenreList();
+            expectedGenreList.GetAll();
+            target.IsNew = true;
+            target.GenreType = "TestAction";
+                       
+
+
+            // Act
+            target.Save();
+
+            target.Deleted = true;
+            target.IsNew = false;
+            target.IsDirty = true;
+            target.Save();
+           
+            GenreList actualGenreList = new GenreList();
+            actualGenreList.GetAll();
+
+            
+ 
+            // Assert
+            Assert.AreEqual(expectedGenreList.List.Count, actualGenreList.List.Count, "It deleted! yay!");
+            
+
+        }
+
     }
 }

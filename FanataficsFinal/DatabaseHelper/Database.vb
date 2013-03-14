@@ -45,7 +45,7 @@ Public Class Database
     Public Function ExecuteNonQuery() As SqlCommand
 
         'Go get the connection string from the configuration file
-        _cn.ConnectionString = ConfigurationHelper.vb.Configuration.GetConnectionString(_ConnectionName)
+        _cn.ConnectionString = ConfigurationHelper.Configuration.GetConnectionString(_ConnectionName)
 
         _cn.Open()
         'Tell the command object about the connection
@@ -72,7 +72,7 @@ Public Class Database
     Public Function ExecuteQuery() As DataSet
 
         'Get the connection string from the configuration file
-        _cn.ConnectionString = ConfigurationHelper.vb.Configuration.GetConnectionString(_ConnectionName)
+        _cn.ConnectionString = ConfigurationHelper.Configuration.GetConnectionString(_ConnectionName)
         'Open up the connection
         _cn.Open()
         'Tell the command object about the connection
@@ -86,9 +86,9 @@ Public Class Database
         'return the dataset to the caller
         Return _ds
     End Function
-    Public Sub BeginTransaction(connectioName As String)
+    Public Sub BeginTransaction(connectionName As String)
         'SETUP THE CONNECTION STRING
-        _cn.ConnectionString = ConfigurationHelper.vb.Configuration.GetConnectionString(connectioName)
+        _cn.ConnectionString = ConfigurationHelper.Configuration.GetConnectionString(connectionName)
         'OPEN THE CONNECTION
         _cn.Open()
 

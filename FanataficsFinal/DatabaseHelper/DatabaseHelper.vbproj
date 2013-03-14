@@ -101,14 +101,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="bin\Debug\" />
+    <Folder Include="bin\Release\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\ConfigurationHelper.vb\ConfigurationHelper.vbproj">
       <Project>{3893773F-91A5-4F06-A840-519B0C7E98DA}</Project>
       <Name>ConfigurationHelper</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="bin\Debug\" />
-    <Folder Include="bin\Release\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
