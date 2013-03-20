@@ -171,7 +171,7 @@ Public Class StoryChapterReview
             result = False
         End If
 
-        If _UserID = Guid.Empty AndAlso _ReviewerName.Trim = String.Empty Then
+        If _ReviewerName > 20 Then
             result = False
         End If
 
@@ -214,7 +214,7 @@ Public Class StoryChapterReview
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
         db.Command.CommandType = CommandType.StoredProcedure
-        db.Command.CommandText = "tblStoryChapterReview_getById"
+        db.Command.CommandText = "tblStoryChapterReview_getByID"
         db.Command.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = id
         ds = db.ExecuteQuery()
 
@@ -228,7 +228,7 @@ Public Class StoryChapterReview
             Return Me
         Else
             If ds.Tables(0).Rows.Count = 0 Then
-                Throw New Exception(String.Format("Chapter Review {0} was not fount", id))
+                Throw New Exception(String.Format("Chapter Review {0} was not found", id))
             Else
                 Throw New Exception(String.Format("Chapter Review {0} found multiple records", id))
             End If
@@ -238,7 +238,12 @@ Public Class StoryChapterReview
     Public Sub InitializeBusinessData(dr As DataRow)
         _ChapterID = dr("ChapterID")
         _ReviewerName = dr("ReviewerName")
-        _UserID = dr("UserID")
+        If IsDBNull(dr("UserID")) = False Then
+            _UserID = dr("UserID")
+
+        End If
+
+
         _ReviewContent = dr("ReviewContent")
 
 

@@ -21,7 +21,7 @@ namespace BusinessObjectsTest
 
 
         [TestMethod]
-        public void Pass_GetById()
+        public void Genre_GetByIdPass()
         {
             // Arrange
             Guid genreId = new Guid("24b8a590-e9fd-47a6-852e-144dd8227d23");
@@ -39,7 +39,7 @@ namespace BusinessObjectsTest
         }
 
         [TestMethod]
-        public void Pass_Delete()
+        public void Genre_DeletePass()
         {
             // Arrange
             GenreList expectedGenreList = new GenreList();

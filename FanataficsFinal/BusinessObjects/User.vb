@@ -266,12 +266,12 @@ Public Class User
             Return False
         End If
     End Function
-    Public Function GetById(id As String) As User
+    Public Function GetById(id As Guid) As User
 
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
         db.Command.CommandType = CommandType.StoredProcedure
-        db.Command.CommandText = "tblStory_getById"
+        db.Command.CommandText = "tblUser_getById"
         db.Command.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = id
         ds = db.ExecuteQuery()
 

@@ -45,9 +45,14 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoryTests.cs" />
     <Compile Include="MaturityTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GenreTests.cs" />
+    <Compile Include="ReviewTests.cs" />
+    <Compile Include="StoryChapterTests.cs" />
+    <Compile Include="StoryTests.cs" />
+    <Compile Include="UserTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessObjects\BusinessObjects.vbproj">
