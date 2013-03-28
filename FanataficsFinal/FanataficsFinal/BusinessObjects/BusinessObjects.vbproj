@@ -67,6 +67,10 @@
   <ItemGroup>
     <Compile Include="Category.vb" />
     <Compile Include="CategoryList.vb" />
+    <Compile Include="Chapter.vb" />
+    <Compile Include="ChapterList.vb" />
+    <Compile Include="Fandom.vb" />
+    <Compile Include="FandomList.vb" />
     <Compile Include="Genre.vb" />
     <Compile Include="GenreList.vb" />
     <Compile Include="HeaderData.vb" />
@@ -87,13 +91,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Review.vb" />
+    <Compile Include="ReviewList.vb" />
     <Compile Include="Story.vb" />
-    <Compile Include="StoryChapter.vb" />
-    <Compile Include="StoryChapterList.vb" />
-    <Compile Include="StoryChapterReview.vb" />
-    <Compile Include="StoryChapterReviewList.vb" />
-    <Compile Include="StoryFandom.vb" />
-    <Compile Include="StoryFandomList.vb" />
     <Compile Include="StoryGenre.vb" />
     <Compile Include="StoryGenreList.vb" />
     <Compile Include="StoryList.vb" />
