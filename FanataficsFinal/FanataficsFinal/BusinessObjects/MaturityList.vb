@@ -1,11 +1,12 @@
 ﻿Imports System.ComponentModel
 Imports DatabaseHelper
+Imports SQLHelper
 
 Public Class MaturityList
 #Region " Private Members "
 
     Private WithEvents _List As New BindingList(Of Maturity)
-
+    Private _Criteria As Criteria
 #End Region
 
 #Region " Public Properties "
@@ -16,6 +17,15 @@ Public Class MaturityList
         End Get
     End Property
 
+    Public WriteOnly Property MaturityLevel As String
+        Set(value As String)
+            If value.Trim <> String.Empty Then
+                _Criteria.Fields.Add("MaturityLevel")
+                _Criteria.Values.Add(value)
+                _Criteria.Types.Add(DataTypeHelper.Type.DataType.String_Contains)
+            End If
+        End Set
+    End Property
 #End Region
 
 #Region " Private Methods "
@@ -77,6 +87,29 @@ Public Class MaturityList
             End If
         Next
         Return result
+    End Function
+
+    Public Function Search() As MaturityList
+        'crease an instance of the databse class
+        Dim database As New Database(My.Settings.ConnectionName)
+        Dim ds As New DataSet
+
+        database.ConnectionName = My.Settings.ConnectionName
+        database.Command.CommandType = CommandType.Text
+        database.Command.CommandText = SQLHelper.Builder.Build(_Criteria)
+
+        ds = database.ExecuteQuery
+
+        For Each dr As DataRow In ds.Tables(0).Rows
+            Dim m As New Maturity
+            m.Initialize(dr)
+            m.InitializeBusinessData(dr)
+            m.IsNew = False
+            m.IsDirty = False
+            _List.Add(m)
+            AddHandler m.evtIsSavable, AddressOf MaturityList_evtIsSavable
+        Next
+        Return Me
     End Function
 #End Region
 

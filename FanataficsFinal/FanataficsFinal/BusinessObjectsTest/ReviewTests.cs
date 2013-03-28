@@ -9,12 +9,12 @@ namespace BusinessObjectsTest
     [TestClass]
     public class ReviewTests
     {
-        StoryChapterReview target;
+        Review target;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            target = new StoryChapterReview();
+            target = new Review();
         }
         [TestMethod]
         public void Review_GetByIdPass()

@@ -1,25 +1,24 @@
 ﻿Imports DatabaseHelper
-Public Class Story
+Public Class Review
     Inherits HeaderData
+
 #Region " Private Members "
-    Private _Title As String = String.Empty
-    Private _Summary As String = String.Empty
-    Private _MaturityID As Guid = Guid.Empty
-    '
-    'ADD PRIVATE MEMBERS FOR CHILDREN HERE
-    '
-    Private WithEvents _StoryChapter As ChapterList = Nothing
+    Private _ChapterID As Guid = Guid.Empty
+    Private _ReviewerName As String = String.Empty
+    Private _UserID As Guid = Guid.Empty
+    Private _ReviewContent As String = String.Empty
+
 
 #End Region
 
 #Region " Public Properties "
-    Public Property Title As String
+    Public Property ChapterID As Guid
         Get
-            Return _Title
+            Return _ChapterID
         End Get
-        Set(value As String)
-            If value <> _Title Then
-                _Title = value
+        Set(value As Guid)
+            If value <> _ChapterID Then
+                _ChapterID = value
                 MyBase.IsDirty = True
                 'Raise an Event here to notify
                 'if the object is savable
@@ -28,13 +27,13 @@ Public Class Story
         End Set
     End Property
 
-    Public Property Summary As String
+    Public Property ReviewerName As String
         Get
-            Return _Summary
+            Return _ReviewerName
         End Get
         Set(value As String)
-            If value <> _Summary Then
-                _Summary = value
+            If value <> _ReviewerName Then
+                _ReviewerName = value
                 MyBase.IsDirty = True
                 'Raise an Event here to notify
                 'if the object is savable
@@ -43,24 +42,35 @@ Public Class Story
         End Set
     End Property
 
-    Public Property MaturityID As Guid
+    Public Property UserID As Guid
         Get
-            Return _MaturityID
+            Return _UserID
         End Get
-        Set(ByVal value As Guid)
-            _MaturityID = value
-            MyBase.IsDirty = True
-            'Raise event if savable
-            RaiseEvent evtIsSavable(IsSavable)
+        Set(value As Guid)
+            If value <> _UserID Then
+                _UserID = value
+                MyBase.IsDirty = True
+                'Raise an Event here to notify
+                'if the object is savable
+                RaiseEvent evtIsSavable(IsSavable)
+            End If
         End Set
     End Property
 
-
-    '
-    'ADD PUBLIC PROPERITES FOR CHILDREN HERE
-    '
-
-    
+    Public Property ReviewContent As String
+        Get
+            Return _ReviewContent
+        End Get
+        Set(value As String)
+            If value <> _ReviewContent Then
+                _ReviewContent = value
+                MyBase.IsDirty = True
+                'Raise an Event here to notify
+                'if the object is savable
+                RaiseEvent evtIsSavable(IsSavable)
+            End If
+        End Set
+    End Property
 
 
 
@@ -73,15 +83,18 @@ Public Class Story
             'Setting up the Command object
             database.Command.Parameters.Clear()
             database.Command.CommandType = CommandType.StoredProcedure
-            database.Command.CommandText = "tblStory_INSERT"
+            database.Command.CommandText = "tblReview_INSERT"
             'Add the header data parameters
             MyBase.Initialize(database, Guid.Empty)
             'Add the parameter
-            database.Command.Parameters.Add("@Title", SqlDbType.VarChar).Value = _Title
-            database.Command.Parameters.Add("@Summary", SqlDbType.VarChar).Value = _Summary
-            database.Command.Parameters.Add("@MaturityID", SqlDbType.UniqueIdentifier).Value = _MaturityID
+            database.Command.Parameters.Add("@ChapterID", SqlDbType.UniqueIdentifier).Value = _ChapterID
+            database.Command.Parameters.Add("@ReviewerName", SqlDbType.VarChar).Value = _ReviewerName
+            database.Command.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = _UserID
+            database.Command.Parameters.Add("@ReviewContent", SqlDbType.VarChar).Value = _ReviewContent
 
-            'CHANGE EXECUTE NON QUERY TO EXECUTE NON QUERY WITH TRANSACTION
+
+
+            'Execute non query
             database.ExecuteNonQueryWithTransaction()
             'Retrieve the header data values from the command object
             MyBase.Initialize(database.Command)
@@ -98,17 +111,18 @@ Public Class Story
             'Setting up the Command object
             database.Command.Parameters.Clear()
             database.Command.CommandType = CommandType.StoredProcedure
-            database.Command.CommandText = "tblStory_UPDATE"
+            database.Command.CommandText = "tbReview_UPDATE"
             'Add the header data parameters
             MyBase.Initialize(database, MyBase.Id)
             'Add the parameter
-            database.Command.Parameters.Add("@Title", SqlDbType.VarChar).Value = _Title
-            database.Command.Parameters.Add("@Summary", SqlDbType.VarChar).Value = _Summary
-            database.Command.Parameters.Add("@MaturityID", SqlDbType.UniqueIdentifier).Value = _MaturityID
+            database.Command.Parameters.Add("@ChapterID", SqlDbType.UniqueIdentifier).Value = _ChapterID
+            database.Command.Parameters.Add("@ReviewerName", SqlDbType.VarChar).Value = _ReviewerName
+            database.Command.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = _UserID
+            database.Command.Parameters.Add("@ReviewContent", SqlDbType.VarChar).Value = _ReviewContent
+
+
             'Execute non query
             database.ExecuteNonQueryWithTransaction()
-            '
-            'CHANGE EXECUTE NON QUERY TO EXECUTE NON QUERY WITH TRANSACTION
             'Retrieve the header data values from the command object
             MyBase.Initialize(database.Command)
 
@@ -123,14 +137,11 @@ Public Class Story
         Try
             database.Command.Parameters.Clear()
             database.Command.CommandType = CommandType.StoredProcedure
-            database.Command.CommandText = "tblStory_DELETE"
+            database.Command.CommandText = "tblReview_DELETE"
             MyBase.Initialize(database, MyBase.Id)
             database.ExecuteNonQueryWithTransaction()
-            '
-            'DON'T FORGET TO SOFT DELETE THE CHILDREN OF THE PARENT
-            '
-
             MyBase.Initialize(database.Command)
+
             Return True
         Catch ex As Exception
             Return False
@@ -142,17 +153,25 @@ Public Class Story
         'ASSUME TRUE UNLESS A RULE IS BROKEN
         Dim result As Boolean = True
 
-        If _Title = String.Empty Then
+
+        If _ReviewerName.Trim = String.Empty Then
             result = False
         End If
-        If _Title.Length > 100 Then
+        If _ReviewerName.Length > 30 Then
             result = False
         End If
 
-        If _Summary = String.Empty Then
+
+
+        If _ReviewContent.Trim = String.Empty Then
             result = False
         End If
-        If _Summary.Length > 400 Then
+
+        If _ReviewContent.Length > 12 Then
+            result = False
+        End If
+
+        If _ReviewerName > 20 Then
             result = False
         End If
 
@@ -162,10 +181,8 @@ Public Class Story
 #End Region
 
 #Region " Public Methods "
-    Public Function Save() As Story
+    Public Function Save() As Review
         Dim db As New Database(My.Settings.ConnectionName)
-        db.BeginTransaction(My.Settings.ConnectionName)
-
         Dim result As Boolean = True
 
         If MyBase.IsNew = True AndAlso MyBase.IsDirty = True AndAlso IsValid() = True Then
@@ -180,38 +197,22 @@ Public Class Story
             MyBase.IsDirty = False
             MyBase.IsNew = False
         End If
-        '
-        '
-        'Handle the children here'
-        '
-
-        '
-        'Handle the transaction here'
-        '
-        If result = True Then
-            db.EndTransaction()
-        Else
-            db.RollbackTransaction()
-        End If
 
         Return Me
     End Function
     Public Function IsSavable() As Boolean
-        '
-        'ADD CHECKS HERE FOR CHILDREN BEING SAVABLE
-        '
         If MyBase.IsDirty = True AndAlso IsValid() = True Then
             Return True
         Else
             Return False
         End If
     End Function
-    Public Function GetById(id As Guid) As Story
+    Public Function GetById(id As Guid) As Review
 
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
         db.Command.CommandType = CommandType.StoredProcedure
-        db.Command.CommandText = "tblStory_getById"
+        db.Command.CommandText = "tblReview_getByID"
         db.Command.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = id
         ds = db.ExecuteQuery()
 
@@ -225,17 +226,25 @@ Public Class Story
             Return Me
         Else
             If ds.Tables(0).Rows.Count = 0 Then
-                Throw New Exception(String.Format("Story {0} was not found", id))
+                Throw New Exception(String.Format("Chapter Review {0} was not found", id))
             Else
-                Throw New Exception(String.Format("Story {0} found multiple records", id))
+                Throw New Exception(String.Format("Chapter Review {0} found multiple records", id))
             End If
         End If
 
     End Function
     Public Sub InitializeBusinessData(dr As DataRow)
-        _Title = dr("Title")
-        _Summary = dr("Summary")
-        _MaturityID = dr("MaturityID")
+        _ChapterID = dr("ChapterID")
+        _ReviewerName = dr("ReviewerName")
+        If IsDBNull(dr("UserID")) = False Then
+            _UserID = dr("UserID")
+
+        End If
+
+
+        _ReviewContent = dr("ReviewContent")
+
+
     End Sub
 #End Region
 

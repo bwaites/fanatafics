@@ -1,18 +1,32 @@
 ﻿Imports DatabaseHelper
-Public Class Story
+Public Class Chapter
     Inherits HeaderData
+
 #Region " Private Members "
+    Private _StoryID As Guid = Guid.Empty
     Private _Title As String = String.Empty
-    Private _Summary As String = String.Empty
-    Private _MaturityID As Guid = Guid.Empty
-    '
-    'ADD PRIVATE MEMBERS FOR CHILDREN HERE
-    '
-    Private WithEvents _StoryChapter As ChapterList = Nothing
+    Private _ChapterPlacement As Integer = 0
+    Private _ChapterContent As String = String.Empty
+
 
 #End Region
 
 #Region " Public Properties "
+    Public Property StoryID As Guid
+        Get
+            Return _StoryID
+        End Get
+        Set(value As Guid)
+            If value <> _StoryID Then
+                _StoryID = value
+                MyBase.IsDirty = True
+                'Raise an Event here to notify
+                'if the object is savable
+                RaiseEvent evtIsSavable(IsSavable)
+            End If
+        End Set
+    End Property
+
     Public Property Title As String
         Get
             Return _Title
@@ -28,13 +42,13 @@ Public Class Story
         End Set
     End Property
 
-    Public Property Summary As String
+    Public Property ChapterPlacement As Integer
         Get
-            Return _Summary
+            Return _ChapterPlacement
         End Get
-        Set(value As String)
-            If value <> _Summary Then
-                _Summary = value
+        Set(value As Integer)
+            If value <> _ChapterPlacement Then
+                _ChapterPlacement = value
                 MyBase.IsDirty = True
                 'Raise an Event here to notify
                 'if the object is savable
@@ -42,26 +56,20 @@ Public Class Story
             End If
         End Set
     End Property
-
-    Public Property MaturityID As Guid
+    Public Property ChapterContent As String
         Get
-            Return _MaturityID
+            Return _ChapterContent
         End Get
-        Set(ByVal value As Guid)
-            _MaturityID = value
-            MyBase.IsDirty = True
-            'Raise event if savable
-            RaiseEvent evtIsSavable(IsSavable)
+        Set(value As String)
+            If value <> _ChapterContent Then
+                _ChapterContent = value
+                MyBase.IsDirty = True
+                'Raise an Event here to notify
+                'if the object is savable
+                RaiseEvent evtIsSavable(IsSavable)
+            End If
         End Set
     End Property
-
-
-    '
-    'ADD PUBLIC PROPERITES FOR CHILDREN HERE
-    '
-
-    
-
 
 
 #End Region
@@ -73,15 +81,17 @@ Public Class Story
             'Setting up the Command object
             database.Command.Parameters.Clear()
             database.Command.CommandType = CommandType.StoredProcedure
-            database.Command.CommandText = "tblStory_INSERT"
+            database.Command.CommandText = "tblChapter_INSERT"
             'Add the header data parameters
             MyBase.Initialize(database, Guid.Empty)
             'Add the parameter
+            database.Command.Parameters.Add("@StoryID", SqlDbType.UniqueIdentifier).Value = _StoryID
             database.Command.Parameters.Add("@Title", SqlDbType.VarChar).Value = _Title
-            database.Command.Parameters.Add("@Summary", SqlDbType.VarChar).Value = _Summary
-            database.Command.Parameters.Add("@MaturityID", SqlDbType.UniqueIdentifier).Value = _MaturityID
+            database.Command.Parameters.Add("@ChapterPlacement", SqlDbType.VarChar).Value = _ChapterPlacement
+            database.Command.Parameters.Add("@ChapterContent", SqlDbType.VarChar).Value = _ChapterContent
 
-            'CHANGE EXECUTE NON QUERY TO EXECUTE NON QUERY WITH TRANSACTION
+
+            'Execute non query
             database.ExecuteNonQueryWithTransaction()
             'Retrieve the header data values from the command object
             MyBase.Initialize(database.Command)
@@ -98,17 +108,17 @@ Public Class Story
             'Setting up the Command object
             database.Command.Parameters.Clear()
             database.Command.CommandType = CommandType.StoredProcedure
-            database.Command.CommandText = "tblStory_UPDATE"
+            database.Command.CommandText = "tblChapter_UPDATE"
             'Add the header data parameters
             MyBase.Initialize(database, MyBase.Id)
             'Add the parameter
+            database.Command.Parameters.Add("@StoryID", SqlDbType.UniqueIdentifier).Value = _StoryID
             database.Command.Parameters.Add("@Title", SqlDbType.VarChar).Value = _Title
-            database.Command.Parameters.Add("@Summary", SqlDbType.VarChar).Value = _Summary
-            database.Command.Parameters.Add("@MaturityID", SqlDbType.UniqueIdentifier).Value = _MaturityID
+            database.Command.Parameters.Add("@ChapterPlacement", SqlDbType.VarChar).Value = _ChapterPlacement
+            database.Command.Parameters.Add("@ChapterContent", SqlDbType.VarChar).Value = _ChapterContent
+
             'Execute non query
             database.ExecuteNonQueryWithTransaction()
-            '
-            'CHANGE EXECUTE NON QUERY TO EXECUTE NON QUERY WITH TRANSACTION
             'Retrieve the header data values from the command object
             MyBase.Initialize(database.Command)
 
@@ -123,14 +133,11 @@ Public Class Story
         Try
             database.Command.Parameters.Clear()
             database.Command.CommandType = CommandType.StoredProcedure
-            database.Command.CommandText = "tblStory_DELETE"
+            database.Command.CommandText = "tblChapter_DELETE"
             MyBase.Initialize(database, MyBase.Id)
             database.ExecuteNonQueryWithTransaction()
-            '
-            'DON'T FORGET TO SOFT DELETE THE CHILDREN OF THE PARENT
-            '
-
             MyBase.Initialize(database.Command)
+
             Return True
         Catch ex As Exception
             Return False
@@ -142,17 +149,23 @@ Public Class Story
         'ASSUME TRUE UNLESS A RULE IS BROKEN
         Dim result As Boolean = True
 
-        If _Title = String.Empty Then
+
+        If _Title.Trim = String.Empty Then
             result = False
         End If
-        If _Title.Length > 100 Then
+        If _Title.Length > 50 Then
             result = False
         End If
 
-        If _Summary = String.Empty Then
+        If _ChapterPlacement < -1 Then
             result = False
         End If
-        If _Summary.Length > 400 Then
+
+        If _ChapterContent.Trim = String.Empty Then
+            result = False
+        End If
+
+        If _ChapterContent.Length > 10000 Then
             result = False
         End If
 
@@ -162,7 +175,7 @@ Public Class Story
 #End Region
 
 #Region " Public Methods "
-    Public Function Save() As Story
+    Public Function Save() As Chapter
         Dim db As New Database(My.Settings.ConnectionName)
         db.BeginTransaction(My.Settings.ConnectionName)
 
@@ -185,7 +198,9 @@ Public Class Story
         'Handle the children here'
         '
 
-        '
+
+
+
         'Handle the transaction here'
         '
         If result = True Then
@@ -197,21 +212,18 @@ Public Class Story
         Return Me
     End Function
     Public Function IsSavable() As Boolean
-        '
-        'ADD CHECKS HERE FOR CHILDREN BEING SAVABLE
-        '
         If MyBase.IsDirty = True AndAlso IsValid() = True Then
             Return True
         Else
             Return False
         End If
     End Function
-    Public Function GetById(id As Guid) As Story
+    Public Function GetById(id As Guid) As Chapter
 
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
         db.Command.CommandType = CommandType.StoredProcedure
-        db.Command.CommandText = "tblStory_getById"
+        db.Command.CommandText = "tblChapter_getById"
         db.Command.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = id
         ds = db.ExecuteQuery()
 
@@ -225,17 +237,20 @@ Public Class Story
             Return Me
         Else
             If ds.Tables(0).Rows.Count = 0 Then
-                Throw New Exception(String.Format("Story {0} was not found", id))
+                Throw New Exception(String.Format("Story Chapter {0} was not fount", id))
             Else
-                Throw New Exception(String.Format("Story {0} found multiple records", id))
+                Throw New Exception(String.Format("Story Chapter {0} found multiple records", id))
             End If
         End If
 
     End Function
     Public Sub InitializeBusinessData(dr As DataRow)
+        _StoryID = dr("StoryID")
         _Title = dr("Title")
-        _Summary = dr("Summary")
-        _MaturityID = dr("MaturityID")
+        _ChapterPlacement = dr("ChapterPlacement")
+        _ChapterContent = dr("ChapterContent")
+
+
     End Sub
 #End Region
 
