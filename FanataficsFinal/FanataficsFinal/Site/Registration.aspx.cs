@@ -18,11 +18,11 @@ namespace Site
         void btnRegister_Click(object sender, EventArgs e)
         {
             User user = new User();
-            user.UserName = this.userName.Value;
-            user.Password = this.password.Value;
-            user.Email = this.email.Value;
-            user.SecurityQuestion = this.securityQuestion.Value;
-            user.SecurityAnswer = this.securityAnswer.Value;
+            user.UserName = this.txtUserName.Value;
+            user.Password = this.txtPassword.Value;
+            user.Email = this.txtEmail.Value;
+            user.SecurityQuestion = this.txtSecurityQuestion.Value;
+            user.SecurityAnswer = this.txtSecurityAnswer.Value;
 
             if (user.IsSavable() == true)
             {

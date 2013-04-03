@@ -13,13 +13,13 @@ namespace Site {
     public partial class Registration {
         
         /// <summary>
-        /// userName control.
+        /// txtUserName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText userName;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtUserName;
         
         /// <summary>
         /// rfvUserName control.
@@ -31,13 +31,13 @@ namespace Site {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvUserName;
         
         /// <summary>
-        /// password control.
+        /// txtPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword password;
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword txtPassword;
         
         /// <summary>
         /// rfvPassword control.
@@ -49,13 +49,13 @@ namespace Site {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPassword;
         
         /// <summary>
-        /// password2 control.
+        /// txtPassword2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword password2;
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword txtPassword2;
         
         /// <summary>
         /// cvPassword control.
@@ -67,13 +67,13 @@ namespace Site {
         protected global::System.Web.UI.WebControls.CompareValidator cvPassword;
         
         /// <summary>
-        /// email control.
+        /// txtEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText email;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtEmail;
         
         /// <summary>
         /// rfvEmail control.
@@ -85,13 +85,13 @@ namespace Site {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEmail;
         
         /// <summary>
-        /// securityQuestion control.
+        /// txtSecurityQuestion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText securityQuestion;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtSecurityQuestion;
         
         /// <summary>
         /// rfvSecurityQuestion control.
@@ -103,13 +103,13 @@ namespace Site {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvSecurityQuestion;
         
         /// <summary>
-        /// securityAnswer control.
+        /// txtSecurityAnswer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText securityAnswer;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtSecurityAnswer;
         
         /// <summary>
         /// rfvSecurityAnswer control.

@@ -1,10 +1,12 @@
 ﻿Imports System.ComponentModel
 Imports DatabaseHelper
+Imports SQLHelper
 Public Class CategoryList
 
 #Region " Private Members "
 
     Private WithEvents _List As New BindingList(Of Category)
+    Private _Criteria As Criteria
 
 #End Region
 
@@ -16,7 +18,18 @@ Public Class CategoryList
         End Get
     End Property
 
+    Public WriteOnly Property Type As String
+        Set(value As String)
+            If value.Trim <> String.Empty Then
+                _Criteria.Fields.Add("Type")
+                _Criteria.Values.Add(value)
+                _Criteria.Types.Add(DataTypeHelper.Type.DataType.String_Contains)
+
+            End If
+        End Set
+    End Property
 #End Region
+
 
 #Region " Private Methods "
 
