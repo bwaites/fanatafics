@@ -31,13 +31,13 @@ namespace Site {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvCategory;
         
         /// <summary>
-        /// sbFandom control.
+        /// ddlFandom control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect sbFandom;
+        protected global::System.Web.UI.WebControls.DropDownList ddlFandom;
         
         /// <summary>
         /// rfvFandom control.
@@ -73,16 +73,16 @@ namespace Site {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl txtSummary;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea txtSummary;
         
         /// <summary>
-        /// smGenre control.
+        /// ddlGenre control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect smGenre;
+        protected global::System.Web.UI.WebControls.DropDownList ddlGenre;
         
         /// <summary>
         /// rfvGenre control.
@@ -94,13 +94,13 @@ namespace Site {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvGenre;
         
         /// <summary>
-        /// sbMaturity control.
+        /// ddlMaturity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect sbMaturity;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMaturity;
         
         /// <summary>
         /// rfvMaturity control.

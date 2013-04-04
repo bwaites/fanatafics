@@ -1,25 +1,21 @@
 ﻿Imports DatabaseHelper
-Public Class Story
+Public Class StoryFandom
     Inherits HeaderData
-#Region " Private Members "
-    Private _Title As String = String.Empty
-    Private _Summary As String = String.Empty
-    Private _MaturityID As Guid = Guid.Empty
-    '
-    'ADD PRIVATE MEMBERS FOR CHILDREN HERE
-    '
 
+#Region " Private Members "
+    Private _FandomID As Guid = Guid.Empty
+    Private _StoryID As Guid = Guid.Empty
 
 #End Region
 
 #Region " Public Properties "
-    Public Property Title As String
+    Public Property FandomID As Guid
         Get
-            Return _Title
+            Return _FandomID
         End Get
-        Set(value As String)
-            If value <> _Title Then
-                _Title = value
+        Set(value As Guid)
+            If value <> _FandomID Then
+                _FandomID = value
                 MyBase.IsDirty = True
                 'Raise an Event here to notify
                 'if the object is savable
@@ -28,13 +24,15 @@ Public Class Story
         End Set
     End Property
 
-    Public Property Summary As String
+
+
+    Public Property StoryID As Guid
         Get
-            Return _Summary
+            Return _StoryID
         End Get
-        Set(value As String)
-            If value <> _Summary Then
-                _Summary = value
+        Set(value As Guid)
+            If value <> _StoryID Then
+                _StoryID = value
                 MyBase.IsDirty = True
                 'Raise an Event here to notify
                 'if the object is savable
@@ -42,28 +40,6 @@ Public Class Story
             End If
         End Set
     End Property
-
-    Public Property MaturityID As Guid
-        Get
-            Return _MaturityID
-        End Get
-        Set(ByVal value As Guid)
-            _MaturityID = value
-            MyBase.IsDirty = True
-            'Raise event if savable
-            RaiseEvent evtIsSavable(IsSavable)
-        End Set
-    End Property
-
-
-    '
-    'ADD PUBLIC PROPERITES FOR CHILDREN HERE
-    '
-
-   
-
-
-
 #End Region
 
 #Region " Private Methods "
@@ -73,15 +49,16 @@ Public Class Story
             'Setting up the Command object
             database.Command.Parameters.Clear()
             database.Command.CommandType = CommandType.StoredProcedure
-            database.Command.CommandText = "tblStory_INSERT"
+            database.Command.CommandText = "tblStoryFandom_INSERT"
             'Add the header data parameters
             MyBase.Initialize(database, Guid.Empty)
             'Add the parameter
-            database.Command.Parameters.Add("@Title", SqlDbType.VarChar).Value = _Title
-            database.Command.Parameters.Add("@Summary", SqlDbType.VarChar).Value = _Summary
-            database.Command.Parameters.Add("@MaturityID", SqlDbType.UniqueIdentifier).Value = _MaturityID
+            database.Command.Parameters.Add("@FandomID", SqlDbType.UniqueIdentifier).Value = _FandomID
 
-            'CHANGE EXECUTE NON QUERY TO EXECUTE NON QUERY WITH TRANSACTION
+            database.Command.Parameters.Add("@StoryID", SqlDbType.UniqueIdentifier).Value = _StoryID
+
+
+            'Execute non query
             database.ExecuteNonQueryWithTransaction()
             'Retrieve the header data values from the command object
             MyBase.Initialize(database.Command)
@@ -98,17 +75,15 @@ Public Class Story
             'Setting up the Command object
             database.Command.Parameters.Clear()
             database.Command.CommandType = CommandType.StoredProcedure
-            database.Command.CommandText = "tblStory_UPDATE"
+            database.Command.CommandText = "tblStoryFandom_UPDATE"
             'Add the header data parameters
             MyBase.Initialize(database, MyBase.Id)
             'Add the parameter
-            database.Command.Parameters.Add("@Title", SqlDbType.VarChar).Value = _Title
-            database.Command.Parameters.Add("@Summary", SqlDbType.VarChar).Value = _Summary
-            database.Command.Parameters.Add("@MaturityID", SqlDbType.UniqueIdentifier).Value = _MaturityID
+            database.Command.Parameters.Add("@FandomID", SqlDbType.UniqueIdentifier).Value = _FandomID
+            database.Command.Parameters.Add("@StoryID", SqlDbType.UniqueIdentifier).Value = _StoryID
+
             'Execute non query
             database.ExecuteNonQueryWithTransaction()
-            '
-            'CHANGE EXECUTE NON QUERY TO EXECUTE NON QUERY WITH TRANSACTION
             'Retrieve the header data values from the command object
             MyBase.Initialize(database.Command)
 
@@ -123,14 +98,11 @@ Public Class Story
         Try
             database.Command.Parameters.Clear()
             database.Command.CommandType = CommandType.StoredProcedure
-            database.Command.CommandText = "tblStory_DELETE"
+            database.Command.CommandText = "tblStoryFandom_DELETE"
             MyBase.Initialize(database, MyBase.Id)
             database.ExecuteNonQueryWithTransaction()
-            '
-            'DON'T FORGET TO SOFT DELETE THE CHILDREN OF THE PARENT
-            '
-
             MyBase.Initialize(database.Command)
+
             Return True
         Catch ex As Exception
             Return False
@@ -142,17 +114,10 @@ Public Class Story
         'ASSUME TRUE UNLESS A RULE IS BROKEN
         Dim result As Boolean = True
 
-        If _Title = String.Empty Then
+        If _FandomID = Guid.Empty Then
             result = False
         End If
-        If _Title.Length > 100 Then
-            result = False
-        End If
-
-        If _Summary = String.Empty Then
-            result = False
-        End If
-        If _Summary.Length > 400 Then
+        If _StoryID = Guid.Empty Then
             result = False
         End If
 
@@ -162,56 +127,40 @@ Public Class Story
 #End Region
 
 #Region " Public Methods "
-    Public Function Save() As Story
-        Dim db As New Database(My.Settings.ConnectionName)
-        db.BeginTransaction(My.Settings.ConnectionName)
+    Public Function Save(database As Database, parentId As Guid) As StoryFandom
+
+        _StoryID = parentId
 
         Dim result As Boolean = True
 
         If MyBase.IsNew = True AndAlso MyBase.IsDirty = True AndAlso IsValid() = True Then
-            result = Insert(db)
+            result = Insert(database)
         ElseIf MyBase.Deleted = True AndAlso MyBase.IsDirty = True Then
-            result = Delete(db)
+            result = Delete(database)
         ElseIf MyBase.IsNew = False AndAlso MyBase.IsDirty = True AndAlso IsValid() = True Then
-            result = Update(db)
+            result = Update(database)
         End If
 
         If result = True Then
             MyBase.IsDirty = False
             MyBase.IsNew = False
         End If
-        '
-        '
-        'Handle the children here'
-        '
-
-        '
-        'Handle the transaction here'
-        '
-        If result = True Then
-            db.EndTransaction()
-        Else
-            db.RollbackTransaction()
-        End If
 
         Return Me
     End Function
     Public Function IsSavable() As Boolean
-        '
-        'ADD CHECKS HERE FOR CHILDREN BEING SAVABLE
-        '
         If MyBase.IsDirty = True AndAlso IsValid() = True Then
             Return True
         Else
             Return False
         End If
     End Function
-    Public Function GetById(id As Guid) As Story
+    Public Function GetById(id As Guid) As StoryFandom
 
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
         db.Command.CommandType = CommandType.StoredProcedure
-        db.Command.CommandText = "tblStory_getById"
+        db.Command.CommandText = "tblStoryFandom_getById"
         db.Command.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = id
         ds = db.ExecuteQuery()
 
@@ -225,17 +174,17 @@ Public Class Story
             Return Me
         Else
             If ds.Tables(0).Rows.Count = 0 Then
-                Throw New Exception(String.Format("Story {0} was not found", id))
+                Throw New Exception(String.Format("StoryFandom {0} was not fount", id))
             Else
-                Throw New Exception(String.Format("Story {0} found multiple records", id))
+                Throw New Exception(String.Format("StoryFandom {0} found multiple records", id))
             End If
         End If
 
     End Function
     Public Sub InitializeBusinessData(dr As DataRow)
-        _Title = dr("Title")
-        _Summary = dr("Summary")
-        _MaturityID = dr("MaturityID")
+        _FandomID = dr("FandomID")
+        _StoryID = dr("StoryID")
+
     End Sub
 #End Region
 

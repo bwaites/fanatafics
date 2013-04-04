@@ -86,6 +86,33 @@ Public Class UserList
 #End Region
 
 #Region " Public Methods "
+
+    Public Function GetByID(id As Guid) As UserList
+
+        Dim db As New Database(My.Settings.ConnectionName)
+        Dim ds As DataSet = Nothing
+        db.Command.CommandType = CommandType.StoredProcedure
+        db.Command.CommandText = "tblUser_getByID"
+        db.Command.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = id
+        ds = db.ExecuteQuery()
+
+
+        For Each dr As DataRow In ds.Tables(0).Rows
+            Dim ul As New User()
+            ul.Initialize(dr)
+            ul.InitializeBusinessData(dr)
+            ul.IsNew = False
+            ul.IsDirty = False
+
+            AddHandler ul.evtIsSavable, AddressOf UserList_evtIsSavable
+
+            _List.Add(ul)
+        Next
+
+        Return Me
+
+    End Function
+
     Public Function Save() As UserList
         Dim result As Boolean = True
         For Each u As User In _List

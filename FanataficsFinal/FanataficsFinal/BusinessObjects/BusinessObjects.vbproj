@@ -94,6 +94,8 @@
     <Compile Include="Review.vb" />
     <Compile Include="ReviewList.vb" />
     <Compile Include="Story.vb" />
+    <Compile Include="StoryFandom.vb" />
+    <Compile Include="StoryFandomList.vb" />
     <Compile Include="StoryGenre.vb" />
     <Compile Include="StoryGenreList.vb" />
     <Compile Include="StoryList.vb" />

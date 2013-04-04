@@ -8,24 +8,18 @@ using System.Web.Security;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using System.Data;
-
+using BusinessObjects;
 namespace Site
 {
-    public partial class Login : System.Web.UI.Page
+    public partial class Default1 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Check if user is already logged in or not
-            //Check if user is already logged in
-            if ((Session["Check"] != null) && (Convert.ToBoolean(Session["Check"]) == true))
-            {
-                //If user is Authenticated then it's okay
-
-                
-            }
             
         }
 
-      
+        
+        
+
     }
 }

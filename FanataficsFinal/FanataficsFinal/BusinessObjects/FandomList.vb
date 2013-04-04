@@ -27,6 +27,7 @@ Public Class FandomList
     End Property
 
     Public WriteOnly Property CategoryID As Guid
+
         Set(value As Guid)
             If value <> Guid.Empty Then
                 _Criteria.Fields.Add("CategoryID")
@@ -46,13 +47,13 @@ Public Class FandomList
 
 
 
-    Public Function GetByFandomID(id As Guid) As FandomList
+    Public Function GetByCategoryID(id As Guid) As FandomList
 
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
         db.Command.CommandType = CommandType.StoredProcedure
-        db.Command.CommandText = "tblFandom_getByFandomID"
-        db.Command.Parameters.Add("@FandomID", SqlDbType.UniqueIdentifier).Value = id
+        db.Command.CommandText = "tblFandom_getByCategoryID"
+        db.Command.Parameters.Add("@CategoryID", SqlDbType.UniqueIdentifier).Value = id
         ds = db.ExecuteQuery()
 
 

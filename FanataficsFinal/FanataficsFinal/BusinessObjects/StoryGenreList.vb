@@ -1,10 +1,11 @@
 ﻿Imports System.ComponentModel
 Imports DatabaseHelper
+Imports SQLHelper
 Public Class StoryGenreList
 #Region " Private Members "
 
     Private WithEvents _List As New BindingList(Of StoryGenre)
-
+    Private _Criteria As Criteria
 #End Region
 
 #Region " Public Properties "
@@ -15,6 +16,16 @@ Public Class StoryGenreList
         End Get
     End Property
 
+    Public WriteOnly Property ChapterID As Guid
+
+        Set(value As Guid)
+            If value <> Guid.Empty Then
+                _Criteria.Fields.Add("ChapterID")
+                _Criteria.Values.Add(value.ToString)
+                _Criteria.Types.Add(DataTypeHelper.Type.DataType.String_Contains)
+            End If
+        End Set
+    End Property
 #End Region
 
 #Region " Private Methods "
