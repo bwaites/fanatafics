@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BusinessObjects;
+using System.Text;
 
 namespace Site
 {
@@ -17,12 +18,14 @@ namespace Site
 
         void btnRegister_Click(object sender, EventArgs e)
         {
+            pEncryption pEncrypt = new pEncryption();
             User user = new User();
-            user.UserName = this.txtUserName.Value;
-            user.Password = this.txtPassword.Value;
-            user.Email = this.txtEmail.Value;
-            user.SecurityQuestion = this.txtSecurityQuestion.Value;
-            user.SecurityAnswer = this.txtSecurityAnswer.Value;
+
+            user.UserName = pEncrypt.EncryptQueryString(this.txtUserName.Value); 
+            user.Password = pEncrypt.EncryptQueryString(this.txtPassword.Value);
+            user.Email = pEncrypt.EncryptQueryString(this.txtEmail.Value); 
+            user.SecurityQuestion = pEncrypt.EncryptQueryString(this.txtSecurityQuestion.Value);
+            user.SecurityAnswer = pEncrypt.EncryptQueryString(this.txtSecurityAnswer.Value); 
 
             if (user.IsSavable() == true)
             {

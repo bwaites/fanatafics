@@ -266,6 +266,33 @@ Public Class User
             Return False
         End If
     End Function
+
+    Public Function Login(userName As String, password As String) As User
+
+        Dim db As New Database(My.Settings.ConnectionName)
+        Dim ds As DataSet = Nothing
+        db.Command.CommandType = CommandType.StoredProcedure
+        db.Command.CommandText = "tblUser_Login"
+        db.Command.Parameters.Add("@UserName", SqlDbType.VarChar).Value = userName
+        db.Command.Parameters.Add("@Password", SqlDbType.VarChar).Value = password
+        ds = db.ExecuteQuery()
+
+        If ds.Tables(0).Rows.Count = 1 Then
+            Dim dr As DataRow = ds.Tables(0).Rows(0)
+            MyBase.Initialize(dr)
+            InitializeBusinessData(dr)
+            MyBase.IsNew = False
+            MyBase.IsDirty = False
+
+            
+        Else
+            If ds.Tables(0).Rows.Count = 0 Then
+                MyBase.IsNew = True
+                Return Me
+            End If
+        End If
+        Return Me
+    End Function
     Public Function GetById(id As Guid) As User
 
         Dim db As New Database(My.Settings.ConnectionName)

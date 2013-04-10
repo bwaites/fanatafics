@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessObjectsTest", "Busi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Site", "Site\Site.csproj", "{E7682F6A-D795-4B40-884A-E6B986E51743}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "testingCrpytion", "testingCrpytion\testingCrpytion.vbproj", "{9082BCE9-1EBA-4974-B9C6-A0C3EC4B7BC3}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = FanataficsFinal.vsmdi
@@ -105,6 +107,16 @@ Global
 		{E7682F6A-D795-4B40-884A-E6B986E51743}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{E7682F6A-D795-4B40-884A-E6B986E51743}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{E7682F6A-D795-4B40-884A-E6B986E51743}.Release|x86.ActiveCfg = Release|Any CPU
+		{9082BCE9-1EBA-4974-B9C6-A0C3EC4B7BC3}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{9082BCE9-1EBA-4974-B9C6-A0C3EC4B7BC3}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{9082BCE9-1EBA-4974-B9C6-A0C3EC4B7BC3}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{9082BCE9-1EBA-4974-B9C6-A0C3EC4B7BC3}.Debug|x86.ActiveCfg = Debug|x86
+		{9082BCE9-1EBA-4974-B9C6-A0C3EC4B7BC3}.Debug|x86.Build.0 = Debug|x86
+		{9082BCE9-1EBA-4974-B9C6-A0C3EC4B7BC3}.Release|Any CPU.ActiveCfg = Release|x86
+		{9082BCE9-1EBA-4974-B9C6-A0C3EC4B7BC3}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{9082BCE9-1EBA-4974-B9C6-A0C3EC4B7BC3}.Release|Mixed Platforms.Build.0 = Release|x86
+		{9082BCE9-1EBA-4974-B9C6-A0C3EC4B7BC3}.Release|x86.ActiveCfg = Release|x86
+		{9082BCE9-1EBA-4974-B9C6-A0C3EC4B7BC3}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

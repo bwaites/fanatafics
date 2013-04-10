@@ -2,35 +2,37 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>
     </ProductVersion>
-    <SchemaVersion>
-    </SchemaVersion>
-    <ProjectGuid>{725AA730-05D0-47EE-B6C3-7C9E7B984B72}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>BusinessObjects</RootNamespace>
-    <AssemblyName>BusinessObjects</AssemblyName>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9082BCE9-1EBA-4974-B9C6-A0C3EC4B7BC3}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>testingCrpytion.My.MyApplication</StartupObject>
+    <RootNamespace>testingCrpytion</RootNamespace>
+    <AssemblyName>testingCrpytion</AssemblyName>
     <FileAlignment>512</FileAlignment>
-    <MyType>Windows</MyType>
+    <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>BusinessObjects.xml</DocumentationFile>
+    <DocumentationFile>testingCrpytion.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <DefineDebug>false</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>BusinessObjects.xml</DocumentationFile>
+    <DocumentationFile>testingCrpytion.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -48,7 +50,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -60,22 +64,20 @@
     <Import Include="System.Collections" />
     <Import Include="System.Collections.Generic" />
     <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
     <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
     <Import Include="System.Linq" />
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Category.vb" />
-    <Compile Include="CategoryList.vb" />
-    <Compile Include="Chapter.vb" />
-    <Compile Include="ChapterList.vb" />
-    <Compile Include="Fandom.vb" />
-    <Compile Include="FandomList.vb" />
-    <Compile Include="Genre.vb" />
-    <Compile Include="GenreList.vb" />
-    <Compile Include="HeaderData.vb" />
-    <Compile Include="Maturity.vb" />
-    <Compile Include="MaturityList.vb" />
+    <Compile Include="Form1.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.vb">
+      <DependentUpon>Form1.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -91,25 +93,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="pEncryption.vb" />
-    <Compile Include="Review.vb" />
-    <Compile Include="ReviewList.vb" />
-    <Compile Include="Story.vb" />
-    <Compile Include="StoryFandom.vb" />
-    <Compile Include="StoryFandomList.vb" />
-    <Compile Include="StoryGenre.vb" />
-    <Compile Include="StoryGenreList.vb" />
-    <Compile Include="StoryList.vb" />
-    <Compile Include="User.vb" />
-    <Compile Include="UserFavAuthor.vb" />
-    <Compile Include="UserFavAuthorList.vb" />
-    <Compile Include="UserFavStory.vb" />
-    <Compile Include="UserFavStoryList.vb" />
-    <Compile Include="UserList.vb" />
-    <Compile Include="UserStory.vb" />
-    <Compile Include="UserStoryList.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -118,7 +106,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -130,21 +117,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ConfigurationHelper.vb\ConfigurationHelper.vbproj">
-      <Project>{3893773F-91A5-4F06-A840-519B0C7E98DA}</Project>
-      <Name>ConfigurationHelper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DatabaseHelper\DatabaseHelper.vbproj">
-      <Project>{A883548B-612F-49B7-AA21-ECE74C90F293}</Project>
-      <Name>DatabaseHelper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataTypeHelper\DataTypeHelper.csproj">
-      <Project>{899D0ADA-C516-4B4B-8FB7-9706AD62F130}</Project>
-      <Name>DataTypeHelper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SQLHelper\SQLHelper.csproj">
-      <Project>{DFE6CE52-598F-4639-AABD-F2573F97E991}</Project>
-      <Name>SQLHelper</Name>
+    <ProjectReference Include="..\BusinessObjects\BusinessObjects.vbproj">
+      <Project>{725AA730-05D0-47EE-B6C3-7C9E7B984B72}</Project>
+      <Name>BusinessObjects</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

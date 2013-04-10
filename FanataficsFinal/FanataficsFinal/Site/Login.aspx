@@ -10,7 +10,7 @@
       <!-- Username -->
       <label class="control-label"  for="username">Username</label>
       <div class="controls">
-        <input type="text" id="username" name="username" class="input-xlarge" />
+        <input type="text" id="txtUsername" name="username" class="input-xlarge" runat="server" />
       </div>
     </div>
  
@@ -18,7 +18,7 @@
       <!-- Password-->
       <label class="control-label" for="password">Password</label>
       <div class="controls">
-        <input type="password" id="password" name="password" class="input-xlarge" />
+        <input type="password" id="txtPassword" name="password" class="input-xlarge" runat="server" />
       </div>
     </div>
  
@@ -26,8 +26,8 @@
     <div class="control-group">
       <!-- Button -->
       <div class="controls">
-        <button class="btn btn-success">Login</button>
-      </div>
+        <asp:Button runat="server" ID="btnLogin" class="btn btn-primary" Text="Login" />
+    </div>
     </div>
 
 </div>

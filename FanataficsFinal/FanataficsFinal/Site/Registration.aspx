@@ -43,6 +43,7 @@
     <input id="txtPassword2" name="password2" type="password" class="input-xlarge" required="" runat="server" />
     <p class="help-block"></p>
   </div>
+    
 </div>
 <asp:CompareValidator ID="cvPassword"
 runat="server"
@@ -106,7 +107,6 @@ ShowSummary="false" />
    
   </div>
 </div>
-
 
 </div>
 </asp:Content>

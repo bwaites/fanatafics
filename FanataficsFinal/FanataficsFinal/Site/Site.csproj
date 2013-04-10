@@ -58,6 +58,7 @@
     <Content Include="Assets\img\glyphicons-halflings.png" />
     <Content Include="Assets\js\bootstrap.js" />
     <Content Include="Assets\js\bootstrap.min.js" />
+    <Content Include="CartoonsPage.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Scripts\Default.aspx" />
     <Content Include="Login.aspx" />
@@ -83,6 +84,13 @@
     </Compile>
     <Compile Include="AddChapter.aspx.designer.cs">
       <DependentUpon>AddChapter.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CartoonsPage.aspx.cs">
+      <DependentUpon>CartoonsPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CartoonsPage.aspx.designer.cs">
+      <DependentUpon>CartoonsPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>

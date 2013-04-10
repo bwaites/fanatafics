@@ -35,6 +35,34 @@ namespace BusinessObjectsTest
             Assert.AreEqual(expectedUserName, actualUserName, "Hurray! They match!");
         }
 
+        [TestMethod]
+        public void User_InsertPass()
+        {
+            //Arrange
+            target.IsNew = true;
+            target.UserName = "testUserName";
+            target.Password = "testPassword";
+            target.Email = "testEmail";
+            target.SecurityQuestion = "testQuestion";
+            target.SecurityAnswer = "testAnswer";
+            String expectedUserName = "testUserName";           
+            //Act
+
+            target.Save();
+            
+            Guid targetID = new Guid(target.Id.ToString());
+            target.GetById(targetID);
+            String actualUserName = target.UserName;
+
+            //Assert
+
+            Assert.AreEqual(expectedUserName, actualUserName, "Hurray!");
+            
+
+            
+        }
+
+
 
     }
 }
