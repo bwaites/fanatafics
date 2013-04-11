@@ -12,7 +12,7 @@ Public Class User
     '
     'ADD PRIVATE MEMBERS FOR CHILDREN HERE
     '
-    
+
 
 #End Region
 
@@ -244,7 +244,7 @@ Public Class User
         'Handle the children here'
         '
 
-        
+
         '
         'Handle the transaction here'
         '
@@ -284,7 +284,7 @@ Public Class User
             MyBase.IsNew = False
             MyBase.IsDirty = False
 
-            
+
         Else
             If ds.Tables(0).Rows.Count = 0 Then
                 MyBase.IsNew = True

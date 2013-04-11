@@ -13,15 +13,6 @@ namespace Site {
     public partial class Default1 {
         
         /// <summary>
-        /// Login control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Login Login;
-        
-        /// <summary>
         /// gvCategories control.
         /// </summary>
         /// <remarks>
@@ -29,5 +20,14 @@ namespace Site {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvCategories;
+        
+        /// <summary>
+        /// hlCartoons control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hlCartoons;
     }
 }

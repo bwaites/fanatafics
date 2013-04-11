@@ -34,13 +34,20 @@ namespace Site
 
             if (!usr.IsNew)
             {
-                
-                Server.Transfer("Default.aspx", true);
+                String usrNme = pEncrypt.DecryptQueryString(usr.UserName);
+                Label mpLabel = (Label)Master.FindControl("lblLogin");
+                if (mpLabel != null)
+                {
+                    mpLabel.Text = usrNme;
+                    Session["UserName"] = mpLabel.Text;
+                    Server.Transfer("Default.aspx", true);
+                }                 
             }
-
-          
-
-            
+            else
+            {
+                Server.Transfer("Registration.aspx", true);
+            }
+ 
         }
 
       

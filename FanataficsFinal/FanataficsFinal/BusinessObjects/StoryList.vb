@@ -83,7 +83,7 @@ Public Class StoryList
     End Function
 
     Public Function Search() As StoryList
-        'crease an instance of the databse class
+        'creates an instance of the database class
         Dim database As New Database(My.Settings.ConnectionName)
         Dim ds As New DataSet
 
@@ -102,6 +102,29 @@ Public Class StoryList
             _List.Add(s)
             AddHandler s.evtIsSavable, AddressOf StoryList_evtIsSavable
         Next
+        Return Me
+    End Function
+
+    Public Function GetByCategoryID(id As Guid) As StoryList
+        Dim db As New Database(My.Settings.ConnectionName)
+        Dim ds As DataSet = Nothing
+        db.Command.CommandType = CommandType.StoredProcedure
+        db.Command.CommandText = "vwStory_getByCategoryID"
+        db.Command.Parameters.Add("@CategoryID", SqlDbType.UniqueIdentifier).Value = id
+        ds = db.ExecuteQuery()
+
+        For Each dr As DataRow In ds.Tables(0).Rows
+            Dim s As New Story()
+            s.Initialize(dr)
+            s.InitializeBusinessData(dr)
+            s.IsNew = False
+            s.IsDirty = False
+
+            AddHandler s.evtIsSavable, AddressOf StoryList_evtIsSavable
+
+            _List.Add(s)
+        Next
+
         Return Me
     End Function
 #End Region

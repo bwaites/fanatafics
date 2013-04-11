@@ -26,7 +26,8 @@
                 <a class="brand" href="Default.aspx">Fanatafics</a>
                 <div class="nav-collapse collapse">
                      <p class="navbar-text pull-right">
-                           <a class="btn btn-primary" href="LogIn.aspx" >Login</a>
+                        <asp:Label ID="lblLogin" runat="server" Text=""> </asp:Label>
+                           <a class="btn btn-primary" id="btnLogin" href="Login.aspx" runat="server">Login</a>
                      </p>
                         <ul class="nav">
                             <li class="active"><a href="Default.aspx">Home</a></li>
