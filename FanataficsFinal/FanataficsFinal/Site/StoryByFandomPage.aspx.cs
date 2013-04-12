@@ -7,17 +7,16 @@ using System.Web.UI.WebControls;
 using BusinessObjects;
 namespace Site
 {
-    public partial class CartoonsPage : System.Web.UI.Page
+    public partial class BatmanFandom : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             StoryList sl = new StoryList();
-            Guid categoryID = new Guid(Request.QueryString["CategoryID"]);
-            sl = sl.GetByCategoryID(categoryID);
+            Guid fandomID = new Guid(Request.QueryString["FandomID"]);
+            sl = sl.GetByFandomID(fandomID);
 
-            rptCartoons.DataSource = sl.List;
-            rptCartoons.DataBind();
-
+            rptStories.DataSource = sl.List;
+            rptStories.DataBind();
         }
     }
 }

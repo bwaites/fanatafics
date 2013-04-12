@@ -15,6 +15,8 @@ namespace Site
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            rpCategory_Populate();
+
             if (!IsPostBack)
             {
 
@@ -22,7 +24,15 @@ namespace Site
             
         }
 
-        
+        void rpCategory_Populate()
+        {
+            CategoryList catList = new CategoryList();
+            
+            catList = catList.GetAll();
+
+            rptCategories.DataSource = catList.List;
+            rptCategories.DataBind();
+        }
         
 
     }

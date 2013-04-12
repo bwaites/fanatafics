@@ -32,7 +32,7 @@ namespace Site
         void ddlCategory_Populate()
         {
             CategoryList catList = new CategoryList();
-            catList.GetAll();
+            catList = catList.GetAll();
             ddlCategory.DataSource = catList.List;
             ddlCategory.DataTextField = "Type";
             ddlCategory.DataValueField = "ID";

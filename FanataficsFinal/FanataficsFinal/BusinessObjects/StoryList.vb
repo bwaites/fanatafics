@@ -105,12 +105,12 @@ Public Class StoryList
         Return Me
     End Function
 
-    Public Function GetByCategoryID(id As Guid) As StoryList
+    Public Function GetByFandomID(id As Guid) As StoryList
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
         db.Command.CommandType = CommandType.StoredProcedure
-        db.Command.CommandText = "vwStory_getByCategoryID"
-        db.Command.Parameters.Add("@CategoryID", SqlDbType.UniqueIdentifier).Value = id
+        db.Command.CommandText = "tblStoryFandom_getByFandomID"
+        db.Command.Parameters.Add("@FandomID", SqlDbType.UniqueIdentifier).Value = id
         ds = db.ExecuteQuery()
 
         For Each dr As DataRow In ds.Tables(0).Rows
