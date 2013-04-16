@@ -14,8 +14,11 @@
     <script src="Assets/js/bootstrap-button.js" type="text/javascript"></script>
     <script src="Assets/js/bootstrap-wysiwyg.js" type="text/javascript"></script>
 </asp:Content>
+
+    
+
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="form-horizontal">
+<div class="form-horizontal">
         <!-- Form Name -->
         <h2>
             Add Chapter</h2>
@@ -122,3 +125,4 @@
 </script>
     </div>
 </asp:Content>
+
