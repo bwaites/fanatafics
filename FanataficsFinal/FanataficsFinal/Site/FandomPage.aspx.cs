@@ -13,8 +13,8 @@ namespace Site
         protected void Page_Load(object sender, EventArgs e)
         {
             FandomList fl = new FandomList();
-            Guid fandomID = new Guid(Request.QueryString["FandomID"]);
-            fl = fl.GetByCategoryID(fandomID);
+            Guid categoryID = new Guid(Request.QueryString["CategoryID"]);
+            fl = fl.GetByCategoryID(categoryID);
 
             rptFandoms.DataSource = fl.List;
             rptFandoms.DataBind();

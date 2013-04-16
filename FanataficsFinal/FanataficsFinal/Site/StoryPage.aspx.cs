@@ -11,11 +11,13 @@ namespace Site
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Story story = new Story();
+            ChapterList cl = new ChapterList();
             Guid storyID = new Guid(Request.QueryString["StoryID"]);
+            cl = cl.GetByStoryID(storyID);
 
-            story = story.GetById(storyID);
-
+            ddlChapterList.DataSource = cl.List;
+            ddlChapterList.DataBind();
+           
 
             
            

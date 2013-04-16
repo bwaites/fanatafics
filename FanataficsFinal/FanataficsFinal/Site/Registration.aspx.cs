@@ -21,10 +21,10 @@ namespace Site
             pEncryption pEncrypt = new pEncryption();
             User user = new User();
 
-            user.UserName = pEncrypt.EncryptQueryString(this.txtUserName.Value); 
+            user.UserName = this.txtUserName.Value; 
             user.Password = pEncrypt.EncryptQueryString(this.txtPassword.Value);
-            user.Email = pEncrypt.EncryptQueryString(this.txtEmail.Value); 
-            user.SecurityQuestion = pEncrypt.EncryptQueryString(this.txtSecurityQuestion.Value);
+            user.Email = this.txtEmail.Value; 
+            user.SecurityQuestion = this.txtSecurityQuestion.Value;
             user.SecurityAnswer = pEncrypt.EncryptQueryString(this.txtSecurityAnswer.Value); 
 
             if (user.IsSavable() == true)

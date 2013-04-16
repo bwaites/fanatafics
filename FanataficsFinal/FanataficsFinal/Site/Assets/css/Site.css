@@ -2,3 +2,8 @@
         padding-top: 60px;
         padding-bottom: 40px;
       }
+      
+ul.wysihtml5-toolbar 
+{
+    list-style-type: none;
+}

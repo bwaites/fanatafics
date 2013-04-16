@@ -26,15 +26,15 @@ namespace Site
         void btnLogin_Click(object sender, EventArgs e)
         {
             pEncryption pEncrypt = new pEncryption();
-            String ecryptUserName = pEncrypt.EncryptQueryString(this.txtUsername.Value);
+            String UserName = this.txtUsername.Value;
             String ecryptPassword = pEncrypt.EncryptQueryString(this.txtPassword.Value);
 
             User usr = new User();
-            usr.Login(ecryptUserName, ecryptPassword);
+            usr.Login(UserName, ecryptPassword);
 
             if (!usr.IsNew)
             {
-                String usrNme = pEncrypt.DecryptQueryString(usr.UserName);
+                String usrNme = usr.UserName;
                 Label mpLabel = (Label)Master.FindControl("lblLogin");
                 if (mpLabel != null)
                 {

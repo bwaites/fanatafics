@@ -21,7 +21,7 @@
                 <ItemTemplate>
                     <tr>
                         <td>
-                            <a href='FandomPage.aspx?FandomID=<%# DataBinder.Eval(Container.DataItem,"Id") %>'>
+                            <a href='FandomPage.aspx?CategoryID=<%# DataBinder.Eval(Container.DataItem,"Id") %>'>
                                 <%# DataBinder.Eval(Container.DataItem,"Type") %></a>
                         </td>
                     </tr>
