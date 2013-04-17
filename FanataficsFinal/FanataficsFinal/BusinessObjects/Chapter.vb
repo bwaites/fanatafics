@@ -5,7 +5,7 @@ Public Class Chapter
 #Region " Private Members "
     Private _StoryID As Guid = Guid.Empty
     Private _Title As String = String.Empty
-    Private _ChapterPlacement As Integer = 0
+
     Private _ChapterContent As String = String.Empty
 
 
@@ -42,7 +42,7 @@ Public Class Chapter
         End Set
     End Property
 
-   
+
     Public Property ChapterContent As String
         Get
             Return _ChapterContent
@@ -142,9 +142,6 @@ Public Class Chapter
             result = False
         End If
 
-        If _ChapterPlacement < -1 Then
-            result = False
-        End If
 
         If _ChapterContent.Trim = String.Empty Then
             result = False

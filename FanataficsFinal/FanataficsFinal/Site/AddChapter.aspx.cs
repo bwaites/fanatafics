@@ -11,7 +11,10 @@ namespace Site
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            ddlStoryList_Populate();
+            if (Page.IsPostBack)
+            {
+                ddlStoryList_Populate();
+            }            
         }
 
         void ddlStoryList_Populate()

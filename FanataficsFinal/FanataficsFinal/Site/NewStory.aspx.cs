@@ -77,6 +77,8 @@ namespace Site
             story.Title = this.txtTitle.Value;
             story.Summary = this.txtSummary.Value;
             story.MaturityID = new Guid(this.ddlMaturity.SelectedValue);
+            story.StoryFandom.FandomID = new Guid(this.ddlFandom.SelectedValue);
+            story.StoryGenre.GenreID = new Guid(this.ddlGenre.SelectedValue);
 
             if (story.IsSavable() == true)
             {

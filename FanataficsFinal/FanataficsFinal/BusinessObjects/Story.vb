@@ -8,7 +8,8 @@ Public Class Story
     '
     'ADD PRIVATE MEMBERS FOR CHILDREN HERE
     '
-
+    Private _StoryFandom As New StoryFandom
+    Private _StoryGenre As New StoryGenre
 
 #End Region
 
@@ -60,9 +61,23 @@ Public Class Story
     'ADD PUBLIC PROPERITES FOR CHILDREN HERE
     '
 
-   
+    Public Property StoryFandom As StoryFandom
+        Get
+            Return _StoryFandom
+        End Get
+        Set(value As StoryFandom)
+            _StoryFandom = value
+        End Set
+    End Property
 
-
+    Public Property StoryGenre As StoryGenre
+        Get
+            Return _StoryGenre
+        End Get
+        Set(value As StoryGenre)
+            _StoryGenre = value
+        End Set
+    End Property
 
 #End Region
 
@@ -184,10 +199,16 @@ Public Class Story
         '
         'Handle the children here'
         '
+        If StoryFandom.IsSavable Then
+            StoryFandom = StoryFandom.Save(db, MyBase.Id)
+        End If
 
+        If StoryGenre.IsSavable Then
+            StoryGenre = StoryGenre.Save(db, MyBase.Id)
+        End If
         '
         'Handle the transaction here'
-        '
+
         If result = True Then
             db.EndTransaction()
         Else

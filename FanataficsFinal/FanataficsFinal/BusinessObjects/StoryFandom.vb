@@ -117,9 +117,7 @@ Public Class StoryFandom
         If _FandomID = Guid.Empty Then
             result = False
         End If
-        If _StoryID = Guid.Empty Then
-            result = False
-        End If
+        
 
         Return result
 
@@ -174,7 +172,7 @@ Public Class StoryFandom
             Return Me
         Else
             If ds.Tables(0).Rows.Count = 0 Then
-                Throw New Exception(String.Format("StoryFandom {0} was not fount", id))
+                Throw New Exception(String.Format("StoryFandom {0} was not foundB", id))
             Else
                 Throw New Exception(String.Format("StoryFandom {0} found multiple records", id))
             End If

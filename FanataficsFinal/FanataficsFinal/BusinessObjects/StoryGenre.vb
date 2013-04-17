@@ -121,9 +121,7 @@ Public Class StoryGenre
 
 
         End If
-        If _StoryID = Guid.Empty Then
-            result = False
-        End If
+
 
         Return result
 
