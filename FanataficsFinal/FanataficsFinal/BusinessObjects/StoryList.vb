@@ -127,6 +127,29 @@ Public Class StoryList
 
         Return Me
     End Function
+
+    Public Function GetByUserID(id As Guid) As StoryList
+        Dim db As New Database(My.Settings.ConnectionName)
+        Dim ds As DataSet = Nothing
+        db.Command.CommandType = CommandType.StoredProcedure
+        db.Command.CommandText = "tblStory_getByUserID"
+        db.Command.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = id
+        ds = db.ExecuteQuery()
+
+        For Each dr As DataRow In ds.Tables(0).Rows
+            Dim s As New Story()
+            s.Initialize(dr)
+            s.InitializeBusinessData(dr)
+            s.IsNew = False
+            s.IsDirty = False
+
+            AddHandler s.evtIsSavable, AddressOf StoryList_evtIsSavable
+
+            _List.Add(s)
+        Next
+
+        Return Me
+    End Function
 #End Region
 
 #Region " Public Events "

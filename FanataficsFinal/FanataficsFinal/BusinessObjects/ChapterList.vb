@@ -36,15 +36,6 @@ Public Class ChapterList
         End Set
     End Property
 
-    Public WriteOnly Property ChapterPlacement As Integer
-        Set(value As Integer)
-            If value <> 0 Then
-                _Criteria.Fields.Add("ChapterPlacement")
-                _Criteria.Values.Add(value)
-                _Criteria.Types.Add(DataTypeHelper.Type.DataType.String_Contains)
-            End If
-        End Set
-    End Property
 
     Public WriteOnly Property ChapterContent As String
         Set(value As String)
@@ -71,7 +62,7 @@ Public Class ChapterList
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
         db.Command.CommandType = CommandType.StoredProcedure
-        db.Command.CommandText = "tblChapter_getByStoryID"
+        db.Command.CommandText = "vw_ChaptersByStory"
         db.Command.Parameters.Add("@StoryID", SqlDbType.UniqueIdentifier).Value = id
         ds = db.ExecuteQuery()
 

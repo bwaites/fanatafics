@@ -3,21 +3,15 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="Assets/css/prettify.css" rel="stylesheet" type="text/css" />
-<%--    <link href="Assets/css/wysiwyg-color.css" rel="stylesheet" type="text/css" />
-
-
-    <script src="Assets/js/prettify.js" type="text/javascript"></script>
-    
-    <%--<script src="Assets/js/wysihtml5-0.3.0.min.js" type="text/javascript"></script>--%>
     <script src="Assets/js/bootstrap-wysihtml5.js" type="text/javascript"></script>
     <link href="Assets/css/bootstrap-wysihtml5.css" rel="stylesheet" type="text/css" />
     <script src="Assets/js/bootstrap-button.js" type="text/javascript"></script>
-    <script src="Assets/js/bootstrap-wysiwyg.js" type="text/javascript"></script>
 </asp:Content>
 
     
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+
 <div class="form-horizontal">
         <!-- Form Name -->
         <h2>
@@ -27,8 +21,10 @@
             <label class="control-label">
                 Choose Story</label>
             <div class="controls">
-                <select id="sbStory" name="sbStory" class="input-xlarge">
-                </select>
+            
+                <asp:DropDownList ID="ddlStoryList" runat="server" DataTextField="Title" 
+                    DataValueField="StoryID">
+                </asp:DropDownList>
             </div>
         </div>
         <!-- Text input-->
@@ -42,7 +38,7 @@
                 </p>
             </div>
         </div>
-        <!-- Select Basic -->
+<%--        <!-- Select Basic -->
         <div class="control-group">
             <label class="control-label">
                 Placement</label>
@@ -50,7 +46,7 @@
                 <select id="sbChapPlace" name="sbChapPlace" class="input-xlarge">
                 </select>
             </div>
-        </div>
+        </div>--%>
         <ul class="wysihtml5-toolbar" style="">
             <li class="dropdown"><a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
                 <i class="icon-font"></i>&nbsp;<span class="current-font">Normal text</span>&nbsp;<b

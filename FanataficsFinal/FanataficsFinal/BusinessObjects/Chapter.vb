@@ -42,20 +42,7 @@ Public Class Chapter
         End Set
     End Property
 
-    Public Property ChapterPlacement As Integer
-        Get
-            Return _ChapterPlacement
-        End Get
-        Set(value As Integer)
-            If value <> _ChapterPlacement Then
-                _ChapterPlacement = value
-                MyBase.IsDirty = True
-                'Raise an Event here to notify
-                'if the object is savable
-                RaiseEvent evtIsSavable(IsSavable)
-            End If
-        End Set
-    End Property
+   
     Public Property ChapterContent As String
         Get
             Return _ChapterContent
@@ -87,7 +74,6 @@ Public Class Chapter
             'Add the parameter
             database.Command.Parameters.Add("@StoryID", SqlDbType.UniqueIdentifier).Value = _StoryID
             database.Command.Parameters.Add("@Title", SqlDbType.VarChar).Value = _Title
-            database.Command.Parameters.Add("@ChapterPlacement", SqlDbType.VarChar).Value = _ChapterPlacement
             database.Command.Parameters.Add("@ChapterContent", SqlDbType.VarChar).Value = _ChapterContent
 
 
@@ -114,7 +100,6 @@ Public Class Chapter
             'Add the parameter
             database.Command.Parameters.Add("@StoryID", SqlDbType.UniqueIdentifier).Value = _StoryID
             database.Command.Parameters.Add("@Title", SqlDbType.VarChar).Value = _Title
-            database.Command.Parameters.Add("@ChapterPlacement", SqlDbType.VarChar).Value = _ChapterPlacement
             database.Command.Parameters.Add("@ChapterContent", SqlDbType.VarChar).Value = _ChapterContent
 
             'Execute non query
@@ -244,10 +229,39 @@ Public Class Chapter
         End If
 
     End Function
+
+    Public Function InsertChapterByStoryId(id As Guid) As Chapter
+
+        Dim db As New Database(My.Settings.ConnectionName)
+        Dim ds As DataSet = Nothing
+        db.Command.CommandType = CommandType.StoredProcedure
+        db.Command.CommandText = "tblStoryChapter_INSERT"
+        db.Command.Parameters.Add("@StoryID", SqlDbType.UniqueIdentifier).Value = id
+        db.Command.Parameters.Add("@Title", SqlDbType.VarChar).Value = _Title
+        db.Command.Parameters.Add("@ChapterContent", SqlDbType.VarChar).Value = _ChapterContent
+        ds = db.ExecuteQuery()
+
+        If ds.Tables(0).Rows.Count = 1 Then
+            Dim dr As DataRow = ds.Tables(0).Rows(0)
+            MyBase.Initialize(dr)
+            InitializeBusinessData(dr)
+            MyBase.IsNew = False
+            MyBase.IsDirty = False
+
+            Return Me
+        Else
+            If ds.Tables(0).Rows.Count = 0 Then
+                Throw New Exception(String.Format("Story Chapter {0} was not fount", id))
+            Else
+                Throw New Exception(String.Format("Story Chapter {0} found multiple records", id))
+            End If
+        End If
+
+    End Function
+
     Public Sub InitializeBusinessData(dr As DataRow)
         _StoryID = dr("StoryID")
         _Title = dr("Title")
-        _ChapterPlacement = dr("ChapterPlacement")
         _ChapterContent = dr("ChapterContent")
 
 
