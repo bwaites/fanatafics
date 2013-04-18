@@ -172,7 +172,7 @@ Public Class StoryFandom
             Return Me
         Else
             If ds.Tables(0).Rows.Count = 0 Then
-                Throw New Exception(String.Format("StoryFandom {0} was not foundB", id))
+                Throw New Exception(String.Format("StoryFandom {0} was not found", id))
             Else
                 Throw New Exception(String.Format("StoryFandom {0} found multiple records", id))
             End If
