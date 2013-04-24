@@ -2,13 +2,7 @@
     CodeBehind="AddChapter.aspx.cs" Inherits="Site.AddChapter" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <%--    <link href="Assets/css/wysiwyg-color.css" rel="stylesheet" type="text/css" />
-
-
-    <script src="Assets/js/prettify.js" type="text/javascript"></script>
-    
-    <%--<script src="Assets/js/wysihtml5-0.3.0.min.js" type="text/javascript"></script>--%>
-    <script src="ckeditor/ckeditor.js" type="text/javascript"></script>
+ <script src="ckeditor/ckeditor.js" type="text/javascript"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="form-horizontal">
@@ -44,7 +38,8 @@
             <script type="text/javascript">
                 CKEDITOR.replace('editor1');
             </script>
-            <asp:Button ID="btnAddChapter" runat="server" Text="Add Chapter" />
+            <asp:Button ID="btnAddChapter" runat="server" Text="Add Chapter" 
+                class="input-large" onclick="btnAddChapter_Click"/>
         </div>
     </div>
 </asp:Content>

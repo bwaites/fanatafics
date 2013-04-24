@@ -35,5 +35,10 @@ namespace Site
 
         }
 
+        protected void btnAddChapter_Click(object sender, EventArgs e)
+        {
+            
+        }
+
     }
 }
