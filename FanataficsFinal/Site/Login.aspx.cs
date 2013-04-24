@@ -17,7 +17,7 @@ namespace Site
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            //registering the handle of btnLogin
             this.btnLogin.Click += new EventHandler(btnLogin_Click);
   
             
@@ -25,26 +25,41 @@ namespace Site
 
         void btnLogin_Click(object sender, EventArgs e)
         {
+            //make new encrpytion object
             pEncryption pEncrypt = new pEncryption();
+            //set UserName to equal txtUsername text
             String UserName = this.txtUsername.Value;
+            //encrypt password
             String ecryptPassword = pEncrypt.EncryptQueryString(this.txtPassword.Value);
-
+            //make new user object
             User usr = new User();
+            //calls Login property of user that uses storage procedure to check login
             usr.Login(UserName, ecryptPassword);
-
+            
             if (!usr.IsNew)
-            {
+            { 
+                //store username in string
                 String usrNme = usr.UserName;
+                //store UserID in guid
+                Guid usrID = new Guid(usr.Id.ToString());
+                //make a label called mpLabel, find the label called lblLogin in Master page
                 Label mpLabel = (Label)Master.FindControl("lblLogin");
+                
                 if (mpLabel != null)
                 {
+                    //if mpLabel is not null then the mpLabel.Text equals login name
                     mpLabel.Text = usrNme;
+                    //save user name to session
                     Session["UserName"] = mpLabel.Text;
+                    //save user id to session
+                    Session["UserID"] = usrID;
+                    //transfer to the default page upon success
                     Server.Transfer("Default.aspx", true);
                 }                 
             }
             else
             {
+                //if not successful, transfer user to registration page
                 Server.Transfer("Registration.aspx", true);
             }
  

@@ -1,10 +1,11 @@
 ﻿Imports System.ComponentModel
 Imports DatabaseHelper
+Imports SQLHelper
 Public Class UserStoryList
 #Region " Private Members "
 
     Private WithEvents _List As New BindingList(Of UserStory)
-
+    Private _Criteria As Criteria
 #End Region
 
 #Region " Public Properties "
@@ -13,6 +14,30 @@ Public Class UserStoryList
         Get
             Return _List
         End Get
+    End Property
+
+    Public WriteOnly Property StoryID As Guid
+
+        Set(value As Guid)
+            If value <> Guid.Empty Then
+                _Criteria.Fields.Add("StoryID")
+                _Criteria.Values.Add(value.ToString)
+                _Criteria.Types.Add(DataTypeHelper.Type.DataType.String_Contains)
+            End If
+        End Set
+
+
+    End Property
+
+    Public WriteOnly Property UserID As Guid
+
+        Set(value As Guid)
+            If value <> Guid.Empty Then
+                _Criteria.Fields.Add("UserID")
+                _Criteria.Values.Add(value.ToString)
+                _Criteria.Types.Add(DataTypeHelper.Type.DataType.String_Contains)
+            End If
+        End Set
     End Property
 
 #End Region
@@ -30,7 +55,7 @@ Public Class UserStoryList
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
         db.Command.CommandType = CommandType.StoredProcedure
-        db.Command.CommandText = "tblUserStory_getByUserID"
+        db.Command.CommandText = "tblStory_getByUserID"
         db.Command.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = id
         ds = db.ExecuteQuery()
 
@@ -50,6 +75,8 @@ Public Class UserStoryList
         Return Me
 
     End Function
+
+  
 
     Public Function Save(database As Database, parentId As Guid) As Boolean
         Dim result As Boolean = True

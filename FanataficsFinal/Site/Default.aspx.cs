@@ -15,6 +15,7 @@ namespace Site
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //call the rpCategory_Populate to populate categories
             rpCategory_Populate();
 
             if (!IsPostBack)
@@ -26,10 +27,11 @@ namespace Site
 
         void rpCategory_Populate()
         {
+            //make category list
             CategoryList catList = new CategoryList();
-            
+            //get all categories
             catList = catList.GetAll();
-
+            //bind the list to the repeater
             rptCategories.DataSource = catList.List;
             rptCategories.DataBind();
         }

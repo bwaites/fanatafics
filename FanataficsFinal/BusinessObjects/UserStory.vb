@@ -48,7 +48,7 @@ Public Class UserStory
             'Setting up the Command object
             database.Command.Parameters.Clear()
             database.Command.CommandType = CommandType.StoredProcedure
-            database.Command.CommandText = "tblUserStory_INSERT"
+            database.Command.CommandText = "tblStoryUser_INSERT"
             'Add the header data parameters
             MyBase.Initialize(database, Guid.Empty)
             'Add the parameter
@@ -74,7 +74,7 @@ Public Class UserStory
             'Setting up the Command object
             database.Command.Parameters.Clear()
             database.Command.CommandType = CommandType.StoredProcedure
-            database.Command.CommandText = "tblUserStory_UPDATE"
+            database.Command.CommandText = "tblStoryUser_UPDATE"
             'Add the header data parameters
             MyBase.Initialize(database, MyBase.Id)
             'Add the parameter
@@ -97,7 +97,7 @@ Public Class UserStory
         Try
             database.Command.Parameters.Clear()
             database.Command.CommandType = CommandType.StoredProcedure
-            database.Command.CommandText = "tblUserStory_DELETE"
+            database.Command.CommandText = "tblStoryUser_DELETE"
             MyBase.Initialize(database, MyBase.Id)
             database.ExecuteNonQueryWithTransaction()
             MyBase.Initialize(database.Command)
@@ -162,8 +162,8 @@ Public Class UserStory
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
         db.Command.CommandType = CommandType.StoredProcedure
-        db.Command.CommandText = "tblUserStory_getById"
-        db.Command.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = id
+        db.Command.CommandText = "tblStoryUser_getById"
+        db.Command.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = id
         ds = db.ExecuteQuery()
 
         If ds.Tables(0).Rows.Count = 1 Then
@@ -176,9 +176,9 @@ Public Class UserStory
             Return Me
         Else
             If ds.Tables(0).Rows.Count = 0 Then
-                Throw New Exception(String.Format("UserStory {0} was not fount", id))
+                Throw New Exception(String.Format("StoryUser {0} was not fount", id))
             Else
-                Throw New Exception(String.Format("UserStory {0} found multiple records", id))
+                Throw New Exception(String.Format("StoryUser {0} found multiple records", id))
             End If
         End If
 

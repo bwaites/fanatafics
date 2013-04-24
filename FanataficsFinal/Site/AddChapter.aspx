@@ -1,24 +1,17 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
     CodeBehind="AddChapter.aspx.cs" Inherits="Site.AddChapter" %>
-<%@ Register Assembly="CKEditor.NET" Namespace="CKEditor.NET" TagPrefix="CKEditor" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    
-    
-<%--    <link href="Assets/css/wysiwyg-color.css" rel="stylesheet" type="text/css" />
+    <%--    <link href="Assets/css/wysiwyg-color.css" rel="stylesheet" type="text/css" />
 
 
     <script src="Assets/js/prettify.js" type="text/javascript"></script>
     
     <%--<script src="Assets/js/wysihtml5-0.3.0.min.js" type="text/javascript"></script>--%>
-    <script type="text/javascript" src="Assets/js/jquery-1.7.2.min.js"></script>
-    <script src="Assets/js/nicEdit.js" type="text/javascript"></script>
-
-    </asp:Content>
-
-    
-
+    <script src="ckeditor/ckeditor.js" type="text/javascript"></script>
+</asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-<div class="form-horizontal">
+    <div class="form-horizontal">
         <!-- Form Name -->
         <h2>
             Add Chapter</h2>
@@ -27,8 +20,11 @@
             <label class="control-label">
                 Choose Story</label>
             <div class="controls">
-                <select id="sbStory" name="sbStory" class="input-xlarge">
-                </select>
+                
+                    <asp:DropDownList ID="ddlStory" runat="server" class="input-xlarge">
+                    </asp:DropDownList>
+                    
+                
             </div>
         </div>
         <!-- Text input-->
@@ -42,23 +38,13 @@
                 </p>
             </div>
         </div>
-        <!-- Select Basic -->
-        <div class="control-group">
-            <label class="control-label">
-                Placement</label>
-            <div class="controls">
-                <select id="sbChapPlace" name="sbChapPlace" class="input-xlarge">
-                </select>
-            </div>
-        </div>
 
-        <textarea class="textarea" id="txtarea" style="width: 810px; height: 200px;" placeholder="Enter text ..."></textarea>
-       
-            <script type="text/javascript" charset="utf-8">
-                new nicEditor({ fullPanel: true, icononSave: function (content, id, instance) {
-                    alert('save button clicked for element ' + id + ' = ' + content);
-                } 
-                }).panelInstance('txtarea');</script>
+        <div id="textArea">
+            <textarea id="editor1" name="editor1"></textarea>
+            <script type="text/javascript">
+                CKEDITOR.replace('editor1');
+            </script>
+            <asp:Button ID="btnAddChapter" runat="server" Text="Add Chapter" />
+        </div>
     </div>
 </asp:Content>
-

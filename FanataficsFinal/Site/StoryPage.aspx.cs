@@ -11,10 +11,14 @@ namespace Site
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //make a chapter list
             ChapterList cl = new ChapterList();
+            //make a storyID guid, passing the value in a query string 
+            //(value of query string is stored in repeater)
             Guid storyID = new Guid(Request.QueryString["StoryID"]);
+            //get all chapters by storyID
             cl = cl.GetByStoryID(storyID);
-
+            //bind the list to the ddlChapter
             ddlChapterList.DataSource = cl.List;
             ddlChapterList.DataBind();
            

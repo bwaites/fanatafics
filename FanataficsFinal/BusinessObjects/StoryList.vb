@@ -55,6 +55,33 @@ Public Class StoryList
 #End Region
 
 #Region " Public Methods "
+
+    Public Function GetByID(id As Guid) As StoryList
+
+        Dim db As New Database(My.Settings.ConnectionName)
+        Dim ds As DataSet = Nothing
+        db.Command.CommandType = CommandType.StoredProcedure
+        db.Command.CommandText = "tblStory_getByID"
+        db.Command.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = id
+        ds = db.ExecuteQuery()
+
+
+        For Each dr As DataRow In ds.Tables(0).Rows
+            Dim sl As New Story()
+            sl.Initialize(dr)
+            sl.InitializeBusinessData(dr)
+            sl.IsNew = False
+            sl.IsDirty = False
+
+            AddHandler sl.evtIsSavable, AddressOf StoryList_evtIsSavable
+
+            _List.Add(sl)
+        Next
+
+        Return Me
+
+    End Function
+
     Public Function Save() As StoryList
         Dim result As Boolean = True
         For Each s As Story In _List
@@ -122,6 +149,35 @@ Public Class StoryList
 
             AddHandler s.evtIsSavable, AddressOf StoryList_evtIsSavable
 
+            _List.Add(s)
+        Next
+
+        Return Me
+    End Function
+
+    Public Function GetByUserID(id As Guid) As StoryList
+        Dim db As New Database(My.Settings.ConnectionName)
+        Dim ds As DataSet = Nothing
+        db.Command.CommandType = CommandType.StoredProcedure
+        db.Command.CommandText = "tblStory_getByUserID"
+        db.Command.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = id
+        ds = db.ExecuteQuery()
+
+        Dim blank As New Story
+        blank.Id = Guid.Empty
+        blank.Title = String.Empty
+        blank.Summary = String.Empty
+        blank.MaturityID = Guid.Empty
+
+        _List.Add(blank)
+        For Each dr As DataRow In ds.Tables(0).Rows
+            Dim s As New Story()
+            s.Initialize(dr)
+            s.InitializeBusinessData(dr)
+            s.IsNew = False
+            s.IsDirty = False
+
+            AddHandler s.evtIsSavable, AddressOf StoryList_evtIsSavable
             _List.Add(s)
         Next
 

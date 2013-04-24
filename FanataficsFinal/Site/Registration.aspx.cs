@@ -13,23 +13,30 @@ namespace Site
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //register btnRegister.Click event
             this.btnRegister.Click += new EventHandler(btnRegister_Click);
         }
 
         void btnRegister_Click(object sender, EventArgs e)
         {
+            //make new encrpytion object
             pEncryption pEncrypt = new pEncryption();
+            //make new user object
             User user = new User();
-
-            user.UserName = this.txtUserName.Value; 
+            //set user properties to input values
+            user.UserName = this.txtUserName.Value;
+            //Encrypt password before saving (this enhances security)
             user.Password = pEncrypt.EncryptQueryString(this.txtPassword.Value);
             user.Email = this.txtEmail.Value; 
             user.SecurityQuestion = this.txtSecurityQuestion.Value;
+            //Decided to encrypt the answer for extra security
             user.SecurityAnswer = pEncrypt.EncryptQueryString(this.txtSecurityAnswer.Value); 
 
             if (user.IsSavable() == true)
             {
+                //if user is savable, then save and reroute to default
                 user = user.Save();
+                Server.Transfer("Default.aspx", true);
             }
         }
 
