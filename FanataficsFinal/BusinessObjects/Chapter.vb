@@ -5,9 +5,8 @@ Public Class Chapter
 #Region " Private Members "
     Private _StoryID As Guid = Guid.Empty
     Private _Title As String = String.Empty
-    Private _ChapterPlacement As Integer = 0
     Private _ChapterContent As String = String.Empty
-
+    Private _ChapterOrder As Integer = 0
 
 #End Region
 
@@ -42,20 +41,6 @@ Public Class Chapter
         End Set
     End Property
 
-    Public Property ChapterPlacement As Integer
-        Get
-            Return _ChapterPlacement
-        End Get
-        Set(value As Integer)
-            If value <> _ChapterPlacement Then
-                _ChapterPlacement = value
-                MyBase.IsDirty = True
-                'Raise an Event here to notify
-                'if the object is savable
-                RaiseEvent evtIsSavable(IsSavable)
-            End If
-        End Set
-    End Property
     Public Property ChapterContent As String
         Get
             Return _ChapterContent
@@ -71,7 +56,20 @@ Public Class Chapter
         End Set
     End Property
 
-
+    Public Property ChapterOrder As Integer
+        Get
+            Return _ChapterOrder
+        End Get
+        Set(value As Integer)
+            If value <> _ChapterOrder Then
+                _ChapterOrder = value
+                MyBase.IsDirty = True
+                'Raise an Event here to notify
+                'if the object is savable
+                RaiseEvent evtIsSavable(IsSavable)
+            End If
+        End Set
+    End Property
 #End Region
 
 #Region " Private Methods "
@@ -87,9 +85,8 @@ Public Class Chapter
             'Add the parameter
             database.Command.Parameters.Add("@StoryID", SqlDbType.UniqueIdentifier).Value = _StoryID
             database.Command.Parameters.Add("@Title", SqlDbType.VarChar).Value = _Title
-            database.Command.Parameters.Add("@ChapterPlacement", SqlDbType.VarChar).Value = _ChapterPlacement
             database.Command.Parameters.Add("@ChapterContent", SqlDbType.VarChar).Value = _ChapterContent
-
+            database.Command.Parameters.Add("@ChapterOrder", SqlDbType.VarChar).Value = _ChapterOrder
 
             'Execute non query
             database.ExecuteNonQueryWithTransaction()
@@ -114,9 +111,8 @@ Public Class Chapter
             'Add the parameter
             database.Command.Parameters.Add("@StoryID", SqlDbType.UniqueIdentifier).Value = _StoryID
             database.Command.Parameters.Add("@Title", SqlDbType.VarChar).Value = _Title
-            database.Command.Parameters.Add("@ChapterPlacement", SqlDbType.VarChar).Value = _ChapterPlacement
             database.Command.Parameters.Add("@ChapterContent", SqlDbType.VarChar).Value = _ChapterContent
-
+            database.Command.Parameters.Add("@ChapterOrder", SqlDbType.VarChar).Value = _ChapterOrder
             'Execute non query
             database.ExecuteNonQueryWithTransaction()
             'Retrieve the header data values from the command object
@@ -157,7 +153,7 @@ Public Class Chapter
             result = False
         End If
 
-        If _ChapterPlacement < -1 Then
+        If _ChapterOrder < -1 Then
             result = False
         End If
 
@@ -247,9 +243,8 @@ Public Class Chapter
     Public Sub InitializeBusinessData(dr As DataRow)
         _StoryID = dr("StoryID")
         _Title = dr("Title")
-        _ChapterPlacement = dr("ChapterPlacement")
         _ChapterContent = dr("ChapterContent")
-
+        _ChapterOrder = dr("ChapterOrder")
 
     End Sub
 #End Region

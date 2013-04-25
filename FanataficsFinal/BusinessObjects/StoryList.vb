@@ -163,13 +163,7 @@ Public Class StoryList
         db.Command.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = id
         ds = db.ExecuteQuery()
 
-        Dim blank As New Story
-        blank.Id = Guid.Empty
-        blank.Title = String.Empty
-        blank.Summary = String.Empty
-        blank.MaturityID = Guid.Empty
 
-        _List.Add(blank)
         For Each dr As DataRow In ds.Tables(0).Rows
             Dim s As New Story()
             s.Initialize(dr)

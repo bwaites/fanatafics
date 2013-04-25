@@ -36,16 +36,6 @@ Public Class ChapterList
         End Set
     End Property
 
-    Public WriteOnly Property ChapterPlacement As Integer
-        Set(value As Integer)
-            If value <> 0 Then
-                _Criteria.Fields.Add("ChapterPlacement")
-                _Criteria.Values.Add(value)
-                _Criteria.Types.Add(DataTypeHelper.Type.DataType.String_Contains)
-            End If
-        End Set
-    End Property
-
     Public WriteOnly Property ChapterContent As String
         Set(value As String)
             If value <> String.Empty Then
@@ -56,6 +46,15 @@ Public Class ChapterList
         End Set
     End Property
 
+    Public WriteOnly Property ChapterOrder As Integer
+        Set(value As Integer)
+            If value <> 0 Then
+                _Criteria.Fields.Add("ChapterOrder")
+                _Criteria.Values.Add(value)
+                _Criteria.Types.Add(DataTypeHelper.Type.DataType.String_Contains)
+            End If
+        End Set
+    End Property
 #End Region
 
 #Region " Private Methods "
