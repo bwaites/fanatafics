@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CKEditor.NET">
-      <HintPath>..\..\..\..\Downloads\ckeditor_aspnet_3.6.4\bin\Release\CKEditor.NET.dll</HintPath>
+      <HintPath>Z:\Ajay\My Documents\Downloads\Compressed\ckeditor_aspnet_3.6.4\bin\Release\CKEditor.NET.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

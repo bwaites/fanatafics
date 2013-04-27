@@ -240,6 +240,31 @@ Public Class Chapter
         End If
 
     End Function
+
+    Public Function GetFirstByStoryID(id As Guid) As Chapter
+        Dim db As New Database(My.Settings.ConnectionName)
+        Dim ds As DataSet = Nothing
+        db.Command.CommandType = CommandType.StoredProcedure
+        db.Command.CommandText = "tblChapter_getFirstByStoryID"
+        db.Command.Parameters.Add("@StoryID", SqlDbType.UniqueIdentifier).Value = id
+        ds = db.ExecuteQuery()
+
+        If ds.Tables(0).Rows.Count = 1 Then
+            Dim dr As DataRow = ds.Tables(0).Rows(0)
+            MyBase.Initialize(dr)
+            InitializeBusinessData(dr)
+            MyBase.IsNew = False
+            MyBase.IsDirty = False
+
+            Return Me
+        Else
+            If ds.Tables(0).Rows.Count = 0 Then
+                Throw New Exception(String.Format("Story Chapter {0} was not fount", id))
+            Else
+                Throw New Exception(String.Format("Story Chapter {0} found multiple records", id))
+            End If
+        End If
+    End Function
     Public Sub InitializeBusinessData(dr As DataRow)
         _StoryID = dr("StoryID")
         _Title = dr("Title")

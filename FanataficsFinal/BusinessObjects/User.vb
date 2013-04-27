@@ -319,6 +319,7 @@ Public Class User
         End If
 
     End Function
+
     Public Sub InitializeBusinessData(dr As DataRow)
         _UserName = dr("UserName")
         _Password = dr("Password")

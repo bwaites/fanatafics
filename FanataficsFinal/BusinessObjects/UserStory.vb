@@ -157,7 +157,7 @@ Public Class UserStory
             Return False
         End If
     End Function
-    Public Function GetById(id As Guid) As UserStory
+    Public Function GetByUserID(id As Guid) As UserStory
 
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
@@ -183,6 +183,33 @@ Public Class UserStory
         End If
 
     End Function
+    Public Function GetByStoryID(id As Guid) As UserStory
+
+        Dim db As New Database(My.Settings.ConnectionName)
+        Dim ds As DataSet = Nothing
+        db.Command.CommandType = CommandType.StoredProcedure
+        db.Command.CommandText = "tblStoryUser_getByStoryID"
+        db.Command.Parameters.Add("@StoryID", SqlDbType.UniqueIdentifier).Value = id
+        ds = db.ExecuteQuery()
+
+        If ds.Tables(0).Rows.Count = 1 Then
+            Dim dr As DataRow = ds.Tables(0).Rows(0)
+            MyBase.Initialize(dr)
+            InitializeBusinessData(dr)
+            MyBase.IsNew = False
+            MyBase.IsDirty = False
+
+            Return Me
+        Else
+            If ds.Tables(0).Rows.Count = 0 Then
+                Throw New Exception(String.Format("StoryUser {0} was not fount", id))
+            Else
+                Throw New Exception(String.Format("StoryUser {0} found multiple records", id))
+            End If
+        End If
+
+    End Function
+
     Public Sub InitializeBusinessData(dr As DataRow)
         _StoryID = dr("StoryID")
         _UserID = dr("UserID")
