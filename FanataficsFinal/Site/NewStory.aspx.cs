@@ -9,7 +9,19 @@ using BusinessObjects;
 namespace Site
 {
     public partial class NewStory : System.Web.UI.Page
-    {
+    {   //Make a category list
+        CategoryList catList = new CategoryList();
+        //make a fandom list
+        FandomList fandList = new FandomList();
+        //Make a genre list
+        GenreList genList = new GenreList();
+        //Make a maturity list
+        MaturityList matList = new MaturityList();
+        //Make a storyGenre list
+       
+
+        
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -18,23 +30,19 @@ namespace Site
                 ddlCategory_Populate();
                 ddlGenre_Populate();
                 ddlMaturity_Populate();
-
+                
+                
             }
-
             else
             {
                 //if page /has/ been loaded, then populate the ddlFandom
-                ddlFandom_Populate();
-                
-            }
-
-            
+                ddlFandom_Populate();                
+            }            
         }
 
         void ddlCategory_Populate()
         {
-            //Make a category list
-            CategoryList catList = new CategoryList();
+            
             //Get all categories
             catList = catList.GetAll();
             //Bind the types of Categories to ddlCategory
@@ -49,21 +57,18 @@ namespace Site
             //Check and see if the items in ddlCategory were loaded
             if (ddlCategory.Items.Count > 0)
             {
-                //make a fandom list
-                FandomList fandList = new FandomList();
+                
                 //Get fandoms based on categoryID
                 fandList = fandList.GetByCategoryID(new Guid(ddlCategory.SelectedValue));
                 //binds the list to ddlFandom
                 ddlFandom.DataSource = fandList.List;
-                ddlFandom.DataBind();
-                               
+                ddlFandom.DataBind();                               
             }
         }
 
         void ddlGenre_Populate()
         {
-            //Make a genre list
-            GenreList genList = new GenreList();
+            
             //Get all of the list
             genList.GetAll();
             //Bind list to ddlGenre, displaying GenreType
@@ -75,8 +80,7 @@ namespace Site
 
         void ddlMaturity_Populate()
         {
-            //Make a maturity list
-            MaturityList matList = new MaturityList();
+            
             //Get all of maturity levels
             matList.GetAll();
             //Bind levels to ddlMaturity, displaying level
@@ -94,6 +98,12 @@ namespace Site
             story.Title = this.txtTitle.Value;
             story.Summary = this.txtSummary.Value;
             story.MaturityID = new Guid(this.ddlMaturity.SelectedValue);
+            story.StorysUsers.UserID = new Guid(Session["UserID"].ToString());
+            story.StoryGenres.GenreID = new Guid(this.ddlGenre.SelectedValue);
+            story.StoryFandoms.FandomID = new Guid(this.ddlFandom.SelectedValue);
+            
+             
+
             //Check if the story is savable, and if so, save it
             if (story.IsSavable() == true)
             {

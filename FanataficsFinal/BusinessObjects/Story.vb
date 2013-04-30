@@ -9,7 +9,9 @@ Public Class Story
     'ADD PRIVATE MEMBERS FOR CHILDREN HERE
     '
 
-
+    Private WithEvents _storyGenres As StoryGenreList = Nothing
+    Private WithEvents _storyFandoms As StoryFandomList = Nothing
+    Private WithEvents _StorysUsers As UserStoryList = Nothing
 
 #End Region
 
@@ -61,8 +63,36 @@ Public Class Story
     'ADD PUBLIC PROPERITES FOR CHILDREN HERE
     '
 
+    Public ReadOnly Property StoryGenres As StoryGenreList
+        Get
+            If _storyGenres Is Nothing Then
+                _storyGenres = New StoryGenreList
+                _storyGenres = _storyGenres.GetByStoryID(MyBase.Id)
+            End If
+            Return _storyGenres
+        End Get
 
+    End Property
 
+    Public ReadOnly Property StoryFandoms As StoryFandomList
+        Get
+            If _storyFandoms Is Nothing Then
+                _storyFandoms = New StoryFandomList
+                _storyFandoms = _storyFandoms.GetByStoryId(MyBase.Id)
+            End If
+            Return _storyFandoms
+        End Get
+    End Property
+
+    Public ReadOnly Property StorysUsers As UserStoryList
+        Get
+            If _StorysUsers Is Nothing Then
+                _StorysUsers = New UserStoryList
+                _StorysUsers = _StorysUsers.GetByStoryID(MyBase.Id)
+            End If
+            Return _StorysUsers
+        End Get
+    End Property
 
 
 #End Region
@@ -185,7 +215,17 @@ Public Class Story
         '
         'Handle the children here'
         '
+        If result = True AndAlso _storyGenres.IsSavable = True Then
+            result = _storyGenres.Save(db, MyBase.Id)
+        End If
 
+        If result = True AndAlso _storyFandoms.IsSavable = True Then
+            result = _storyFandoms.Save(db, MyBase.Id)
+        End If
+
+        If result = True AndAlso _StorysUsers.IsSavable = True Then
+            result = _StorysUsers.Save(db, MyBase.Id)
+        End If
         '
         'Handle the transaction here'
         '
@@ -201,7 +241,7 @@ Public Class Story
         '
         'ADD CHECKS HERE FOR CHILDREN BEING SAVABLE
         '
-        If MyBase.IsDirty = True AndAlso IsValid() = True Then
+        If MyBase.IsDirty = True AndAlso IsValid() = True OrElse StoryGenres.IsSavable = True OrElse StoryFandoms.IsSavable = True OrElse StorysUsers.IsSavable = True Then
             Return True
         Else
             Return False

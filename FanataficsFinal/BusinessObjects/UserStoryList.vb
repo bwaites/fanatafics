@@ -50,13 +50,13 @@ Public Class UserStoryList
 
 
 
-    Public Function GetByUserID(id As Guid) As UserStoryList
+    Public Function GetByStoryID(id As Guid) As UserStoryList
 
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
         db.Command.CommandType = CommandType.StoredProcedure
-        db.Command.CommandText = "tblStory_getByUserID"
-        db.Command.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = id
+        db.Command.CommandText = "tblStoryUser_getByStoryID"
+        db.Command.Parameters.Add("@StoryID", SqlDbType.UniqueIdentifier).Value = id
         ds = db.ExecuteQuery()
 
 

@@ -1,11 +1,12 @@
 ﻿Imports DatabaseHelper
 Imports System.ComponentModel
+Imports SQLHelper
 
 Public Class StoryFandomList
 #Region " Private Members "
 
     Private WithEvents _List As New BindingList(Of StoryFandom)
-
+    Private _Criteria As Criteria
 #End Region
 
 #Region " Public Properties "
@@ -14,6 +15,16 @@ Public Class StoryFandomList
         Get
             Return _List
         End Get
+    End Property
+
+    Public WriteOnly Property FandomID As Guid
+        Set(value As Guid)
+            If value <> Guid.Empty Then
+                _Criteria.Fields.Add("FandomID")
+                _Criteria.Values.Add(value.ToString)
+                _Criteria.Types.Add(DataTypeHelper.Type.DataType.String_Contains)
+            End If
+        End Set
     End Property
 
 #End Region
@@ -26,31 +37,31 @@ Public Class StoryFandomList
 
 
 
-    'Public Function GetByStoryId(id As Guid) As StoryFandomList
+    Public Function GetByStoryId(id As Guid) As StoryFandomList
 
-    '    Dim db As New Database(My.Settings.ConnectionName)
-    '    Dim ds As DataSet = Nothing
-    '    db.Command.CommandType = CommandType.StoredProcedure
-    '    db.Command.CommandText = "tblStoryFandom_getByStoryId"
-    '    db.Command.Parameters.Add("@StoryID", SqlDbType.UniqueIdentifier).Value = id
-    '    ds = db.ExecuteQuery()
+        Dim db As New Database(My.Settings.ConnectionName)
+        Dim ds As DataSet = Nothing
+        db.Command.CommandType = CommandType.StoredProcedure
+        db.Command.CommandText = "tblStoryFandom_getByStoryID"
+        db.Command.Parameters.Add("@StoryID", SqlDbType.UniqueIdentifier).Value = id
+        ds = db.ExecuteQuery()
 
 
-    '    For Each dr As DataRow In ds.Tables(0).Rows
-    '        Dim pa As New StoryFandom()
-    '        pa.Initialize(dr)
-    '        pa.InitializeBusinessData(dr)
-    '        pa.IsNew = False
-    '        pa.IsDirty = False
+        For Each dr As DataRow In ds.Tables(0).Rows
+            Dim pa As New StoryFandom()
+            pa.Initialize(dr)
+            pa.InitializeBusinessData(dr)
+            pa.IsNew = False
+            pa.IsDirty = False
 
-    '        AddHandler pa.evtIsSavable, AddressOf StoryFandomList_evtIsSavable
+            AddHandler pa.evtIsSavable, AddressOf StoryFandomList_evtIsSavable
 
-    '        _List.Add(pa)
-    '    Next
+            _List.Add(pa)
+        Next
 
-    '    Return Me
+        Return Me
 
-    'End Function
+    End Function
 
     Public Function Save(database As Database, parentId As Guid) As Boolean
         Dim result As Boolean = True

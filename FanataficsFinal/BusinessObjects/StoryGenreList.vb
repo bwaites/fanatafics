@@ -16,16 +16,7 @@ Public Class StoryGenreList
         End Get
     End Property
 
-    Public WriteOnly Property ChapterID As Guid
-
-        Set(value As Guid)
-            If value <> Guid.Empty Then
-                _Criteria.Fields.Add("ChapterID")
-                _Criteria.Values.Add(value.ToString)
-                _Criteria.Types.Add(DataTypeHelper.Type.DataType.String_Contains)
-            End If
-        End Set
-    End Property
+  
 #End Region
 
 #Region " Private Methods "
@@ -36,13 +27,13 @@ Public Class StoryGenreList
 
 
 
-    Public Function GetByGenreID(id As Guid) As StoryGenreList
+    Public Function GetByStoryID(id As Guid) As StoryGenreList
 
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
         db.Command.CommandType = CommandType.StoredProcedure
-        db.Command.CommandText = "tblStoryGenre_getByGenreID"
-        db.Command.Parameters.Add("@GenreID", SqlDbType.UniqueIdentifier).Value = id
+        db.Command.CommandText = "tblStoryGenre_getByStoryID"
+        db.Command.Parameters.Add("@StoryID", SqlDbType.UniqueIdentifier).Value = id
         ds = db.ExecuteQuery()
 
 
