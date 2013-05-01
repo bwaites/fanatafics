@@ -16,18 +16,13 @@ namespace Site
         {
             if (!Page.IsPostBack)
             {
-                //find lblLogin on Master Page, store it in mpLabel
-                Label mpLabel = (Label)Master.FindControl("lblLogin");
-                //if mpLabel.Text is NOT equal to "Login" then populate list
-                if (mpLabel.Text != "Login")
+                ddlStory_Populate();
+                if (ddlStory.Items.Count > 0)
                 {
-                    ddlStory_Populate();
-                    if (ddlStory.Items.Count > 0)
-                    {
-                        ddlChapters_Populate();
-                        addChapterContent();
-                    }
+                    ddlChapters_Populate();
+                    addChapterContent();
                 }
+
                 else
                 {
                     ddlChapters_Populate();
@@ -50,10 +45,14 @@ namespace Site
 
         void ddlChapters_Populate()
         {
+            //enable ddlChapters and make it visible
             ddlChapters.Enabled = true;
             ddlChapters.Visible = true;
+            //make a new chapterlist
             ChapterList chapList = new ChapterList();
+            //get the chapters by the story ID (taken from ddlStory)
             chapList = chapList.GetByStoryID(new Guid(this.ddlStory.SelectedValue));
+            //bind chapList to ddlChapters
             ddlChapters.DataSource = chapList.List;
             ddlChapters.DataTextField = "Title";
             ddlChapters.DataValueField = "ID";
@@ -62,18 +61,29 @@ namespace Site
 
         void addChapterContent()
         {
+            //checks if ddlChapters has been loaded
             if (ddlChapters.Items.Count > 0)
             {
-                Guid chapID = new Guid(ddlChapters.SelectedValue);
-                Chapter chap = new Chapter();
-                chap = chap.GetById(chapID);
-                hidnEdit.Value = chap.ChapterContent;
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "callJSFunction", "setText();", true);
+                //checks if something in ddlChapters has been selected
+                if (ddlChapters.SelectedIndex >= 0)
+                {
+                    //make a new chapterID (using the value from ddlChapters)
+                    Guid chapID = new Guid(ddlChapters.SelectedValue);
+                    //make a new chapter
+                    Chapter chap = new Chapter();
+                    //get the proper chapter based on chapterID
+                    chap = chap.GetById(chapID);
+                    //store chap.ChapterContent into hidnEdit.Value
+                    hidnEdit.Value = chap.ChapterContent;
+                    //Execute javascript that sets the text of the Editor
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "callJSFunction", "setText();", true);
+                }
             }
         }
 
         protected void ddlChapters_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //when a selection is changed, do addChapterContent
             addChapterContent();
         }
 
@@ -95,7 +105,7 @@ namespace Site
                 {
                     chap = chap.Save();
                 }
-            }            
+            }
         }
 
         protected void btnSaveChanges_Click(object sender, EventArgs e)
