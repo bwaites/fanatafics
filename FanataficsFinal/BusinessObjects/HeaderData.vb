@@ -91,7 +91,7 @@ Public Class HeaderData
     End Sub
 
     Public Sub Initialize(dr As DataRow)
-        _Id = dr("Id")
+        _Id = dr("ID")
         _Version = dr("Version")
         _LastUpdated = dr("LastUpdated")
         _Deleted = dr("Deleted")

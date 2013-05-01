@@ -21,6 +21,27 @@ namespace Site
             //bind list of stories to repeater
             rptStories.DataSource = sl.List;
             rptStories.DataBind();
+            
+            
+            getAuthor();
+            
+        }
+
+        void getAuthor()
+        {
+            //make a new userstory
+            UserStory usrStry = new UserStory();
+            //make a StoryId and fill it with a query string
+            Guid storyID = new Guid(Request.QueryString["StoryID"]);
+            //make a new user
+            User usr = new User();
+            //get the user by the story's id
+            usr = usr.GetUserByStoryID(storyID);
+            //set lblAuthor.Text to username of story
+
+            Label lblAuthor = (Label)Page.FindControl("lblAuthor");
+
+            lblAuthor.Text = usr.UserName;
         }
     }
 }

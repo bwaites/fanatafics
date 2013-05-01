@@ -31,15 +31,14 @@ namespace Site
                 //page is not postback
                 ddlChapterList.DataSource = cl.List;
                 ddlChapters_Populate();
-
             }
-                
-                //get the first chapter based on story ID
+            else
+            {
+                //get the first chapter based on story ID if it's not post back
                 c = c.GetFirstByStoryID(storyID);
                 //set the chapterContent div's innerhtml to c.ChapterContent
                 dvChapterContent.InnerHtml = c.ChapterContent;
-
-
+            }              
         }
 
         void ddlChapters_Populate()
@@ -64,8 +63,7 @@ namespace Site
             //get the selectedChapter by the ChapterID
             selectedChapter = selectedChapter.GetById(chapterID);
             //set dvChapterContent's innerhtml to the selectedChapter.ChapterContent
-            dvChapterContent.InnerHtml = selectedChapter.ChapterContent;
-            
+            dvChapterContent.InnerHtml = selectedChapter.ChapterContent;            
         }
 
         void getTitle()
@@ -84,16 +82,13 @@ namespace Site
             UserStory usrStry = new UserStory();
             //make a StoryId and fill it with a query string
             Guid storyID = new Guid(Request.QueryString["StoryID"]);
-            //use story ID to get the associated UserID
-            usrStry = usrStry.GetByStoryID(storyID);
-            //use UserID to get the proper user
-            usr = usr.GetById(usrStry.UserID);
-            //set lblAuthorText to usr.UserName
+            //make a new user
+            User usr = new User();
+            //get the user by the story's id
+            usr = usr.GetUserByStoryID(storyID);
+            //set lblAuthor.Text to username of story
             lblAuthor.Text = usr.UserName;
-
             
-            
-
         }
     }
 }

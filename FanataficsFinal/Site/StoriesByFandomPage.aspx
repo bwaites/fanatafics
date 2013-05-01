@@ -13,10 +13,14 @@
                     <tbody>   
                 </HeaderTemplate>
                 <ItemTemplate>
-                    <tr>                    
+                    <tr>                
                         <td><a href='StoryPage.aspx?StoryID=<%# DataBinder.Eval(Container.DataItem,"Id") %>'><%# DataBinder.Eval(Container.DataItem,"Title") %></a>  </td>
-                        <td><%# DataBinder.Eval(Container.DataItem,"Summary") %>  </td>
+                        <td><asp:Label ID="lblAuthor" runat="server">Author Name</asp:Label></a></td>    
+                    
+                    </tr>
 
+                    <tr>
+                        <td><%# DataBinder.Eval(Container.DataItem,"Summary") %>  </td>
                     </tr>
                 </ItemTemplate>
                 <SeparatorTemplate><br /></SeparatorTemplate>
