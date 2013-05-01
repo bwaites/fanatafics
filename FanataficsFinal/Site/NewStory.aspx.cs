@@ -99,8 +99,9 @@ namespace Site
             story.Summary = this.txtSummary.Value;
             story.MaturityID = new Guid(this.ddlMaturity.SelectedValue);
             story.StorysUsers.UserID = new Guid(Session["UserID"].ToString());
-            story.StoryGenres.GenreID = new Guid(this.ddlGenre.SelectedValue);
             story.StoryFandoms.FandomID = new Guid(this.ddlFandom.SelectedValue);
+            
+            
             
              
 

@@ -21,6 +21,18 @@
                     </asp:DropDownList>
             </div>
         </div>
+
+        <!-- Select Basic -->
+        <div class="control-group">
+            <label class="control-label">
+                Choose Chapter</label>
+            <div class="controls"> 
+                    <asp:DropDownList ID="ddlChapters" runat="server" DataTextField="Title" 
+                        DataValueField="ID" Enabled="False" 
+                        onselectedindexchanged="ddlChapters_SelectedIndexChanged" Visible="False" AutoPostBack="true">
+                    </asp:DropDownList>
+            </div>
+        </div>
         <!-- Text input-->
         <div class="control-group">
             <label class="control-label">
@@ -47,9 +59,17 @@
                     document.getElementById('<%= hidnEdit.ClientID %>').value = editorText;
                 }
 
+                function setText() {
+                    var editorText = document.getElementById('<%= hidnEdit.ClientID %>').value
+                    CKEDITOR.instances.editor1.setData(editorText);
+                }
+
             </script>
             <asp:Button ID="btnAddChapter" runat="server" Text="Add Chapter" 
                 class="input-large" onClientClick="getText()" onclick="btnAddChapter_Click" />
+
+                 <asp:Button ID="btnSaveChanges" runat="server" Text="Save Changes" 
+                class="input-large" onClientClick="getText()" onclick="btnSaveChanges_Click" />
         </div>
     </div>
 </asp:Content>
