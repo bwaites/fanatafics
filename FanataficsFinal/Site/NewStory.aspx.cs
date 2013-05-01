@@ -29,9 +29,7 @@ namespace Site
                 //if page hasn't been loaded, then load the following ddls
                 ddlCategory_Populate();
                 ddlGenre_Populate();
-                ddlMaturity_Populate();
-                
-                
+                ddlMaturity_Populate();               
             }
             else
             {
@@ -41,8 +39,7 @@ namespace Site
         }
 
         void ddlCategory_Populate()
-        {
-            
+        {            
             //Get all categories
             catList = catList.GetAll();
             //Bind the types of Categories to ddlCategory
@@ -56,8 +53,7 @@ namespace Site
         {
             //Check and see if the items in ddlCategory were loaded
             if (ddlCategory.Items.Count > 0)
-            {
-                
+            {                
                 //Get fandoms based on categoryID
                 fandList = fandList.GetByCategoryID(new Guid(ddlCategory.SelectedValue));
                 //binds the list to ddlFandom
@@ -67,8 +63,7 @@ namespace Site
         }
 
         void ddlGenre_Populate()
-        {
-            
+        {            
             //Get all of the list
             genList.GetAll();
             //Bind list to ddlGenre, displaying GenreType
@@ -79,8 +74,7 @@ namespace Site
         }
 
         void ddlMaturity_Populate()
-        {
-            
+        {            
             //Get all of maturity levels
             matList.GetAll();
             //Bind levels to ddlMaturity, displaying level
@@ -99,12 +93,8 @@ namespace Site
             story.Summary = this.txtSummary.Value;
             story.MaturityID = new Guid(this.ddlMaturity.SelectedValue);
             story.StorysUsers.UserID = new Guid(Session["UserID"].ToString());
-            story.StoryFandoms.FandomID = new Guid(this.ddlFandom.SelectedValue);
-            
-            
-            
-             
-
+            story.StoryFandoms.FandomID = new Guid(this.ddlFandom.SelectedValue);      
+                        
             //Check if the story is savable, and if so, save it
             if (story.IsSavable() == true)
             {
@@ -112,13 +102,10 @@ namespace Site
             }
         }
 
-
         protected void btnAddStory_Click(object sender, EventArgs e)
         {
             //calls Add_Story method
             Add_Story();
-        }
-
-        
+        }        
     }
 }

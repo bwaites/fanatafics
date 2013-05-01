@@ -14,17 +14,21 @@ namespace Site
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //check to make sure page isn't postback
             if (!Page.IsPostBack)
             {
+                //populate the ddlStory
                 ddlStory_Populate();
+                //check and make sure ddlStory has items in it
                 if (ddlStory.Items.Count > 0)
                 {
+                    //if ddlStory has items, populate ddlChapters and addChapterContent
                     ddlChapters_Populate();
                     addChapterContent();
                 }
-
                 else
                 {
+                    //if the page /has/ posted back, then populate the chapters
                     ddlChapters_Populate();
                 }
             }
@@ -73,10 +77,14 @@ namespace Site
                     Chapter chap = new Chapter();
                     //get the proper chapter based on chapterID
                     chap = chap.GetById(chapID);
+                    //put title of chapter into txtChapter
+                    txtChapTitle.Text = chap.Title;
                     //store chap.ChapterContent into hidnEdit.Value
                     hidnEdit.Value = chap.ChapterContent;
                     //Execute javascript that sets the text of the Editor
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "callJSFunction", "setText();", true);
+                    btnSaveChanges.Enabled = true;
+                    btnSaveChanges.Visible = true;
                 }
             }
         }
@@ -110,7 +118,32 @@ namespace Site
 
         protected void btnSaveChanges_Click(object sender, EventArgs e)
         {
-
+            //check and make sure the selectedindex is greater or equal to zero
+            if (ddlChapters.SelectedIndex >= 0)
+            {
+                //Make a new chapter
+                Chapter chap = new Chapter();
+                //get the chapter by the chapterId (taken from ddlChapters)
+                chap = chap.GetById(new Guid(ddlChapters.SelectedValue));
+                //set the storyID of chapter to ddlStory's selected value
+                chap.StoryID = new Guid(ddlStory.SelectedValue);
+                //set the title based on txtChapTitle
+                chap.Title = txtChapTitle.Text;
+                //set chapterContent of Chap to the hidnEdit.value
+                chap.ChapterContent = hidnEdit.Value;
+                //chapter order is the same
+                //TO DO: Figure out way to change chapter order
+                chap.ChapterOrder = chap.ChapterOrder;
+                //change the chap.IsNew to false
+                chap.IsNew = false;
+                //change chap.isDirty to true
+                chap.IsDirty = true;
+                //check if chap is savable
+                if (chap.IsSavable())
+                {//if it's savable, save it
+                    chap = chap.Save();
+                }
+            }
         }
     }
 }
