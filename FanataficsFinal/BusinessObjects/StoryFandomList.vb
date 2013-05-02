@@ -6,7 +6,7 @@ Public Class StoryFandomList
 #Region " Private Members "
 
     Private WithEvents _List As New BindingList(Of StoryFandom)
-    Private _Criteria As Criteria
+    Private _Criteria As New Criteria
 #End Region
 
 #Region " Public Properties "
@@ -63,11 +63,11 @@ Public Class StoryFandomList
 
     End Function
 
-    Public Function Save(database As Database, parentId As Guid) As Boolean
+    Public Function Save() As Boolean
         Dim result As Boolean = True
         For Each sf As StoryFandom In _List
             If sf.IsSavable = True Then
-                sf = sf.Save(database, parentId)
+                sf = sf.Save()
                 If sf.IsNew = True Then
                     result = False
                     Exit For

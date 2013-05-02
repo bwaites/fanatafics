@@ -6,7 +6,7 @@ Public Class GenreList
 #Region " Private Members "
 
     Private WithEvents _List As New BindingList(Of Genre)
-    Private _Criteria As Criteria
+    Private _Criteria As New Criteria
 
 #End Region
 

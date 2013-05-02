@@ -6,7 +6,7 @@ Public Class CategoryList
 #Region " Private Members "
 
     Private WithEvents _List As New BindingList(Of Category)
-    Private _Criteria As Criteria
+    Private _Criteria As New Criteria
 
 #End Region
 

@@ -5,7 +5,7 @@ Imports DataTypeHelper
 Public Class UserList
 #Region " Private Members "
     Private WithEvents _List As New BindingList(Of User)
-    Private _Criteria As Criteria
+    Private _Criteria As New Criteria
 #End Region
 
 #Region " Public Properties "
@@ -77,8 +77,6 @@ Public Class UserList
     End Property
 
 #End Region
-
-
 
 #Region " Private Methods "
 

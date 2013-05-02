@@ -5,7 +5,7 @@ Public Class FandomList
 #Region " Private Members "
 
     Private WithEvents _List As New BindingList(Of Fandom)
-    Private _Criteria As Criteria
+    Private _Criteria As New Criteria
 #End Region
 
 #Region " Public Properties "

@@ -6,7 +6,7 @@ Public Class MaturityList
 #Region " Private Members "
 
     Private WithEvents _List As New BindingList(Of Maturity)
-    Private _Criteria As Criteria
+    Private _Criteria As New Criteria
 #End Region
 
 #Region " Public Properties "

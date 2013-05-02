@@ -5,7 +5,7 @@ Public Class ReviewList
 #Region " Private Members "
 
     Private WithEvents _List As New BindingList(Of Review)
-    Private _Criteria As Criteria
+    Private _Criteria As New Criteria
 #End Region
 
 #Region " Public Properties "

@@ -5,7 +5,7 @@ Public Class StoryGenreList
 #Region " Private Members "
 
     Private WithEvents _List As New BindingList(Of StoryGenre)
-    Private _Criteria As Criteria
+    Private _Criteria As New Criteria
 #End Region
 
 #Region " Public Properties "
@@ -16,6 +16,15 @@ Public Class StoryGenreList
         End Get
     End Property
 
+    Public WriteOnly Property GenreID As Guid
+        Set(value As Guid)
+            If value <> Guid.Empty Then
+                _Criteria.Fields.Add("GenreID")
+                _Criteria.Values.Add(value.ToString)
+                _Criteria.Types.Add(DataTypeHelper.Type.DataType.String_Contains)
+            End If
+        End Set
+    End Property
   
 #End Region
 
@@ -53,11 +62,11 @@ Public Class StoryGenreList
 
     End Function
 
-    Public Function Save(database As Database, parentId As Guid) As Boolean
+    Public Function Save() As Boolean
         Dim result As Boolean = True
         For Each sg As StoryGenre In _List
             If sg.IsSavable = True Then
-                sg = sg.Save(database, parentId)
+                sg = sg.Save()
                 If sg.IsNew = True Then
                     result = False
                     Exit For

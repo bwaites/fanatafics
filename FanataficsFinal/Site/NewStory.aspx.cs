@@ -17,10 +17,13 @@ namespace Site
         GenreList genList = new GenreList();
         //Make a maturity list
         MaturityList matList = new MaturityList();
-        //Make a storyGenre list
-       
-
-        
+        //Make a storyGenre
+        StoryGenre stryGenre = new StoryGenre();
+        //Make a storyFandom
+        StoryFandom stryFandom = new StoryFandom();
+        //Make a userStory
+        UserStory strysUsers = new UserStory();
+              
         
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -92,16 +95,40 @@ namespace Site
             story.Title = this.txtTitle.Value;
             story.Summary = this.txtSummary.Value;
             story.MaturityID = new Guid(this.ddlMaturity.SelectedValue);
-            story.StorysUsers.UserID = new Guid(Session["UserID"].ToString());
-            story.StoryFandoms.FandomID = new Guid(this.ddlFandom.SelectedValue);      
-                        
+            //set stryUser UserID to the User's ID (stored in session)
+            strysUsers.UserID = new Guid(Session["UserID"].ToString());
+            //set stryGenre GenreID to ID taken from ddlGenre's selected value
+            stryGenre.GenreID = new Guid(this.ddlGenre.SelectedValue);
+            //set fandom FandomID to ID taken from ddlFandom's selected value
+            stryFandom.FandomID = new Guid(this.ddlFandom.SelectedValue);
+
             //Check if the story is savable, and if so, save it
             if (story.IsSavable() == true)
             {
                 story = story.Save();
+                strysUsers.StoryID = story.Id;
+                stryGenre.StoryID = story.Id;
+                stryFandom.StoryID = story.Id;
+                save_Bridges();                            
             }
         }
 
+        protected void save_Bridges()
+        {
+            if (stryFandom.IsSavable() == true)
+            {
+                stryFandom.Save();
+            }
+
+            if (stryGenre.IsSavable() == true)
+            {
+                stryGenre.Save();
+            }
+            if (strysUsers.IsSavable() == true)
+            {
+                strysUsers.Save();
+            }
+        }
         protected void btnAddStory_Click(object sender, EventArgs e)
         {
             //calls Add_Story method

@@ -42,6 +42,7 @@ Public Class StoryFandom
     End Property
 #End Region
 
+
 #Region " Private Methods "
     Private Function Insert(database As DatabaseHelper.Database) As Boolean
 
@@ -127,18 +128,18 @@ Public Class StoryFandom
 #End Region
 
 #Region " Public Methods "
-    Public Function Save(database As Database, parentId As Guid) As StoryFandom
-
-        _StoryID = parentId
+    Public Function Save() As StoryFandom
+        Dim db As New Database(My.Settings.ConnectionName)
+        db.BeginTransaction(My.Settings.ConnectionName)
 
         Dim result As Boolean = True
 
         If MyBase.IsNew = True AndAlso MyBase.IsDirty = True AndAlso IsValid() = True Then
-            result = Insert(database)
+            result = Insert(db)
         ElseIf MyBase.Deleted = True AndAlso MyBase.IsDirty = True Then
-            result = Delete(database)
+            result = Delete(db)
         ElseIf MyBase.IsNew = False AndAlso MyBase.IsDirty = True AndAlso IsValid() = True Then
-            result = Update(database)
+            result = Update(db)
         End If
 
         If result = True Then
@@ -146,6 +147,11 @@ Public Class StoryFandom
             MyBase.IsNew = False
         End If
 
+        If result = True Then
+            db.EndTransaction()
+        Else
+            db.RollbackTransaction()
+        End If
         Return Me
     End Function
     Public Function IsSavable() As Boolean

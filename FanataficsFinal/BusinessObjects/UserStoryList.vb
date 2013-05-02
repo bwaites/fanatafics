@@ -5,7 +5,7 @@ Public Class UserStoryList
 #Region " Private Members "
 
     Private WithEvents _List As New BindingList(Of UserStory)
-    Private _Criteria As Criteria
+    Private _Criteria As New Criteria
 #End Region
 
 #Region " Public Properties "
@@ -78,11 +78,11 @@ Public Class UserStoryList
 
   
 
-    Public Function Save(database As Database, parentId As Guid) As Boolean
+    Public Function Save() As Boolean
         Dim result As Boolean = True
         For Each us As UserStory In _List
             If us.IsSavable = True Then
-                us = us.Save(database, parentId)
+                us = us.Save()
                 If us.IsNew = True Then
                     result = False
                     Exit For
