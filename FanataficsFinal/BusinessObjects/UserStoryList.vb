@@ -16,7 +16,7 @@ Public Class UserStoryList
         End Get
     End Property
 
-    Public WriteOnly Property StoryID As Guid
+    Public Property StoryID As Guid
 
         Set(value As Guid)
             If value <> Guid.Empty Then
@@ -27,9 +27,12 @@ Public Class UserStoryList
         End Set
 
 
+        Get
+            Return StoryID
+        End Get
     End Property
 
-    Public WriteOnly Property UserID As Guid
+    Public Property UserID As Guid
 
         Set(value As Guid)
             If value <> Guid.Empty Then
@@ -38,6 +41,9 @@ Public Class UserStoryList
                 _Criteria.Types.Add(DataTypeHelper.Type.DataType.String_Contains)
             End If
         End Set
+        Get
+            Return UserID
+        End Get
     End Property
 
 #End Region
@@ -76,7 +82,7 @@ Public Class UserStoryList
 
     End Function
 
-  
+
 
     Public Function Save() As Boolean
         Dim result As Boolean = True

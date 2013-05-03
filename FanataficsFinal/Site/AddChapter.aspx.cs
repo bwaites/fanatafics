@@ -84,7 +84,7 @@ namespace Site
                     //Execute javascript that sets the text of the Editor
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "callJSFunction", "setText();", true);
                     btnSaveChanges.Enabled = true;
-                    btnSaveChanges.Visible = true;
+                    btnSaveChanges .Visible = true;
                 }
             }
         }
@@ -97,53 +97,43 @@ namespace Site
 
         protected void btnAddChapter_Click(object sender, EventArgs e)
         {
-            if (ddlStory.SelectedIndex >= 0)
-            {
-                //if story has been selected from ddlStory
-                //make new chapter and fill in values using input values
-                Chapter chap = new Chapter();
-                chap.Title = this.txtChapTitle.Text;
-                //gets storyID guid based on ddlStory selected value
-                chap.StoryID = new Guid(this.ddlStory.SelectedValue);
-                chap.ChapterContent = hidnEdit.Value;
-                //TO DO: better logic for chapter order
-                chap.ChapterOrder += 1;
-                //if chapter is savable, save it to the db
-                if (chap.IsSavable())
-                {
-                    chap = chap.Save();
-                }
-            }
+           
         }
 
         protected void btnSaveChanges_Click(object sender, EventArgs e)
         {
             //check and make sure the selectedindex is greater or equal to zero
-            if (ddlChapters.SelectedIndex >= 0)
+            if (ddlStory.SelectedIndex >= 0)
             {
-                //Make a new chapter
-                Chapter chap = new Chapter();
-                //get the chapter by the chapterId (taken from ddlChapters)
-                chap = chap.GetById(new Guid(ddlChapters.SelectedValue));
-                //set the storyID of chapter to ddlStory's selected value
-                chap.StoryID = new Guid(ddlStory.SelectedValue);
-                //set the title based on txtChapTitle
-                chap.Title = txtChapTitle.Text;
-                //set chapterContent of Chap to the hidnEdit.value
-                chap.ChapterContent = hidnEdit.Value;
-                //chapter order is the same
-                //TO DO: Figure out way to change chapter order
-                chap.ChapterOrder = chap.ChapterOrder;
-                //change the chap.IsNew to false
-                chap.IsNew = false;
-                //change chap.isDirty to true
-                chap.IsDirty = true;
-                //check if chap is savable
-                if (chap.IsSavable())
-                {//if it's savable, save it
-                    chap = chap.Save();
+                if (ddlChapters.SelectedIndex >= 0)
+                {
+                    ChapterList chapList = new ChapterList();
+                    chapList = chapList.GetByStoryID(new Guid(ddlStory.SelectedValue));
+                    //Make a new chapter
+                    Chapter chap = new Chapter();
+                    //get the chapter by the chapterId (taken from ddlChapters)
+                    chap = chap.GetById(new Guid(ddlChapters.SelectedValue));
+                    //set the storyID of chapter to ddlStory's selected value
+                    chap.StoryID = new Guid(ddlStory.SelectedValue);
+                    //set the title based on txtChapTitle
+                    chap.Title = txtChapTitle.Text;
+                    //set chapterContent of Chap to the hidnEdit.value
+                    chap.ChapterContent = hidnEdit.Value;
+                    //chapter order is the same
+                    
+                    chap.ChapterOrder = chapList.List.Count + 1;
+                    //change the chap.IsNew to false
+                    chap.IsNew = false;
+                    //change chap.isDirty to true
+                    chap.IsDirty = true;
+                    //check if chap is savable
+                    if (chap.IsSavable())
+                    {//if it's savable, save it
+                        chap = chap.Save();
+                        addChapterContent();
+                    }
                 }
-            }
+            }           
         }
     }
 }

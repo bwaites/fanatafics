@@ -344,6 +344,30 @@ Public Class User
             End If
         End If
     End Function
+    Public Function GetUserByFandomID(id As Guid) As User
+        Dim db As New Database(My.Settings.ConnectionName)
+        Dim ds As DataSet = Nothing
+        db.Command.CommandType = CommandType.StoredProcedure
+        db.Command.CommandText = "tblUser_getUserByFandomID"
+        db.Command.Parameters.Add("@FandomID", SqlDbType.UniqueIdentifier).Value = id
+        ds = db.ExecuteQuery()
+
+        If ds.Tables(0).Rows.Count = 1 Then
+            Dim dr As DataRow = ds.Tables(0).Rows(0)
+            MyBase.Initialize(dr)
+            InitializeBusinessData(dr)
+            MyBase.IsNew = False
+            MyBase.IsDirty = False
+
+            Return Me
+        Else
+            If ds.Tables(0).Rows.Count = 0 Then
+                Throw New Exception(String.Format("User {0} was not found", id))
+            Else
+                Throw New Exception(String.Format("User {0} found multiple records", id))
+            End If
+        End If
+    End Function
 
     Public Sub InitializeBusinessData(dr As DataRow)
         _UserName = dr("UserName")

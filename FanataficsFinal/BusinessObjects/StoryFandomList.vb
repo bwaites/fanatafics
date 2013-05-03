@@ -17,7 +17,7 @@ Public Class StoryFandomList
         End Get
     End Property
 
-    Public WriteOnly Property FandomID As Guid
+    Public Property FandomID As Guid
         Set(value As Guid)
             If value <> Guid.Empty Then
                 _Criteria.Fields.Add("FandomID")
@@ -25,6 +25,22 @@ Public Class StoryFandomList
                 _Criteria.Types.Add(DataTypeHelper.Type.DataType.String_Contains)
             End If
         End Set
+        Get
+            Return FandomID
+        End Get
+    End Property
+
+    Public Property StoryID As Guid
+        Set(value As Guid)
+            If value <> Guid.Empty Then
+                _Criteria.Fields.Add("StoryID")
+                _Criteria.Values.Add(value.ToString)
+                _Criteria.Types.Add(DataTypeHelper.Type.DataType.String_Contains)
+            End If
+        End Set
+        Get
+            Return StoryID
+        End Get
     End Property
 
 #End Region
@@ -57,6 +73,32 @@ Public Class StoryFandomList
             AddHandler pa.evtIsSavable, AddressOf StoryFandomList_evtIsSavable
 
             _List.Add(pa)
+        Next
+
+        Return Me
+
+    End Function
+
+    Public Function GetByFandomID(id As Guid) As StoryFandomList
+
+        Dim db As New Database(My.Settings.ConnectionName)
+        Dim ds As DataSet = Nothing
+        db.Command.CommandType = CommandType.StoredProcedure
+        db.Command.CommandText = "tblStoryFandom_getByFandomID"
+        db.Command.Parameters.Add("@FandomID", SqlDbType.UniqueIdentifier).Value = id
+        ds = db.ExecuteQuery()
+
+
+        For Each dr As DataRow In ds.Tables(0).Rows
+            Dim sf As New StoryFandom()
+            sf.Initialize(dr)
+            sf.InitializeBusinessData(dr)
+            sf.IsNew = False
+            sf.IsDirty = False
+
+            AddHandler sf.evtIsSavable, AddressOf StoryFandomList_evtIsSavable
+
+            _List.Add(sf)
         Next
 
         Return Me
