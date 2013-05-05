@@ -10,20 +10,21 @@ namespace Site
 {
     public partial class NewStory : System.Web.UI.Page
     {   //Make a category list
-        CategoryList catList = new CategoryList();
+        protected CategoryList catList = new CategoryList();
         //make a fandom list
-        FandomList fandList = new FandomList();
+        protected FandomList fandList = new FandomList();
         //Make a genre list
-        GenreList genList = new GenreList();
+        protected GenreList genList = new GenreList();
         //Make a maturity list
-        MaturityList matList = new MaturityList();
+        protected MaturityList matList = new MaturityList();
         //Make a storyGenre
-        StoryGenre stryGenre = new StoryGenre();
+        protected StoryGenre stryGenre = new StoryGenre();
         //Make a storyFandom
-        StoryFandom stryFandom = new StoryFandom();
+        protected StoryFandom stryFandom = new StoryFandom();
         //Make a userStory
-        UserStory strysUsers = new UserStory();
-              
+        protected UserStory strysUsers = new UserStory();
+        //Make a User
+        protected User usr = new User();              
         
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -109,7 +110,9 @@ namespace Site
                 strysUsers.StoryID = story.Id;
                 stryGenre.StoryID = story.Id;
                 stryFandom.StoryID = story.Id;
-                save_Bridges();                            
+                save_Bridges();
+                usr = usr.GetById(new Guid(Session["UserID"].ToString()));
+                usr.StoryAmount = usr.StoryAmount + 1;
             }
         }
 
