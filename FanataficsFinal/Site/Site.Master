@@ -35,6 +35,8 @@
                             <li><a href="Registration.aspx">Register</a></li>
                             <li><a href="#contact">Contact</a></li>
                             <a href="AddChapter.aspx">AddChapter.aspx</a>
+                            <a href="EditChapters.aspx">EditChapters.aspx</a>
+                        
                         </ul>
                  </div>
                  <!--/.nav-collapse-->

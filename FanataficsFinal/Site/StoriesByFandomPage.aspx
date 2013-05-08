@@ -7,8 +7,7 @@
     <div class="container-fluid">
         <div class="span5">
             <asp:Repeater ID="rptStories" runat="server" 
-                OnItemDataBound="rptStories_ItemDataBound" 
-                ondatabinding="rptStories_DataBinding">
+                OnItemDataBound="rptStories_ItemDataBound" >
                 <HeaderTemplate>
                     <table>
                         <thead>

@@ -1,15 +1,16 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
-    CodeBehind="AddChapter.aspx.cs" Inherits="Site.AddChapter" ValidateRequest="false" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditChapters.aspx.cs" Inherits="Site.EditChapters" ValidateRequest="false"%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <script src="ckeditor/ckeditor.js" type="text/javascript"></script>
+<script src="ckeditor/ckeditor.js" type="text/javascript"></script>
     <script src="Assets/js/jquery-1.7.2.min.js" type="text/javascript"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="form-horizontal">
+<div class="form-horizontal">
         <!-- Form Name -->
         <h2>
             Scribbler&#39;s Corner</h2>
+        <p>
+
+        </p>
   
         <%--        Div for all the editing stuff (ddlChapter, txtChapTitle, the editor and save buttons)--%>
         <div id="dvEdits" runat="server">
@@ -20,12 +21,23 @@
                 <br />
                 <div class="controls">
                     <asp:DropDownList ID="ddlStory" class="input-xlarge" DataTextField="Title" DataValueField="ID"
-                        runat="server" OnSelectedIndexChanged="ddlStory_SelectedIndexChanged" AutoPostBack="true">
+                        runat="server" OnSelectedIndexChanged="ddlStory_SelectedIndexChanged" 
+                        AutoPostBack="true" ondatabound="ddlStory_DataBound">
                         <asp:ListItem Selected="True" Text="Choose a Story"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
             </div>
-           
+            <!-- Select Basic -->
+            <div class="control-group">
+                <label id="lblChooseChap" runat="server" class="control-label" visible="false">
+                    Choose Chapter</label>
+                <div class="controls">
+                    <asp:DropDownList ID="ddlChapters" runat="server" DataTextField="Title" DataValueField="ID"
+                        OnSelectedIndexChanged="ddlChapters_SelectedIndexChanged" AutoPostBack="true" ondatabound="ddlChapters_DataBound" Enabled="false">
+                        <asp:ListItem Selected="True" Text="Choose a Story"></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+            </div>
             <!-- Text input-->
             <div class="control-group">
                 <label class="control-label" id="lblChapterTitle" runat="server" visible="false">
@@ -38,7 +50,7 @@
             </div>
             <div id="textArea">
                 <textarea id="editor1" name="editor1"></textarea>
-                <asp:HiddenField ID="hidnEdit" runat="server" />
+                <asp:HiddenField ID="hidnExisting" runat="server" />
                 <%--                Javascript for getting and setting the text of the editor--%>
                 <script type="text/javascript">
                     CKEDITOR.replace('editor1');
@@ -47,16 +59,16 @@
                     //instance
                     function getText() {
                         var editorText = CKEDITOR.instances.editor1.getData();
-                        document.getElementById('<%= hidnEdit.ClientID %>').value = editorText;
+                        document.getElementById('<%= hidnExisting.ClientID %>').value = editorText;
                     }
 
                     function setText() {
-                        var editorText = document.getElementById('<%= hidnEdit.ClientID %>').value
+                        var editorText = document.getElementById('<%= hidnExisting.ClientID %>').value
                         CKEDITOR.instances.editor1.setData(editorText);
                     }
 
                 </script>
-                <asp:Button ID="btnAddChapter" runat="server" Text="Add Chapter" class="input-large"
+                <asp:Button ID="btnSaveChanges" runat="server" Text="Save Changes" class="input-large"
                     OnClientClick="getText()" OnClick="btnSaveChanges_Click" />
             </div>
         </div>

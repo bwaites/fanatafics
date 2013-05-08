@@ -25,6 +25,7 @@
             </td>
             <td>
                 &nbsp;
+                <asp:HyperLink ID="hlReviews" runat="server">Reviews</asp:HyperLink>
             </td>
         </tr>
         <tr>
@@ -48,12 +49,57 @@
             </td>
             <td>
                 <asp:DropDownList ID="ddlChapterList" runat="server" DataTextField="Title" DataValueField="ID"
-                    OnSelectedIndexChanged="ddlChapterList_SelectedIndexChanged" AutoPostBack="true">
+                    OnSelectedIndexChanged="ddlChapterList_SelectedIndexChanged" 
+                    AutoPostBack="true" ondatabound="ddlChapterList_DataBound">
+                <asp:ListItem Selected="True" Text="Chapter List"></asp:ListItem>
                 </asp:DropDownList>
-                <asp:ListItem Selected="True">
-                </asp:ListItem>
-               
+
             </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;</td>
+            <td>
+                <asp:Label ID="lblReview" runat="server" Text="Review"></asp:Label>
+            </td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                <asp:Label ID="lblReviewerName" runat="server" Text="ReviewerName"></asp:Label>
+            </td>
+            <td>
+                <asp:TextBox ID="txtGuestReviewer" runat="server"></asp:TextBox>
+            </td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;</td>
+            <td>
+                <textarea id="txtaReview" cols="20" name="S1" rows="5" runat="server"></textarea></td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;</td>
+            <td>
+                <asp:Button ID="btnSubmit" runat="server" onclick="btnSubmit_Click" 
+                    Text="Submit" />
+            </td>
+            <td>
+                &nbsp;</td>
         </tr>
     </table>
 </asp:Content>

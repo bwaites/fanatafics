@@ -291,6 +291,8 @@
     <Content Include="ckeditor\skins\moono\images\close.png" />
     <Content Include="ckeditor\skins\moono\images\mini.png" />
     <Content Include="ckeditor\styles.js" />
+    <Content Include="EditChapters.aspx" />
+    <Content Include="ReviewsPage.aspx" />
     <Content Include="StoriesByFandomPage.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="FandomPage.aspx" />
@@ -320,6 +322,20 @@
     </Compile>
     <Compile Include="AddChapter.aspx.designer.cs">
       <DependentUpon>AddChapter.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditChapters.aspx.cs">
+      <DependentUpon>EditChapters.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditChapters.aspx.designer.cs">
+      <DependentUpon>EditChapters.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReviewsPage.aspx.cs">
+      <DependentUpon>ReviewsPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReviewsPage.aspx.designer.cs">
+      <DependentUpon>ReviewsPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="StoriesByFandomPage.aspx.cs">
       <DependentUpon>StoriesByFandomPage.aspx</DependentUpon>

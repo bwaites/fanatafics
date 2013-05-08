@@ -14,6 +14,8 @@ namespace Site
             if (Session["UserName"] != null)
             {
                 lblLogin.Text = Session["UserName"].ToString();
+               
+                
             }
             
             if (!IsPostBack)

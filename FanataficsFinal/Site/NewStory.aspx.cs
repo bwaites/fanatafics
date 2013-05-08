@@ -24,8 +24,8 @@ namespace Site
         //Make a userStory
         protected UserStory strysUsers = new UserStory();
         //Make a User
-        protected User usr = new User();              
-        
+        protected User usr = new User();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -33,17 +33,17 @@ namespace Site
                 //if page hasn't been loaded, then load the following ddls
                 ddlCategory_Populate();
                 ddlGenre_Populate();
-                ddlMaturity_Populate();               
+                ddlMaturity_Populate();
             }
             else
             {
                 //if page /has/ been loaded, then populate the ddlFandom
-                ddlFandom_Populate();                
-            }            
+                ddlFandom_Populate();
+            }
         }
 
-        void ddlCategory_Populate()
-        {            
+        protected void ddlCategory_Populate()
+        {
             //Get all categories
             catList = catList.GetAll();
             //Bind the types of Categories to ddlCategory
@@ -52,22 +52,20 @@ namespace Site
             ddlCategory.DataValueField = "ID";
             ddlCategory.DataBind();
         }
-
-        void ddlFandom_Populate()
+        protected void ddlFandom_Populate()
         {
             //Check and see if the items in ddlCategory were loaded
             if (ddlCategory.Items.Count > 0)
-            {                
+            {
                 //Get fandoms based on categoryID
                 fandList = fandList.GetByCategoryID(new Guid(ddlCategory.SelectedValue));
                 //binds the list to ddlFandom
                 ddlFandom.DataSource = fandList.List;
-                ddlFandom.DataBind();                               
+                ddlFandom.DataBind();
             }
         }
-
-        void ddlGenre_Populate()
-        {            
+        protected void ddlGenre_Populate()
+        {
             //Get all of the list
             genList.GetAll();
             //Bind list to ddlGenre, displaying GenreType
@@ -76,9 +74,8 @@ namespace Site
             ddlGenre.DataValueField = "ID";
             ddlGenre.DataBind();
         }
-
-        void ddlMaturity_Populate()
-        {            
+        protected void ddlMaturity_Populate()
+        {
             //Get all of maturity levels
             matList.GetAll();
             //Bind levels to ddlMaturity, displaying level
@@ -88,7 +85,12 @@ namespace Site
             ddlMaturity.DataBind();
         }
 
-        void Add_Story()
+        protected void btnAddStory_Click(object sender, EventArgs e)
+        {
+            //calls Add_Story method
+            Add_Story();
+        }
+        protected void Add_Story()
         {
             //make a new story object
             Story story = new Story();
@@ -107,17 +109,21 @@ namespace Site
             if (story.IsSavable() == true)
             {
                 story = story.Save();
+                //set the storyIDs of stryUsers, stryGenre and StryFandom to be the id of the story
                 strysUsers.StoryID = story.Id;
                 stryGenre.StoryID = story.Id;
                 stryFandom.StoryID = story.Id;
+                //call save_Bridges
                 save_Bridges();
+                //get user by ID based on session
                 usr = usr.GetById(new Guid(Session["UserID"].ToString()));
+                //increase storyamount by 1
                 usr.StoryAmount = usr.StoryAmount + 1;
             }
         }
-
         protected void save_Bridges()
         {
+            //check if each bridge is savable, if it is, save them.
             if (stryFandom.IsSavable() == true)
             {
                 stryFandom.Save();
@@ -132,10 +138,5 @@ namespace Site
                 strysUsers.Save();
             }
         }
-        protected void btnAddStory_Click(object sender, EventArgs e)
-        {
-            //calls Add_Story method
-            Add_Story();
-        }        
     }
 }

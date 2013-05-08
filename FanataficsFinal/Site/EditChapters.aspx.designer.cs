@@ -10,7 +10,7 @@
 namespace Site {
     
     
-    public partial class AddChapter {
+    public partial class EditChapters {
         
         /// <summary>
         /// dvEdits control.
@@ -40,6 +40,24 @@ namespace Site {
         protected global::System.Web.UI.WebControls.DropDownList ddlStory;
         
         /// <summary>
+        /// lblChooseChap control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblChooseChap;
+        
+        /// <summary>
+        /// ddlChapters control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlChapters;
+        
+        /// <summary>
         /// lblChapterTitle control.
         /// </summary>
         /// <remarks>
@@ -58,12 +76,12 @@ namespace Site {
         protected global::System.Web.UI.WebControls.TextBox txtChapTitle;
         
         /// <summary>
-        /// btnAddChapter control.
+        /// btnSaveChanges control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddChapter;
+        protected global::System.Web.UI.WebControls.Button btnSaveChanges;
     }
 }

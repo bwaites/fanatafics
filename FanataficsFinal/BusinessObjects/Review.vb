@@ -161,17 +161,11 @@ Public Class Review
             result = False
         End If
 
-
-
         If _ReviewContent.Trim = String.Empty Then
             result = False
         End If
 
-        If _ReviewContent.Length > 12 Then
-            result = False
-        End If
-
-        If _ReviewerName > 20 Then
+        If _ReviewContent.Length > 500 Then
             result = False
         End If
 
@@ -183,7 +177,10 @@ Public Class Review
 #Region " Public Methods "
     Public Function Save() As Review
         Dim db As New Database(My.Settings.ConnectionName)
+        db.BeginTransaction(My.Settings.ConnectionName)
+
         Dim result As Boolean = True
+
 
         If MyBase.IsNew = True AndAlso MyBase.IsDirty = True AndAlso IsValid() = True Then
             result = Insert(db)
@@ -194,8 +191,9 @@ Public Class Review
         End If
 
         If result = True Then
-            MyBase.IsDirty = False
-            MyBase.IsNew = False
+            db.EndTransaction()
+        Else
+            db.RollbackTransaction()
         End If
 
         Return Me
@@ -233,6 +231,35 @@ Public Class Review
         End If
 
     End Function
+
+    Public Function GetByChapterID(id As Guid) As Review
+
+        Dim db As New Database(My.Settings.ConnectionName)
+        Dim ds As DataSet = Nothing
+        db.Command.CommandType = CommandType.StoredProcedure
+        db.Command.CommandText = "tblReview_getByChapterID"
+        db.Command.Parameters.Add("@ChapterID", SqlDbType.UniqueIdentifier).Value = id
+        ds = db.ExecuteQuery()
+
+        If ds.Tables(0).Rows.Count = 1 Then
+            Dim dr As DataRow = ds.Tables(0).Rows(0)
+            MyBase.Initialize(dr)
+            InitializeBusinessData(dr)
+            MyBase.IsNew = False
+            MyBase.IsDirty = False
+
+            Return Me
+        Else
+            If ds.Tables(0).Rows.Count = 0 Then
+                Throw New Exception(String.Format("Review was not found", id))
+            Else
+                Throw New Exception(String.Format("Reviews{0} found multiple records", id))
+            End If
+        End If
+
+    End Function
+
+
     Public Sub InitializeBusinessData(dr As DataRow)
         _ChapterID = dr("ChapterID")
         _ReviewerName = dr("ReviewerName")
