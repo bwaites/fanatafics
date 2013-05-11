@@ -6,8 +6,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container-fluid">
         <div class="span5">
-            <asp:Repeater ID="rptStories" runat="server" 
-                OnItemDataBound="rptStories_ItemDataBound" >
+            <asp:Repeater ID="rptStories" runat="server" OnItemDataBound="rptStories_ItemDataBound">
                 <HeaderTemplate>
                     <table>
                         <thead>
@@ -24,9 +23,10 @@
                         <td>
                             <a href='StoryPage.aspx?StoryID=<%# DataBinder.Eval(Container.DataItem,"Id") %>'>
                                 <%# DataBinder.Eval(Container.DataItem,"Title") %></a>
-                                <asp:HiddenField ID="hidnID" Value='<%# DataBinder.Eval(Container.DataItem, "Id") %>' runat="server"/>
-                                <asp:Label ID="lblAuthor" runat="server" Text="Author Name"></asp:Label>
-                        </td>                        
+                            <asp:HiddenField ID="hidnID" Value='<%# DataBinder.Eval(Container.DataItem, "Id") %>'
+                                runat="server" />
+                            <asp:HyperLink ID="hlAuthor" runat="server" NavigateUrl="~/UserPage.aspx">HyperLink</asp:HyperLink>
+                        </td>
                     </tr>
                     <tr>
                         <td>
