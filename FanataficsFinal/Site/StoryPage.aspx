@@ -21,7 +21,7 @@
                 <asp:Label ID="lblStoryTitle" runat="server" Text="StoryTitleGoesHere"></asp:Label>
             </td>
             <td>
-                <asp:Label ID="lblAuthor" runat="server" Text="Author Name"></asp:Label>
+                <asp:HyperLink ID="hlAuthor" runat="server" Text="Author Name"></asp:HyperLink>
             </td>
             <td>
                 &nbsp;

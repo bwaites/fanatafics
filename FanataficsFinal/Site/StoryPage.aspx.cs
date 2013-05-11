@@ -88,7 +88,9 @@ namespace Site
             //get the user by the story's id
             usr = usr.GetUserByStoryID(storyID);
             //set lblAuthor.Text to username of story
-            lblAuthor.Text = usr.UserName;
+            hlAuthor.Text = usr.UserName;
+            hlAuthor.NavigateUrl = "~/UserPage.aspx?UserID=" + usr.Id;
+            
         }
 
         protected void getReviews()

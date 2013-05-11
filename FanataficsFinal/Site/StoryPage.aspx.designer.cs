@@ -22,13 +22,13 @@ namespace Site {
         protected global::System.Web.UI.WebControls.Label lblStoryTitle;
         
         /// <summary>
-        /// lblAuthor control.
+        /// hlAuthor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAuthor;
+        protected global::System.Web.UI.WebControls.HyperLink hlAuthor;
         
         /// <summary>
         /// hlReviews control.
