@@ -13,8 +13,9 @@ namespace Site
         {
             if (Session["UserName"] != null)
             {
-                lblLogin.Text = Session["UserName"].ToString();
-               
+                hlLogin.Text = Session["UserName"].ToString();
+                Guid usrID = new Guid(Session["UserID"].ToString());
+                hlLogin.NavigateUrl = "~/AccountSettings.aspx?UserID=" + usrID; 
                 
             }
             

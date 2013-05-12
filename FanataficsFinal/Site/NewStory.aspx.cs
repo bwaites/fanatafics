@@ -9,28 +9,20 @@ using BusinessObjects;
 namespace Site
 {
     public partial class NewStory : System.Web.UI.Page
-    {   //Make a category list
-        protected CategoryList catList = new CategoryList();
-        //make a fandom list
-        protected FandomList fandList = new FandomList();
-        //Make a genre list
-        protected GenreList genList = new GenreList();
-        //Make a maturity list
-        protected MaturityList matList = new MaturityList();
-        //Make a storyGenre
+    {   
         protected StoryGenre stryGenre = new StoryGenre();
         //Make a storyFandom
         protected StoryFandom stryFandom = new StoryFandom();
         //Make a userStory
         protected UserStory strysUsers = new UserStory();
-        //Make a User
-        protected User usr = new User();
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
                 //if page hasn't been loaded, then load the following ddls
+
                 ddlCategory_Populate();
                 ddlGenre_Populate();
                 ddlMaturity_Populate();
@@ -44,6 +36,7 @@ namespace Site
 
         protected void ddlCategory_Populate()
         {
+            CategoryList catList = new CategoryList();
             //Get all categories
             catList = catList.GetAll();
             //Bind the types of Categories to ddlCategory
@@ -57,6 +50,8 @@ namespace Site
             //Check and see if the items in ddlCategory were loaded
             if (ddlCategory.Items.Count > 0)
             {
+                FandomList fandList = new FandomList();
+
                 //Get fandoms based on categoryID
                 fandList = fandList.GetByCategoryID(new Guid(ddlCategory.SelectedValue));
                 //binds the list to ddlFandom
@@ -66,6 +61,7 @@ namespace Site
         }
         protected void ddlGenre_Populate()
         {
+            GenreList genList = new GenreList();
             //Get all of the list
             genList.GetAll();
             //Bind list to ddlGenre, displaying GenreType
@@ -76,6 +72,7 @@ namespace Site
         }
         protected void ddlMaturity_Populate()
         {
+            MaturityList matList = new MaturityList();
             //Get all of maturity levels
             matList.GetAll();
             //Bind levels to ddlMaturity, displaying level
@@ -116,6 +113,7 @@ namespace Site
                 //call save_Bridges
                 save_Bridges();
                 //get user by ID based on session
+                User usr = new User();
                 usr = usr.GetById(new Guid(Session["UserID"].ToString()));
                 //increase storyamount by 1
                 usr.StoryAmount = usr.StoryAmount + 1;

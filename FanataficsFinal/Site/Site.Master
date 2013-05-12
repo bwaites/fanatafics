@@ -27,7 +27,7 @@
                 <a class="brand" href="Default.aspx">Fanatafics</a>
                 <div class="nav-collapse collapse">
                      <p class="navbar-text pull-right">
-                        <asp:Label ID="lblLogin" runat="server" Text=""> </asp:Label>
+                        <asp:HyperLink ID="hlLogin" navigateUrl="~/AccountSettings.aspx" runat="server" Text=""> </asp:HyperLink>
                            <a class="btn btn-primary" id="btnLogin" href="Login.aspx" runat="server">Login</a>
                      </p>
                         <ul class="nav">

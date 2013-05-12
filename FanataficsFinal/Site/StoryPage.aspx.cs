@@ -104,7 +104,7 @@ namespace Site
             //set story ID to the value stored in querystring on storiesbyfandompage
             storyID = new Guid(Request.QueryString["StoryID"]);
             //make string called navUrl, set the value to a url with query parameters
-            String navUrl = "~/ReviewsPage.aspx?ChapterID=" + chapterID.ToString() + "&StoryID=" + storyID.ToString();
+            String navUrl = "~/ReviewsPage.aspx?ChapterID=" + chapterID + "&StoryID=" + storyID;
             //set hyperlink navigateurl of hlReviews to navUrl
             hlReviews.NavigateUrl = navUrl;
         }

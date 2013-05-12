@@ -18,8 +18,7 @@ namespace Site
         protected void Page_Load(object sender, EventArgs e)
         {
             //registering the handle of btnLogin
-            this.btnLogin.Click += new EventHandler(btnLogin_Click);
-  
+            this.btnLogin.Click += new EventHandler(btnLogin_Click);  
             
         }
 
@@ -43,16 +42,17 @@ namespace Site
                 //store UserID in guid
                 Guid usrID = new Guid(usr.Id.ToString());
                 //make a label called mpLabel, find the label called lblLogin in Master page
-                Label mpLabel = (Label)Master.FindControl("lblLogin");
+                HyperLink mpHyperLink = (HyperLink)Master.FindControl("hlLogin");
                 
-                if (mpLabel != null)
+                if (mpHyperLink != null)
                 {
                     //if mpLabel is not null then the mpLabel.Text equals login name
-                    mpLabel.Text = usrNme;
+                    mpHyperLink.Text = usrNme;
                     //save user name to session
-                    Session["UserName"] = mpLabel.Text;
+                    Session["UserName"] = mpHyperLink.Text;
                     //save user id to session
                     Session["UserID"] = usrID;
+                    
                     //transfer to the default page upon success
                     Server.Transfer("Default.aspx", true);
                 }                 

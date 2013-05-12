@@ -7,14 +7,13 @@ using System.Web.UI.WebControls;
 using BusinessObjects;
 namespace Site
 {
-    public partial class BatmanFandom : System.Web.UI.Page
+    public partial class StoriesByFandom : System.Web.UI.Page
     {
-        protected StoryList sl = new StoryList();      
-        protected StoryList stryByFandList = new StoryList();
-        protected UserStoryList usrStryList = new UserStoryList();
-        protected HyperLink pHyperlink = new HyperLink();
+        
         protected void Page_Load(object sender, EventArgs e)
         {
+            StoryList sl = new StoryList();      
+
             //make a fandomID guid, passing the value in a query string 
             //(value of query string is stored in repeater)
             Guid fandomID = new Guid(Request.QueryString["FandomID"]);

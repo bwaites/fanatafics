@@ -142,7 +142,7 @@ Public Class User
             'Add the parameter
             database.Command.Parameters.Add("@UserName", SqlDbType.VarChar).Value = _UserName
             database.Command.Parameters.Add("@Password", SqlDbType.VarChar).Value = _Password
-            database.Command.Parameters.Add("@Email", SqlDbType.UniqueIdentifier).Value = _Email
+            database.Command.Parameters.Add("@Email", SqlDbType.VarChar).Value = _Email
             database.Command.Parameters.Add("@SecurityQuestion", SqlDbType.VarChar).Value = _SecurityQuestion
             database.Command.Parameters.Add("@SecurityAnswer", SqlDbType.VarChar).Value = _SecurityAnswer
             database.Command.Parameters.Add("@StoryAmount", SqlDbType.Int).Value = _StoryAmount

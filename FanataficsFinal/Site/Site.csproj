@@ -51,6 +51,7 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AccountSettings.aspx" />
     <Content Include="AddChapter.aspx" />
     <Content Include="Assets\css\bootstrap-responsive.css" />
     <Content Include="Assets\css\bootstrap-responsive.min.css" />
@@ -291,6 +292,7 @@
     <Content Include="ckeditor\skins\moono\images\close.png" />
     <Content Include="ckeditor\skins\moono\images\mini.png" />
     <Content Include="ckeditor\styles.js" />
+    <Content Include="EditAccount.aspx" />
     <Content Include="EditChapters.aspx" />
     <Content Include="ReviewsPage.aspx" />
     <Content Include="StoriesByFandomPage.aspx" />
@@ -316,12 +318,26 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountSettings.aspx.cs">
+      <DependentUpon>AccountSettings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AccountSettings.aspx.designer.cs">
+      <DependentUpon>AccountSettings.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AddChapter.aspx.cs">
       <DependentUpon>AddChapter.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AddChapter.aspx.designer.cs">
       <DependentUpon>AddChapter.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditAccount.aspx.cs">
+      <DependentUpon>EditAccount.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditAccount.aspx.designer.cs">
+      <DependentUpon>EditAccount.aspx</DependentUpon>
     </Compile>
     <Compile Include="EditChapters.aspx.cs">
       <DependentUpon>EditChapters.aspx</DependentUpon>
