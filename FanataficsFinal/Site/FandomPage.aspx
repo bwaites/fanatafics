@@ -3,7 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
   <div class="container-fluid">
-        <div class="span5">
+        <div class="span4 well">
             
             <asp:Repeater ID="rptFandoms" runat="server">
                 <HeaderTemplate>
@@ -23,7 +23,7 @@
                    
                     </tr>
                 </ItemTemplate>
-                <SeparatorTemplate><br /></SeparatorTemplate>
+               
                 <FooterTemplate>
                     </tbody>
                     </table>

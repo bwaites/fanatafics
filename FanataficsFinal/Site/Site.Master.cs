@@ -11,18 +11,29 @@ namespace Site
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            var myNumb = Convert.ToInt32(Session["LoggedIn"]);
+            if (myNumb == 0)
+            {
+                dvLoggedIn.Visible = false;
+            }
+            else
+            {
+                dvLoggedIn.Visible = true;
+            }
+            
+
             if (Session["UserName"] != null)
             {
                 hlLogin.Text = Session["UserName"].ToString();
                 Guid usrID = new Guid(Session["UserID"].ToString());
-                hlLogin.NavigateUrl = "~/AccountSettings.aspx?UserID=" + usrID; 
+                hlLogin.NavigateUrl = "~/AccountSettings.aspx?UserID=" + usrID;
+                dvLoggedIn.Visible = true;
+                btnLogin.InnerText = "Logout";
+                Session["LoggedIn"] = 1;
                 
             }
             
-            if (!IsPostBack)
-            {
-                
-            }
+            
         }
     }
 }

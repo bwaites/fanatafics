@@ -18,8 +18,21 @@ namespace Site
         protected void Page_Load(object sender, EventArgs e)
         {
             //registering the handle of btnLogin
-            this.btnLogin.Click += new EventHandler(btnLogin_Click);  
-            
+            this.btnLogin.Click += new EventHandler(btnLogin_Click);
+            var myNumber = Convert.ToInt32(Session["LoggedIn"]);
+            if (myNumber == 1)
+            {
+                HyperLink mpHyperLink = (HyperLink)Master.FindControl("hlLogin");
+                if (mpHyperLink != null)
+                {
+                    mpHyperLink.Enabled = false;
+                    
+                    Session["LoggedIn"] = 0;
+                    btnLogin.Text = "Log In";
+                    Server.Transfer("Default.aspx", true);
+                    
+                }
+            }
         }
 
         void btnLogin_Click(object sender, EventArgs e)
@@ -34,16 +47,16 @@ namespace Site
             User usr = new User();
             //calls Login property of user that uses storage procedure to check login
             usr.Login(UserName, ecryptPassword);
-            
+
             if (!usr.IsNew)
-            { 
+            {
                 //store username in string
                 String usrNme = usr.UserName;
                 //store UserID in guid
                 Guid usrID = new Guid(usr.Id.ToString());
                 //make a label called mpLabel, find the label called lblLogin in Master page
                 HyperLink mpHyperLink = (HyperLink)Master.FindControl("hlLogin");
-                
+
                 if (mpHyperLink != null)
                 {
                     //if mpLabel is not null then the mpLabel.Text equals login name
@@ -52,19 +65,18 @@ namespace Site
                     Session["UserName"] = mpHyperLink.Text;
                     //save user id to session
                     Session["UserID"] = usrID;
-                    
+                    Session["LoggedIn"] = 1;
+
                     //transfer to the default page upon success
                     Server.Transfer("Default.aspx", true);
-                }                 
+                }
             }
             else
             {
                 //if not successful, transfer user to registration page
                 Server.Transfer("Registration.aspx", true);
+                Session["LoggedIn"] = 0;
             }
- 
         }
-
-      
     }
 }

@@ -12,7 +12,7 @@
             Scribbler&#39;s Corner</h2>
   
         <%--        Div for all the editing stuff (ddlChapter, txtChapTitle, the editor and save buttons)--%>
-        <div id="dvEdits" runat="server">
+        <div class="span6 well" id="dvEdits" runat="server">
             <!-- Select Basic -->
             <div class="control-group">
                 <asp:Label ID="lblChooseStory" runat="server" Text="Choose a Story"></asp:Label>

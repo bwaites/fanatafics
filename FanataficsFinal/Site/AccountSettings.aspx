@@ -18,6 +18,7 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<div class="span5 well">
     <table cellpadding="3" class="style1">
     <tr>
         <td class="style2">
@@ -159,4 +160,5 @@
             &nbsp;</td>
     </tr>
 </table>
+</div>
 </asp:Content>

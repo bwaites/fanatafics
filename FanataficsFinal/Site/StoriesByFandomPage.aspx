@@ -5,7 +5,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container-fluid">
-        <div class="span5">
+        <div class="span5 well">
             <asp:Repeater ID="rptStories" runat="server" OnItemDataBound="rptStories_ItemDataBound">
                 <HeaderTemplate>
                     <table>

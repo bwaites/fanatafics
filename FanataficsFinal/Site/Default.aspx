@@ -5,7 +5,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container-fluid">
-        <div class="span5">
+        <div class="span3 well">
             <asp:Repeater ID="rptCategories" runat="server">
                 <HeaderTemplate>
                     <table>
@@ -27,7 +27,6 @@
                     </tr>
                 </ItemTemplate>
                 <SeparatorTemplate>
-                    <br />
                 </SeparatorTemplate>
                 <FooterTemplate>
                     </tbody> </table>
