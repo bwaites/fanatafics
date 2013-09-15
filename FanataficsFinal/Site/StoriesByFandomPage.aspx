@@ -5,40 +5,27 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container-fluid">
-        <div class="span5 well">
+        <div class="span8 well" id="content">
             <asp:Repeater ID="rptStories" runat="server" OnItemDataBound="rptStories_ItemDataBound">
                 <HeaderTemplate>
-                    <table>
-                        <thead>
-                            <tr align="center">
-                                <td>
-                                    Stories
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    <div class="post">
                 </HeaderTemplate>
                 <ItemTemplate>
-                    <tr>
-                        <td>
-                            <a href='StoryPage.aspx?StoryID=<%# DataBinder.Eval(Container.DataItem,"Id") %>'>
-                                <%# DataBinder.Eval(Container.DataItem,"Title") %></a>
-                            <asp:HiddenField ID="hidnID" Value='<%# DataBinder.Eval(Container.DataItem, "Id") %>'
-                                runat="server" />
-                            <asp:HyperLink ID="hlAuthor" runat="server" NavigateUrl="~/UserPage.aspx">HyperLink</asp:HyperLink>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <%# DataBinder.Eval(Container.DataItem,"Summary") %>
-                        </td>
-                    </tr>
+                    <h1>
+                        <a href='StoryPage.aspx?StoryID=<%# DataBinder.Eval(Container.DataItem,"Id") %>'>
+                            <%# DataBinder.Eval(Container.DataItem,"Title") %></a>
+                        <asp:HiddenField ID="hidnID" Value='<%# DataBinder.Eval(Container.DataItem, "Id") %>'
+                            runat="server" />
+                    </h1>
+                    <span class="posted">Scribbler:&nbsp;
+                        <asp:HyperLink ID="hlAuthor" runat="server" NavigateUrl="~/UserPage.aspx">HyperLink</asp:HyperLink>
+                    </span>
+                    <div class="entry">
+                        <%# DataBinder.Eval(Container.DataItem,"Summary") %>
+                    </div>
                 </ItemTemplate>
-                <SeparatorTemplate>
-                    <br />
-                </SeparatorTemplate>
                 <FooterTemplate>
-                    </tbody> </table>
+                    </div>
                 </FooterTemplate>
             </asp:Repeater>
         </div>

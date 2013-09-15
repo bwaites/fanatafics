@@ -9,7 +9,7 @@
     <div class="form-horizontal">
         <!-- Form Name -->
         <h2>
-            Scribbler&#39;s Corner</h2>
+            </h2>
   
         <%--        Div for all the editing stuff (ddlChapter, txtChapTitle, the editor and save buttons)--%>
         <div class="span6 well" id="dvEdits" runat="server">
@@ -20,7 +20,8 @@
                 <br />
                 <div class="controls">
                     <asp:DropDownList ID="ddlStory" class="input-xlarge" DataTextField="Title" DataValueField="ID"
-                        runat="server" OnSelectedIndexChanged="ddlStory_SelectedIndexChanged" AutoPostBack="true">
+                        runat="server" OnSelectedIndexChanged="ddlStory_SelectedIndexChanged" 
+                        AutoPostBack="true" >
                         <asp:ListItem Selected="True" Text="Choose a Story"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
@@ -51,13 +52,15 @@
                     }
 
                     function setText() {
-                        var editorText = document.getElementById('<%= hidnEdit.ClientID %>').value
+                        var editorText = document.getElementById('<%= hidnEdit.ClientID %>').value;
                         CKEDITOR.instances.editor1.setData(editorText);
                     }
 
                 </script>
                 <asp:Button ID="btnAddChapter" runat="server" Text="Add Chapter" class="input-large"
-                    OnClientClick="getText()" OnClick="btnSaveChanges_Click" />
+                    OnClientClick="getText()" OnClick="btnAddChapter_Click" />
+                <asp:Button ID="btnGoToEdit" runat="server" Text="Edit Chapter(s)" 
+                    class="input-large" OnClick="btnGoToEdit_Click" />
             </div>
         </div>
     </div>

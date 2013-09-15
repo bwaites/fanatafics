@@ -8,28 +8,22 @@
         <div class="span3 well">
             <asp:Repeater ID="rptCategories" runat="server">
                 <HeaderTemplate>
-                    <table>
-                        <thead>
-                            <tr align="center">
-                                <td>
-                                    Fanatical Categories
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    <div id="sidebar">
+                        <h1>
+                            Fanatical Categories</h1>
+                        <ul>
                 </HeaderTemplate>
                 <ItemTemplate>
-                    <tr>
-                        <td>
+                    <li>
+                        <h3>
                             <a href='FandomPage.aspx?CategoryID=<%# DataBinder.Eval(Container.DataItem,"Id") %>'>
-                                <%# DataBinder.Eval(Container.DataItem,"Type") %></a>
-                        </td>
-                    </tr>
+                                <%# DataBinder.Eval(Container.DataItem,"Type") %></a></h3>
+                    </li>
                 </ItemTemplate>
                 <SeparatorTemplate>
                 </SeparatorTemplate>
                 <FooterTemplate>
-                    </tbody> </table>
+                    </ul></div>
                 </FooterTemplate>
             </asp:Repeater>
         </div>

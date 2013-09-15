@@ -63,6 +63,7 @@
     <Content Include="Assets\css\wysiwyg-color.css" />
     <Content Include="Assets\img\glyphicons-halflings-white.png" />
     <Content Include="Assets\img\glyphicons-halflings.png" />
+    <Content Include="Assets\img\header.png" />
     <Content Include="Assets\img\nicEditorIcons.gif" />
     <Content Include="Assets\js\bootstrap-button.js" />
     <Content Include="Assets\js\bootstrap-wysihtml5.js" />
@@ -293,7 +294,9 @@
     <Content Include="ckeditor\skins\moono\images\mini.png" />
     <Content Include="ckeditor\styles.js" />
     <Content Include="EditChapters.aspx" />
+    <Content Include="EditStory.aspx" />
     <Content Include="ReviewsPage.aspx" />
+    <Content Include="ScribblersCorner.aspx" />
     <Content Include="StoriesByFandomPage.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="FandomPage.aspx" />
@@ -305,6 +308,7 @@
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
     <Content Include="StoryPage.aspx" />
+    <Content Include="testStoryPage.aspx" />
     <Content Include="UserPage.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -338,12 +342,26 @@
     <Compile Include="EditChapters.aspx.designer.cs">
       <DependentUpon>EditChapters.aspx</DependentUpon>
     </Compile>
+    <Compile Include="EditStory.aspx.cs">
+      <DependentUpon>EditStory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditStory.aspx.designer.cs">
+      <DependentUpon>EditStory.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ReviewsPage.aspx.cs">
       <DependentUpon>ReviewsPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ReviewsPage.aspx.designer.cs">
       <DependentUpon>ReviewsPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ScribblersCorner.aspx.cs">
+      <DependentUpon>ScribblersCorner.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ScribblersCorner.aspx.designer.cs">
+      <DependentUpon>ScribblersCorner.aspx</DependentUpon>
     </Compile>
     <Compile Include="StoriesByFandomPage.aspx.cs">
       <DependentUpon>StoriesByFandomPage.aspx</DependentUpon>
@@ -414,6 +432,13 @@
     <Compile Include="StoryPage.aspx.designer.cs">
       <DependentUpon>StoryPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="testStoryPage.aspx.cs">
+      <DependentUpon>testStoryPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="testStoryPage.aspx.designer.cs">
+      <DependentUpon>testStoryPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="UserPage.aspx.cs">
       <DependentUpon>UserPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -423,7 +448,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Accounts\" />
     <Folder Include="App_Data\" />
+    <Folder Include="ScribblerPublishing\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Site.Master" />

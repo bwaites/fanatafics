@@ -8,7 +8,7 @@ sub,sup{position:relative;font-size:75%;line-height:0;vertical-align:baseline;}
 sup{top:-0.5em;}
 sub{bottom:-0.25em;}
 img{height:auto;border:0;-ms-interpolation-mode:bicubic;vertical-align:middle;}
-button,input,select,textarea{margin:24px 0 0 0;
+button,input,select,textarea{margin:0px 12px 0 0;
 font-size:100%;vertical-align:middle;
 }
 button,input{*overflow:visible;line-height:normal;}
@@ -120,19 +120,24 @@ legend{display:block;width:100%;padding:0;margin-bottom:27px;font-size:19.5px;li
 label,input,button,select,textarea{font-size:13px;font-weight:normal;line-height:18px;}
 input,button,select,textarea{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;}
 label{display:block;margin-bottom:5px;color:#333333;}
-input,textarea,select,.uneditable-input{display:inline-block;width:210px;height:18px;padding:4px;margin-bottom:9px;font-size:13px;line-height:18px;color:#555555;border:1px solid #cccccc;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;}
+input,textarea,select,.uneditable-input{display:inline-block;width:565px;
+padding:4px;margin-bottom:9px;font-size:13px;line-height:18px;color:#555555;border:1px solid #cccccc;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;
+}
 .uneditable-textarea{width:auto;height:auto;}
 label input,label textarea,label select{display:block;}
 input[type="image"],input[type="checkbox"],input[type="radio"]{width:auto;height:auto;padding:0;margin:3px 0;*margin-top:0;line-height:normal;cursor:pointer;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;border:0 \9;}
 input[type="image"]{border:0;}
 input[type="file"]{width:auto;padding:initial;line-height:initial;border:initial;background-color:#ffffff;background-color:initial;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;}
 input[type="button"],input[type="reset"],input[type="submit"]{width:auto;height:auto;}
-select,input[type="file"]{height:28px;*margin-top:4px;line-height:28px;}
+select,input[type="file"]{height:28px;*margin-top:5px;
+line-height:28px;
+}
 input[type="file"]{line-height:18px \9;}
 select{width:220px;background-color:#ffffff;}
 select[multiple],select[size]{height:auto;}
 input[type="image"]{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;}
-textarea{height:auto;}
+textarea{
+}
 input[type="hidden"]{display:none;}
 .radio,.checkbox{padding-left:18px;}
 .radio input[type="radio"],.checkbox input[type="checkbox"]{float:left;margin-left:-18px;}
@@ -149,7 +154,8 @@ input[type="file"]:focus,input[type="radio"]:focus,input[type="checkbox"]:focus,
 .input-xlarge{width:270px;}
 .input-xxlarge{width:530px;}
 input[class*="span"],select[class*="span"],textarea[class*="span"],.uneditable-input{float:none;margin-left:0;}
-input,textarea,.uneditable-input{margin-left:0;}
+input,textarea,.uneditable-input{margin-left:0px;
+}
 input.span12, textarea.span12, .uneditable-input.span12{width:930px;}
 input.span11, textarea.span11, .uneditable-input.span11{width:850px;}
 input.span10, textarea.span10, .uneditable-input.span10{width:770px;}

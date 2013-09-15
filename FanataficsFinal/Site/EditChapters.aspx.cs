@@ -19,9 +19,20 @@ namespace Site
             //check for postback
             if (!Page.IsPostBack)
             {
-                //if page hasn't posted back, populate ddlStory
-                ddlStory_Populate();
+                //make a number called myNumb and give it a value from session LoggedIn
+                var myNumb = Convert.ToInt32(Session["LoggedIn"]);
+                if (myNumb <= 0)
+                {
+                    //if myNumb is less than or equal to zero, assume there is no one logged in
+                }
+                else
+                {
+                    //if myNumb is equal to anything else, assume user is logged in and populate the following
+                    ddlStory_Populate();
+                    ddlChapters_Populate();
+                }
             }
+             
         }
 
         void ddlStory_Populate()
@@ -43,19 +54,19 @@ namespace Site
         {
             //call ddlChapters_Populate
             ddlChapters_Populate();
+            
         }
         protected void ddlStory_DataBound(object sender, EventArgs e)
         {
             //after ddlStory has been bound, populate ddlChapters
-            ddlChapters_Populate();
         }
         
         protected void ddlChapters_DataBound(object sender, EventArgs e)
         {
-            //try to get chapter by ID taken from ddlChapters.SelectedValue
-            chap = chap.GetById(new Guid(ddlChapters.SelectedValue));
-            //call loadChapterContent
-            loadChapterContent(chap.Title, chap.ChapterContent);
+            ////try to get chapter by ID taken from ddlChapters.SelectedValue
+            //chap = chap.GetById(new Guid(ddlChapters.SelectedValue));
+            ////call loadChapterContent
+            //loadChapterContent(chap.Title, chap.ChapterContent);
         }
         void ddlChapters_Populate()
         {
@@ -68,6 +79,9 @@ namespace Site
             ddlChapters.DataTextField = "Title";
             ddlChapters.DataValueField = "ID";
             ddlChapters.DataBind();
+
+            ddlChapters.SelectedIndex = ddlChapters.Items.IndexOf(ddlChapters.Items.FindByValue(chap.Id.ToString()));
+            
         }
         protected void ddlChapters_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -79,6 +93,11 @@ namespace Site
                 //call loadChapterContent
                 loadChapterContent(chap.Title, chap.ChapterContent);
             }
+        }
+
+        void getChapterContent()
+        {
+            
         }
         void loadChapterContent(string title, string content)
         {
@@ -108,6 +127,7 @@ namespace Site
 
         protected void btnSaveChanges_Click(object sender, EventArgs e)
         {
+
             //call editExistingChapter()
             editExistingChapter();
             //checks to see if chap is savable

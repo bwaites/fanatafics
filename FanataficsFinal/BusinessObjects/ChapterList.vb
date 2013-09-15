@@ -16,7 +16,7 @@ Public Class ChapterList
         End Get
     End Property
 
-    Public WriteOnly Property StoryID As Guid
+    Public Property StoryID As Guid
         Set(value As Guid)
             If value <> Guid.Empty Then
                 _Criteria.Fields.Add("StoryID")
@@ -24,6 +24,10 @@ Public Class ChapterList
                 _Criteria.Types.Add(DataTypeHelper.Type.DataType.String_Contains)
             End If
         End Set
+        Get
+            Return StoryID
+
+        End Get
     End Property
 
     Public WriteOnly Property Title As String
@@ -90,7 +94,20 @@ Public Class ChapterList
         Return Me
 
     End Function
+    Public Function DeleteByStoryID(id As Guid) As ChapterList
+        Try
+            Dim db As New Database(My.Settings.ConnectionName)
+            Dim ds As DataSet = Nothing
+            db.Command.CommandType = CommandType.StoredProcedure
+            db.Command.CommandText = "tblChapter_DeleteByStoryID"
+            db.Command.Parameters.Add("@StoryID", SqlDbType.UniqueIdentifier).Value = id
+            ds = db.ExecuteQuery()
 
+        Catch ex As Exception
+
+        End Try
+        Return Me
+    End Function
     Public Function Save() As ChapterList
         Dim result As Boolean = True
         For Each sc As Chapter In _List

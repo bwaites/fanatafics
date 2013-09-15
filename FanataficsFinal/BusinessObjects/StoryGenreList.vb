@@ -16,7 +16,7 @@ Public Class StoryGenreList
         End Get
     End Property
 
-    Public WriteOnly Property GenreID As Guid
+    Public Property GenreID As Guid
         Set(value As Guid)
             If value <> Guid.Empty Then
                 _Criteria.Fields.Add("GenreID")
@@ -24,6 +24,9 @@ Public Class StoryGenreList
                 _Criteria.Types.Add(DataTypeHelper.Type.DataType.String_Contains)
             End If
         End Set
+        Get
+            Return GenreID
+        End Get
     End Property
   
 #End Region

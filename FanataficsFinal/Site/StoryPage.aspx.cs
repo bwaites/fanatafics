@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BusinessObjects;
+using System.Text.RegularExpressions;
 namespace Site
 {
     public partial class StoryPage : System.Web.UI.Page
@@ -17,7 +18,7 @@ namespace Site
         protected ChapterList cl = new ChapterList();
         //make a new user
         protected User usr = new User();
-
+        //protected HiddenField hidnContent;
         protected void Page_Load(object sender, EventArgs e)
         {
             //call getAuthor to get the author of the story            
@@ -29,8 +30,29 @@ namespace Site
             {
                 //call ddlChapters_Populate to populate ddlChapters
                 ddlChapters_Populate();
+                loadChapterContent();
             }
         }
+
+        protected void loadChapterContent()
+        {
+            //make a new guid for the chapterID, getting the value from ddlChapterList selected value
+            ddlChapterList.SelectedIndex = ddlChapterList.Items.IndexOf(ddlChapterList.Items.FindByValue(c.Id.ToString()));
+            
+            Guid chapterID = new Guid(this.ddlChapterList.SelectedValue);
+            //make a new chapter object called selectedChapter
+
+            //get the selectedChapter by the ChapterID
+            c = c.GetById(chapterID);
+            //set dvChapterContent's innerhtml to the selectedChapter.ChapterContent            
+           
+            dvChapContent.InnerHtml = c.ChapterContent;
+         
+            dvChapContent.InnerHtml = Regex.Replace(dvChapContent.InnerHtml, @"(\s*)?&nbsp;(\s*)?", " ");
+
+        }
+
+
 
         protected void ddlChapters_Populate()
         {
@@ -44,27 +66,21 @@ namespace Site
             ddlChapterList.DataTextField = "Title";
             ddlChapterList.DataValueField = "ID";
             ddlChapterList.DataBind();
+
+            ddlChapterList.SelectedIndex = ddlChapterList.Items.IndexOf(ddlChapterList.Items.FindByValue(c.Id.ToString()));
+
         }
 
         protected void ddlChapterList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //make a new guid for the chapterID, getting the value from ddlChapterList selected value
-            Guid chapterID = new Guid(this.ddlChapterList.SelectedValue);
-            //make a new chapter object called selectedChapter
-            Chapter selectedChapter = new Chapter();
-            //get the selectedChapter by the ChapterID
-            selectedChapter = selectedChapter.GetById(chapterID);
-            //set dvChapterContent's innerhtml to the selectedChapter.ChapterContent
-            dvChapterContent.InnerHtml = selectedChapter.ChapterContent;
+            loadChapterContent();
         }
         protected void ddlChapterList_DataBound(object sender, EventArgs e)
         {
-            //after the items have been bound to the list, get the reviews
-            getReviews();
-            //get the chapter based on the id of selectedvalue from ddlChapterList
-            c = c.GetById(new Guid(this.ddlChapterList.SelectedValue));
-            //set dvChapterContent to equal c.chaptercontent
-            dvChapterContent.InnerHtml = c.ChapterContent;
+            ////get the chapter based on the id of selectedvalue from ddlChapterList
+            //c = c.GetById(new Guid(this.ddlChapterList.SelectedValue));
+            ////set dvChapterContent to equal c.chaptercontent
+            //dvChapterContent.InnerHtml = c.ChapterContent;
         }
 
         protected void getTitle()
@@ -112,10 +128,10 @@ namespace Site
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             //checks to see if the text area containing the review isn't null
-            if (txtaReview.Value != null)
+            if (txtReview.Text.Trim() != null)
             {
                 //checks to see if either txtGuestReviewer or lblReviewer.Text !=null
-                if (txtGuestReviewer.Text != null || lblReviewerName.Text != null)
+                if (txtGuestReviewer.Text.Trim() != null || lblReviewerName.Text.Trim() != null)
                 {
                     //call submit review
                     submitReview();
@@ -134,14 +150,14 @@ namespace Site
             //call checkIfLoggedIn()
             checkIfLoggedIn();
             //set review content to the text area value
-            review.ReviewContent = txtaReview.Value;
+            review.ReviewContent = txtReview.Text;
             //check if review is savable
             if (review.IsSavable() == true)
             {
                 //if savable, save it
                 review = review.Save();
                 //empty txta and txtG
-                txtaReview.Value = null;
+                txtReview.Text = null;
                 txtGuestReviewer.Text = null;
             }
         }
@@ -154,6 +170,8 @@ namespace Site
             try
             {
                 usr = usr.GetById(new Guid(Session["UserID"].ToString()));
+                lblReviewerName.Text = usr.UserName;
+                txtGuestReviewer.Visible = false;
             }
             catch
             {

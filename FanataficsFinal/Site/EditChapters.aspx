@@ -67,6 +67,11 @@
                         CKEDITOR.instances.editor1.setData(editorText);
                     }
 
+                    function insertBreaks() {
+                        var content = document.getElementById('<%= hidnExisting.ClientID %>').value
+                        $data = str_replace("\n", "<br/>", $data);
+                    }
+
                 </script>
                 <asp:Button ID="btnSaveChanges" runat="server" Text="Save Changes" class="input-large"
                     OnClientClick="getText()" OnClick="btnSaveChanges_Click" />

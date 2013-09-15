@@ -15,55 +15,38 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container-fluid">
-                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar">
-                    </span>
-                </button>
-                <a class="brand" href="Default.aspx">Fanatafics</a>
-                <div class="nav-collapse collapse">
-                    <p class="navbar-text pull-right">
-                        <asp:HyperLink ID="hlLogin" NavigateUrl="~/AccountSettings.aspx" runat="server" Text=""> </asp:HyperLink>
-                        <a class="btn btn-primary" id="btnLogin" href="Login.aspx" runat="server">Login</a>
-                    </p>
-                    <ul class="nav">
-                        <li class="active"><a href="Default.aspx">Home</a></li>
-                        <li><a href="Registration.aspx">Register</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
+        <div id="banner">
+            <a href="#">
+                <img src="Assets/img/header.png" width="1200" height="50" alt="" /></a>
+        </div>
+        <div id="menu-wrapper">
+            <div id="menu">
+                <ul>
+                    <li class="current_page_item"><a href="Default.aspx">Homepage</a></li>
+                    <li><a href="Registration.aspx">Become a Fanatic!</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+                <div class="navbar-form pull-right" id="dvLoginArea" runat="server">
+                    <input class="span2" id="txtUserEmail" type="text" placeholder="Email" runat="server" />
+                    <input class="span2" id="txtPassword" type="password" placeholder="Password" runat="server" />
+                    <asp:Button class="span2" ID="btnLogin" runat="server" Text="Login" 
+                        OnClick="btnLogin_Click" />
                 </div>
-                <!--/.nav-collapse-->
+                <div class="navbar pull-right" id="dvLoggedIn" runat="server" style="display: none;">
+                    <asp:HyperLink ID="hlLoginName" class="span2" NavigateUrl="AccountSettings.aspx" runat="server" Text=""> </asp:HyperLink>
+                    <asp:Button class="span2 btn-large btn-primary" ID="btnLogOut" runat="server" 
+                        Text="Logout" onclick="btnLogOut_Click" />
+                </div>
             </div>
         </div>
-        <asp:HiddenField id="hdnSessionValue" Value='<%# Session["LoggedIn"] %>' runat="server"/>
-        <div class="container-fluid">
-            <div class="row-fluid">
-                <div class="span3">
-                    <div class="well sidebar-nav" id="dvLoggedIn" runat="server">                        
-                                <ul class="nav">
-                                    <li class="active"><a href="NewStory.aspx">Add New Story</a></li>
-                                    <li><a href="AddChapter.aspx">Add New Chapter</a></li>
-                                    <li><a href="EditChapters.aspx">Edit Existing Chapters</a></li>
-                                    <li><a href="AccountSettings.aspx">Change Account Settings</a></li>
-                                </ul>                          
-                    </div>
+        <!-- end #menu -->
 
-                    <!--/.well -->
-                </div>
-                <!--/span-->
-                <div class="span9">
-                    <asp:ContentPlaceHolder ID="MainContent" runat="server">
-                    </asp:ContentPlaceHolder>
-                </div>
-                <!--/span-->
-            </div>
-            <!--/row-->
-            <hr>
-            <footer>
-        <p>© Company 2013</p>
-      </footer>
-        </div>
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+    <div id="footer">
+        <p>
+            © Company 2013</p>
     </div>
     </form>
 </body>

@@ -40,13 +40,13 @@ namespace Site {
         protected global::System.Web.UI.WebControls.HyperLink hlReviews;
         
         /// <summary>
-        /// dvChapterContent control.
+        /// dvChapContent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvChapterContent;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvChapContent;
         
         /// <summary>
         /// ddlChapterList control.
@@ -56,15 +56,6 @@ namespace Site {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlChapterList;
-        
-        /// <summary>
-        /// lblReview control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblReview;
         
         /// <summary>
         /// lblReviewerName control.
@@ -85,13 +76,13 @@ namespace Site {
         protected global::System.Web.UI.WebControls.TextBox txtGuestReviewer;
         
         /// <summary>
-        /// txtaReview control.
+        /// txtReview control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea txtaReview;
+        protected global::System.Web.UI.WebControls.TextBox txtReview;
         
         /// <summary>
         /// btnSubmit control.

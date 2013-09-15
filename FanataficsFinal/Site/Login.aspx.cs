@@ -74,8 +74,8 @@ namespace Site
             else
             {
                 //if not successful, transfer user to registration page
-                Server.Transfer("Registration.aspx", true);
-                Session["LoggedIn"] = 0;
+                Session["LoggedIn"] = 0;                
+                Response.Redirect("Registration.aspx");
             }
         }
     }

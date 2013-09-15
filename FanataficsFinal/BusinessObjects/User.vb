@@ -267,13 +267,13 @@ Public Class User
         End If
     End Function
 
-    Public Function Login(userName As String, password As String) As User
+    Public Function Login(userEmail As String, password As String) As User
 
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
         db.Command.CommandType = CommandType.StoredProcedure
         db.Command.CommandText = "tblUser_Login"
-        db.Command.Parameters.Add("@UserName", SqlDbType.VarChar).Value = userName
+        db.Command.Parameters.Add("@Email", SqlDbType.VarChar).Value = userEmail
         db.Command.Parameters.Add("@Password", SqlDbType.VarChar).Value = password
         ds = db.ExecuteQuery()
 

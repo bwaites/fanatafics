@@ -119,6 +119,30 @@ Public Class ReviewList
         Return result
     End Function
 
+    Private Function getByStoryID(id As Guid) As ReviewList
+        Dim db As New Database(My.Settings.ConnectionName)
+        Dim ds As DataSet = Nothing
+        db.Command.CommandType = CommandType.StoredProcedure
+        db.Command.CommandText = "tblStoryChapterReview_getByStoryID"
+        db.Command.Parameters.Add("@StoryID", SqlDbType.UniqueIdentifier).Value = id
+        ds = db.ExecuteQuery()
+
+
+        For Each dr As DataRow In ds.Tables(0).Rows
+            Dim rvw As New Review()
+            rvw.Initialize(dr)
+            rvw.InitializeBusinessData(dr)
+            rvw.IsNew = False
+            rvw.IsDirty = False
+
+            AddHandler rvw.evtIsSavable, AddressOf ReviewList_evtIsSavable
+
+            _List.Add(rvw)
+        Next
+
+        Return Me
+    End Function
+
     Public Function Search() As ReviewList
         'crease an instance of the databse class
         Dim database As New Database(My.Settings.ConnectionName)

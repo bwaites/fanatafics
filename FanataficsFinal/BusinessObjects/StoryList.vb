@@ -37,6 +37,33 @@ Public Class StoryList
         End Set
     End Property
 
+    Public WriteOnly Property FandomID As Guid
+        Set(value As Guid)
+            If value <> Guid.Empty Then
+                _Criteria.Fields.Add("FandomName")
+                _Criteria.Values.Add(value.ToString)
+                _Criteria.Types.Add(DataTypeHelper.Type.DataType.String_Contains)
+            End If
+        End Set
+    End Property
+    Public WriteOnly Property GenreID1 As Guid
+        Set(value As Guid)
+            If value <> Guid.Empty Then
+                _Criteria.Fields.Add("GenreType")
+                _Criteria.Values.Add(value.ToString)
+                _Criteria.Types.Add(DataTypeHelper.Type.DataType.String_Contains)
+            End If
+        End Set
+    End Property
+    Public WriteOnly Property GenreID2 As Guid
+        Set(value As Guid)
+            If value <> Guid.Empty Then
+                _Criteria.Fields.Add("GenreType")
+                _Criteria.Values.Add(value.ToString)
+                _Criteria.Types.Add(DataTypeHelper.Type.DataType.String_Contains)
+            End If
+        End Set
+    End Property
     Public WriteOnly Property MaturityID As Guid
         Set(value As Guid)
             If value <> Guid.Empty Then
@@ -61,7 +88,7 @@ Public Class StoryList
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
         db.Command.CommandType = CommandType.StoredProcedure
-        db.Command.CommandText = "tblStory_getByID"
+        db.Command.CommandText = "tblStory2_getByID"
         db.Command.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = id
         ds = db.ExecuteQuery()
 
@@ -136,7 +163,7 @@ Public Class StoryList
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
         db.Command.CommandType = CommandType.StoredProcedure
-        db.Command.CommandText = "tblStoryFandom_getByFandomID"
+        db.Command.CommandText = "tblStory2_getByFandomID"
         db.Command.Parameters.Add("@FandomID", SqlDbType.UniqueIdentifier).Value = id
         ds = db.ExecuteQuery()
 
@@ -159,7 +186,7 @@ Public Class StoryList
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
         db.Command.CommandType = CommandType.StoredProcedure
-        db.Command.CommandText = "tblStory_getByUserID"
+        db.Command.CommandText = "tblStory2_getByUserID"
         db.Command.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = id
         ds = db.ExecuteQuery()
 
@@ -199,7 +226,7 @@ Public Class StoryList
 #Region " Construction "
     Public Sub New()
         _Criteria = New Criteria
-        _Criteria.TableName = "tblStory"
+        _Criteria.TableName = "tblStory2"
     End Sub
 #End Region
 

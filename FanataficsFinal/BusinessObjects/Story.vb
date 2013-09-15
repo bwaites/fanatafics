@@ -4,7 +4,11 @@ Public Class Story
 #Region " Private Members "
     Private _Title As String = String.Empty
     Private _Summary As String = String.Empty
+    Private _FandomID As Guid = Guid.Empty
+    Private _GenreID1 As Guid = Guid.Empty
+    Private _GenreID2 As Guid = Guid.Empty
     Private _MaturityID As Guid = Guid.Empty
+
     '
     'ADD PRIVATE MEMBERS FOR CHILDREN HERE
     '
@@ -43,6 +47,39 @@ Public Class Story
                 'if the object is savable
                 RaiseEvent evtIsSavable(IsSavable)
             End If
+        End Set
+    End Property
+    Public Property FandomID As Guid
+        Get
+            Return _FandomID
+        End Get
+        Set(ByVal value As Guid)
+            _FandomID = value
+            MyBase.IsDirty = True
+            'Raise event if savable
+            RaiseEvent evtIsSavable(IsSavable)
+        End Set
+    End Property
+    Public Property GenreID1 As Guid
+        Get
+            Return _GenreID1
+        End Get
+        Set(ByVal value As Guid)
+            _GenreID1 = value
+            MyBase.IsDirty = True
+            'Raise event if savable
+            RaiseEvent evtIsSavable(IsSavable)
+        End Set
+    End Property
+    Public Property GenreID2 As Guid
+        Get
+            Return _GenreID2
+        End Get
+        Set(ByVal value As Guid)
+            _GenreID2 = value
+            MyBase.IsDirty = True
+            'Raise event if savable
+            RaiseEvent evtIsSavable(IsSavable)
         End Set
     End Property
 
@@ -104,12 +141,15 @@ Public Class Story
             'Setting up the Command object
             database.Command.Parameters.Clear()
             database.Command.CommandType = CommandType.StoredProcedure
-            database.Command.CommandText = "tblStory_INSERT"
+            database.Command.CommandText = "tblStory2_INSERT"
             'Add the header data parameters
             MyBase.Initialize(database, Guid.Empty)
             'Add the parameter
             database.Command.Parameters.Add("@Title", SqlDbType.VarChar).Value = _Title
             database.Command.Parameters.Add("@Summary", SqlDbType.VarChar).Value = _Summary
+            database.Command.Parameters.Add("@FandomID", SqlDbType.UniqueIdentifier).Value = _FandomID
+            database.Command.Parameters.Add("@GenreID1", SqlDbType.UniqueIdentifier).Value = _GenreID1
+            database.Command.Parameters.Add("@GenreID2", SqlDbType.UniqueIdentifier).Value = _GenreID2
             database.Command.Parameters.Add("@MaturityID", SqlDbType.UniqueIdentifier).Value = _MaturityID
 
             'CHANGE EXECUTE NON QUERY TO EXECUTE NON QUERY WITH TRANSACTION
@@ -118,7 +158,7 @@ Public Class Story
             MyBase.Initialize(database.Command)
 
             Return True
-        Catch ex As Exception
+          Catch ex As Exception
             Return False
         End Try
 
@@ -129,13 +169,17 @@ Public Class Story
             'Setting up the Command object
             database.Command.Parameters.Clear()
             database.Command.CommandType = CommandType.StoredProcedure
-            database.Command.CommandText = "tblStory_UPDATE"
+            database.Command.CommandText = "tblStory2_UPDATE"
             'Add the header data parameters
             MyBase.Initialize(database, MyBase.Id)
             'Add the parameter
             database.Command.Parameters.Add("@Title", SqlDbType.VarChar).Value = _Title
             database.Command.Parameters.Add("@Summary", SqlDbType.VarChar).Value = _Summary
+            database.Command.Parameters.Add("@FandomID", SqlDbType.UniqueIdentifier).Value = _FandomID
+            database.Command.Parameters.Add("@GenreID1", SqlDbType.UniqueIdentifier).Value = _GenreID1
+            database.Command.Parameters.Add("@GenreID2", SqlDbType.UniqueIdentifier).Value = _GenreID2
             database.Command.Parameters.Add("@MaturityID", SqlDbType.UniqueIdentifier).Value = _MaturityID
+
             'Execute non query
             database.ExecuteNonQueryWithTransaction()
             '
@@ -154,7 +198,7 @@ Public Class Story
         Try
             database.Command.Parameters.Clear()
             database.Command.CommandType = CommandType.StoredProcedure
-            database.Command.CommandText = "tblStory_DELETE"
+            database.Command.CommandText = "tblStory2_DELETE"
             MyBase.Initialize(database, MyBase.Id)
             database.ExecuteNonQueryWithTransaction()
             '
@@ -186,7 +230,18 @@ Public Class Story
         If _Summary.Length > 400 Then
             result = False
         End If
-
+        If _FandomID = Guid.Empty Then
+            result = False
+        End If
+        If _GenreID1 = Guid.Empty Then
+            result = False
+        End If
+        If _GenreID2 = Guid.Empty Then
+            result = False
+        End If
+        If _MaturityID = Guid.Empty Then
+            result = False
+        End If
         Return result
 
     End Function
@@ -252,7 +307,7 @@ Public Class Story
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
         db.Command.CommandType = CommandType.StoredProcedure
-        db.Command.CommandText = "tblStory_getById"
+        db.Command.CommandText = "tblStory2_getById"
         db.Command.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = id
         ds = db.ExecuteQuery()
 
@@ -278,7 +333,7 @@ Public Class Story
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
         db.Command.CommandType = CommandType.StoredProcedure
-        db.Command.CommandText = "tblStory_getById"
+        db.Command.CommandText = "tblStory2_getById"
         db.Command.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = id
         ds = db.ExecuteQuery()
 
@@ -302,6 +357,9 @@ Public Class Story
     Public Sub InitializeBusinessData(dr As DataRow)
         _Title = dr("Title")
         _Summary = dr("Summary")
+        _FandomID = dr("FandomID")
+        _GenreID1 = dr("GenreID1")
+        _GenreID2 = dr("GenreID2")
         _MaturityID = dr("MaturityID")
     End Sub
 #End Region

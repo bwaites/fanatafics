@@ -1,4 +1,5 @@
 ﻿Imports DatabaseHelper
+Imports System.ComponentModel
 Public Class Chapter
     Inherits HeaderData
 
@@ -7,10 +8,17 @@ Public Class Chapter
     Private _Title As String = String.Empty
     Private _ChapterContent As String = String.Empty
     Private _ChapterOrder As Integer = 0
-
+    Private WithEvents _List As New BindingList(Of Chapter)
 #End Region
 
 #Region " Public Properties "
+
+    Public ReadOnly Property List() As BindingList(Of Chapter)
+        Get
+            Return _List
+        End Get
+    End Property
+
     Public Property StoryID As Guid
         Get
             Return _StoryID
@@ -86,7 +94,7 @@ Public Class Chapter
             database.Command.Parameters.Add("@StoryID", SqlDbType.UniqueIdentifier).Value = _StoryID
             database.Command.Parameters.Add("@Title", SqlDbType.VarChar).Value = _Title
             database.Command.Parameters.Add("@ChapterContent", SqlDbType.VarChar).Value = _ChapterContent
-            database.Command.Parameters.Add("@ChapterOrder", SqlDbType.VarChar).Value = _ChapterOrder
+            database.Command.Parameters.Add("@ChapterOrder", SqlDbType.Int).Value = _ChapterOrder
 
             'Execute non query
             database.ExecuteNonQueryWithTransaction()
@@ -273,7 +281,32 @@ Public Class Chapter
 
     End Sub
 #End Region
+    Public Function GetByStoryID(id As Guid) As Chapter
 
+        Dim db As New Database(My.Settings.ConnectionName)
+        Dim ds As DataSet = Nothing
+        db.Command.CommandType = CommandType.StoredProcedure
+        db.Command.CommandText = "tblChapter_getByStoryID"
+        db.Command.Parameters.Add("@StoryID", SqlDbType.UniqueIdentifier).Value = id
+        ds = db.ExecuteQuery()
+
+
+        If ds.Tables(0).Rows.Count = 1 Then
+            Dim dr As DataRow = ds.Tables(0).Rows(0)
+            MyBase.Initialize(dr)
+            InitializeBusinessData(dr)
+            MyBase.IsNew = False
+            MyBase.IsDirty = False
+
+            Return Me
+        Else
+            If ds.Tables(0).Rows.Count = 0 Then
+                Throw New Exception(String.Format("Chapter was not found", id))
+            Else
+                Throw New Exception(String.Format("Chapters{0} found multiple records", id))
+            End If
+        End If
+    End Function
 #Region " Public Events "
 
     Public Delegate Sub IsSavableArgs(savable As Boolean)

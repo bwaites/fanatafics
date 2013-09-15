@@ -47,11 +47,37 @@ Public Class CategoryList
         db.Command.CommandText = "tblCategory_getAll"
         ds = db.ExecuteQuery()
 
-        Dim blank As New Category
-        blank.Id = Guid.Empty
-        blank.Type = String.Empty
+        'Dim blank As New Category
+        'blank.Id = Guid.Empty
+        'blank.Type = String.Empty
 
-        _List.Add(blank)
+        '_List.Add(blank)
+
+        For Each dr As DataRow In ds.Tables(0).Rows
+            Dim c As New Category()
+            c.Initialize(dr)
+            c.InitializeBusinessData(dr)
+            c.IsNew = False
+            c.IsDirty = False
+
+            AddHandler c.evtIsSavable, AddressOf CategoryList_evtIsSavable
+
+            _List.Add(c)
+        Next
+
+        Return Me
+
+    End Function
+
+    Public Function GetByFandomID(id As Guid) As CategoryList
+
+        Dim db As New Database(My.Settings.ConnectionName)
+        Dim ds As DataSet = Nothing
+        db.Command.CommandType = CommandType.StoredProcedure
+        db.Command.CommandText = "tblCategory_getByFandomID"
+        db.Command.Parameters.Add("@FandomID", SqlDbType.UniqueIdentifier).Value = id
+        ds = db.ExecuteQuery()
+
 
         For Each dr As DataRow In ds.Tables(0).Rows
             Dim c As New Category()

@@ -9,28 +9,37 @@ using BusinessObjects;
 namespace Site
 {
     public partial class NewStory : System.Web.UI.Page
-    {   
-        protected StoryGenre stryGenre = new StoryGenre();
-        //Make a storyFandom
-        protected StoryFandom stryFandom = new StoryFandom();
+    {
+       
         //Make a userStory
         protected UserStory strysUsers = new UserStory();
-        
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //runs if the page hasn't been loaded
             if (!Page.IsPostBack)
             {
-                //if page hasn't been loaded, then load the following ddls
-
-                ddlCategory_Populate();
-                ddlGenre_Populate();
-                ddlMaturity_Populate();
+                //convert LoggedIn Session to a number called myNumb
+                var myNumb = Convert.ToInt32(Session["LoggedIn"]);
+                if (myNumb == 0)
+                {
+                    //if myNumb is equal to 0 a user isn't logged in
+                }
+                else
+                {
+                    //if myNumb is equal to else, a user is logged in
+                    ddlCategory_Populate();
+                    ddlGenre1_Populate();
+                    ddlGenre2_Populate();
+                    ddlMaturity_Populate();
+                }
             }
             else
             {
                 //if page /has/ been loaded, then populate the ddlFandom
                 ddlFandom_Populate();
+                
             }
         }
 
@@ -59,16 +68,28 @@ namespace Site
                 ddlFandom.DataBind();
             }
         }
-        protected void ddlGenre_Populate()
+        protected void ddlGenre1_Populate()
         {
             GenreList genList = new GenreList();
             //Get all of the list
             genList.GetAll();
             //Bind list to ddlGenre, displaying GenreType
-            ddlGenre.DataSource = genList.List;
-            ddlGenre.DataTextField = "GenreType";
-            ddlGenre.DataValueField = "ID";
-            ddlGenre.DataBind();
+            ddlGenre1.DataSource = genList.List;
+            ddlGenre1.DataTextField = "GenreType";
+            ddlGenre1.DataValueField = "ID";
+            ddlGenre1.DataBind();
+        }
+
+        protected void ddlGenre2_Populate()
+        {
+            GenreList genList = new GenreList();
+            //Get all of the list
+            genList.GetAll();
+            //Bind list to ddlGenre, displaying GenreType
+            ddlGenre2.DataSource = genList.List;
+            ddlGenre2.DataTextField = "GenreType";
+            ddlGenre2.DataValueField = "ID";
+            ddlGenre2.DataBind();
         }
         protected void ddlMaturity_Populate()
         {
@@ -91,16 +112,15 @@ namespace Site
         {
             //make a new story object
             Story story = new Story();
-            //set title, summary, maturity id equal to input options
+            //set title, summary, fandom id, genre id, maturity id equal to input options
             story.Title = this.txtTitle.Value;
             story.Summary = this.txtSummary.Value;
+            story.FandomID = new Guid(this.ddlFandom.SelectedValue);
+            story.GenreID1 = new Guid(this.ddlGenre1.SelectedValue);
+            story.GenreID2 = new Guid(this.ddlGenre2.SelectedValue);
             story.MaturityID = new Guid(this.ddlMaturity.SelectedValue);
             //set stryUser UserID to the User's ID (stored in session)
-            strysUsers.UserID = new Guid(Session["UserID"].ToString());
-            //set stryGenre GenreID to ID taken from ddlGenre's selected value
-            stryGenre.GenreID = new Guid(this.ddlGenre.SelectedValue);
-            //set fandom FandomID to ID taken from ddlFandom's selected value
-            stryFandom.FandomID = new Guid(this.ddlFandom.SelectedValue);
+            strysUsers.UserID = new Guid(Session["UserID"].ToString());            
 
             //Check if the story is savable, and if so, save it
             if (story.IsSavable() == true)
@@ -108,29 +128,22 @@ namespace Site
                 story = story.Save();
                 //set the storyIDs of stryUsers, stryGenre and StryFandom to be the id of the story
                 strysUsers.StoryID = story.Id;
-                stryGenre.StoryID = story.Id;
-                stryFandom.StoryID = story.Id;
                 //call save_Bridges
-                save_Bridges();
-                //get user by ID based on session
+                //get user by ID based on session 
                 User usr = new User();
                 usr = usr.GetById(new Guid(Session["UserID"].ToString()));
+                                
                 //increase storyamount by 1
                 usr.StoryAmount = usr.StoryAmount + 1;
+                strysUsers.UserID = usr.Id;
+                save_Bridges();
+                Server.Transfer("AddChapter.aspx", true);
             }
         }
         protected void save_Bridges()
         {
             //check if each bridge is savable, if it is, save them.
-            if (stryFandom.IsSavable() == true)
-            {
-                stryFandom.Save();
-            }
-
-            if (stryGenre.IsSavable() == true)
-            {
-                stryGenre.Save();
-            }
+            
             if (strysUsers.IsSavable() == true)
             {
                 strysUsers.Save();

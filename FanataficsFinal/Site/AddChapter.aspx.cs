@@ -12,7 +12,6 @@ namespace Site
     {
         protected HiddenField hidnEdit;
         protected ChapterList chapList = new ChapterList();
-        protected StoryList storyList = new StoryList();
         protected Chapter chap = new Chapter();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -21,16 +20,21 @@ namespace Site
             //check to make sure page isn't postback
             if (!Page.IsPostBack)
             {
-                //call ddlStory_populate
-                ddlStory_Populate();
+                var myNumb = Convert.ToInt32(Session["LoggedIn"]);
+                if (myNumb == 0)
+                {
+                }
+                else
+                {
+                    //call ddlStory_populate
+                    ddlStory_Populate();
+                }                
             }
         }
         protected void ddlStory_Populate()
         {
             //set the first item in the ddlStory to be 'select a story'
-            ddlStory.Enabled = true;
-            ddlStory.Visible = true;
-
+            StoryList storyList = new StoryList();
             //Get stories based on UserID (stored in a sesson from Login.Aspx)
             storyList = storyList.GetByUserID(new Guid(Session["UserID"].ToString()));
             //bind the title of list to ddlStory
@@ -41,7 +45,7 @@ namespace Site
         }
         protected void ddlStory_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            loadChapterContent(chap.Title, chap.ChapterContent);
         }
         protected void loadChapterContent(string title, string content)
         {
@@ -55,7 +59,7 @@ namespace Site
         }
         protected void addNewChapter()
         {
-            //make a new chapterlist
+            //make a new chapterlist (use this to get the count)
             chapList = new ChapterList();
             //make a new chapter
             chap = new Chapter();
@@ -70,7 +74,7 @@ namespace Site
             //set the chap's chapter order to the chapterlist's count + 1
             chap.ChapterOrder = chapList.List.Count + 1;
         }
-        protected void btnSaveChanges_Click(object sender, EventArgs e)
+        protected void btnAddChapter_Click(object sender, EventArgs e)
         {
             //if statement checks to see status of bool blNewChap
 
@@ -82,8 +86,14 @@ namespace Site
                 //if savable, save it
                 chap = chap.Save();
                 //redirect to editChapters
-                Server.Transfer("EditChapters.aspx", true);
+                
+                Server.Transfer("AddChapter.aspx");
             }
+        }
+
+        protected void btnGoToEdit_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("EditChapters.aspx");
         }
     }
 }

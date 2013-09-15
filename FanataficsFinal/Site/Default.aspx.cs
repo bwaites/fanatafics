@@ -17,11 +17,6 @@ namespace Site
         {
             //call the rpCategory_Populate to populate categories
             rpCategory_Populate();
-
-            if (!IsPostBack)
-            {
-
-            }
             
         }
 

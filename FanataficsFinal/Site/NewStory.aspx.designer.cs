@@ -76,22 +76,40 @@ namespace Site {
         protected global::System.Web.UI.HtmlControls.HtmlTextArea txtSummary;
         
         /// <summary>
-        /// ddlGenre control.
+        /// ddlGenre1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlGenre;
+        protected global::System.Web.UI.WebControls.DropDownList ddlGenre1;
         
         /// <summary>
-        /// rfvGenre control.
+        /// rfvGenre1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvGenre;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvGenre1;
+        
+        /// <summary>
+        /// ddlGenre2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlGenre2;
+        
+        /// <summary>
+        /// rfvGenre2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvGenre2;
         
         /// <summary>
         /// ddlMaturity control.
