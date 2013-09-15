@@ -29,11 +29,11 @@
                 <div class="navbar-form pull-right" id="dvLoginArea" runat="server">
                     <input class="span2" id="txtUserEmail" type="text" placeholder="Email" runat="server" />
                     <input class="span2" id="txtPassword" type="password" placeholder="Password" runat="server" />
-                    <asp:Button class="span2" ID="btnLogin" runat="server" Text="Login" 
+                    <asp:Button class="span2 btn-large btn-primary" ID="btnLogin" runat="server" Text="Login" 
                         OnClick="btnLogin_Click" />
                 </div>
                 <div class="navbar pull-right" id="dvLoggedIn" runat="server" style="display: none;">
-                    <asp:HyperLink ID="hlLoginName" class="span2" NavigateUrl="AccountSettings.aspx" runat="server" Text=""> </asp:HyperLink>
+                    <asp:HyperLink ID="hlLoginName" class="span2" NavigateUrl="ScribblersCorner.aspx" runat="server" Text=""> </asp:HyperLink>
                     <asp:Button class="span2 btn-large btn-primary" ID="btnLogOut" runat="server" 
                         Text="Logout" onclick="btnLogOut_Click" />
                 </div>

@@ -7,7 +7,7 @@
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span3">
-                <div class="well sidebar-nav" id="dvLoggedIn" runat="server">
+                <div class="well sidebar-nav">
                     <ul class="nav">
                         <li class="active"><a href="NewStory.aspx">Make a New Story</a></li>
                         <li><a href="EditStory.aspx">Edit Story Details</a></li>

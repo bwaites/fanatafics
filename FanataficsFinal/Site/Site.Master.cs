@@ -59,7 +59,7 @@ namespace Site
         protected void showLoggedIn(string userName, Guid userID)
         {
             hlLoginName.Text = userName;
-            hlLoginName.NavigateUrl = "~/AccountSettings.aspx?UserID=" + userID;            
+            hlLoginName.NavigateUrl = "~/ScribblersCorner.aspx?UserID=" + userID;            
             //save user name to session
             Session["UserName"] = userName;
             //save user id to session

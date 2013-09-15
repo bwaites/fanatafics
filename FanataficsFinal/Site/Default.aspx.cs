@@ -16,8 +16,7 @@ namespace Site
         protected void Page_Load(object sender, EventArgs e)
         {
             //call the rpCategory_Populate to populate categories
-            rpCategory_Populate();
-            
+            rpCategory_Populate();            
         }
 
         void rpCategory_Populate()
@@ -30,7 +29,5 @@ namespace Site
             rptCategories.DataSource = catList.List;
             rptCategories.DataBind();
         }
-        
-
     }
 }

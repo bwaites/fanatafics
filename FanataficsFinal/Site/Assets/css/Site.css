@@ -6,9 +6,22 @@ Released for free under a Creative Commons Attribution 2.5 License
 */
 
 
-#dvReview
-{
-    margin: 50px 250px 50px 300px;
+.btn-primary {
+  background-color: #4671D5;
+  
+  border-color: #0055cc #0055cc #003580;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary.disabled,
+.btn-primary[disabled] {
+  background-color: #6C8CD5;
+}
+.btn-primary:active,
+.btn-primary.active {
+  background-color: #004099 \9;
 }
 
 * {
@@ -23,14 +36,14 @@ body {
 	color: #3B3B3B;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
 	margin: 0px;
 	padding: 0px;
 	letter-spacing: -2px;
 	text-transform: uppercase;
 	font-family: 'Arvo', serif;
 	font-weight: normal;
-	color: #107710;
+	color: #4671D5;
 }
 
 h1 {
@@ -55,8 +68,8 @@ ul, ol {
 }
 
 a {
-	text-decoration: none;
-	color: #107710;
+	text-decoration: underline;
+	color: #6C8CD5;
 }
 
 a:hover {
@@ -201,14 +214,14 @@ a:hover {
 }
 
 #menu a:hover, #menu .current_page_item a {
-	background: #107710;
+	background: #4671D5;
 	border-radius: 8px;
 	text-decoration: none;
 	color: #FFFFFF;
 }
 
 #menu .current_page_item a {
-	background: #107710;
+	background: #4671D5;
 	border-radius: 8px;
 }
 
@@ -244,7 +257,7 @@ a:hover {
 }
 
 .post .title {
-	height: 38px;
+	height: 20px;
 	margin-bottom: 10px;
 	padding: 12px 0 0 0px;
 	font-size: 32px;

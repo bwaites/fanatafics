@@ -7,43 +7,30 @@
     <div class="container-fluid">
         <div class="span9" id="usrBio" runat="server">
         </div>
-        <div class="span6" id="usrStories">
-            <asp:Repeater ID="rptUsrStories" runat="server" 
-                onitemdatabound="rptUsrStories_ItemDataBound">
+        <div class="span9" id="usrStories">
+            <asp:Repeater ID="rptUsrStories" runat="server" OnItemDataBound="rptUsrStories_ItemDataBound">
                 <HeaderTemplate>
-                    <table>
-                        <thead>
-                            <tr align="center">
-                                <td>
-                                    This Fanatic has created (or helped in the creation of) the following:
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    <div class="post">
+                        <h2>
+                            This Fanatic has created the following:</h2>
                 </HeaderTemplate>
                 <ItemTemplate>
-                    <tr>
-                        
-                        <td>
-                            <a href='StoryPage.aspx?StoryID=<%# DataBinder.Eval(Container.DataItem,"Id") %>'>
-                                <%# DataBinder.Eval(Container.DataItem,"Title") %></a>
-                            <asp:HiddenField ID="hidnID" Value='<%# DataBinder.Eval(Container.DataItem, "Id") %>'
-                                runat="server" />
-                        </td>
-                        <td><asp:HyperLink ID="hlReviews" Text="Reviews" runat="server"></asp:HyperLink></td>
-                    </tr>
-                    <tr>
-                        
-                        <td>
-                            <%# DataBinder.Eval(Container.DataItem,"Summary") %>
-                        </td>
-                    </tr>
+                    <h3>
+                        <a href='StoryPage.aspx?StoryID=<%# DataBinder.Eval(Container.DataItem,"Id") %>'>
+                            <%# DataBinder.Eval(Container.DataItem,"Title") %></a>
+                        <asp:HiddenField ID="hidnID" Value='<%# DataBinder.Eval(Container.DataItem, "Id") %>'
+                            runat="server" />
+                    </h3>
+                    <span class="posted">
+                        <asp:HyperLink ID="hlReviews" Text="Reviews" runat="server"></asp:HyperLink></span>
+                    <div class="entry">
+                        <%# DataBinder.Eval(Container.DataItem,"Summary") %>
+                    </div>
                 </ItemTemplate>
                 <SeparatorTemplate>
-                    <p></p>
                 </SeparatorTemplate>
                 <FooterTemplate>
-                    </tbody> </table>
+                    </div>
                 </FooterTemplate>
             </asp:Repeater>
         </div>

@@ -4,12 +4,12 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="span8">
+    <div class="span12">
         <div class="post">
-            <h3 class="title">
-                <asp:Label ID="lblStoryTitle" runat="server" Text="StoryTitleGoesHere"></asp:Label></h3>
+            <h1>
+                <asp:Label ID="lblStoryTitle" runat="server" Text="StoryTitleGoesHere"></asp:Label></h1>
             <p>
-                <span class="posted">Written By:
+                <span class="posted">Scribbled By:
                     <asp:HyperLink ID="hlAuthor" runat="server" Text="Author Name"></asp:HyperLink>
                     <asp:HyperLink ID="hlReviews" runat="server">Reviews</asp:HyperLink></span></p>
             <div class="entry" id="dvChapContent" runat="server">
@@ -26,15 +26,14 @@
     <div class="span5 offset4">
         <div class="post">
             <p>
-                <asp:Label ID="lblReviewerName" runat="server" Text="Name of Reviewer "></asp:Label>
-                <asp:TextBox ID="txtGuestReviewer" runat="server" Width="141px"></asp:TextBox></p>
+                <asp:Label ID="lblReviewerName" runat="server" Text="Name of Reviewer "></asp:Label>&nbsp;&nbsp;&nbsp;
+                <asp:TextBox ID="txtGuestReviewer" runat="server" class="span3"></asp:TextBox></p>
             <p>
                 &nbsp;</p>
             <p>
-                <asp:TextBox ID="txtReview" runat="server" TextMode="MultiLine" Width="320px" Height="200px"
-                    Style="resize: none;"></asp:TextBox></p>
+                <asp:TextBox ID="txtReview" runat="server" TextMode="MultiLine" class="span4" height="200px" Style="resize: none;"></asp:TextBox></p>
             <p>
-                <asp:Button ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="Submit" /></p>
+                <asp:Button ID="btnSubmit" runat="server" class="span4 btn-large btn-primary" OnClick="btnSubmit_Click" Text="Submit" /></p>
         </div>
     </div>
 </asp:Content>
