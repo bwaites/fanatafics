@@ -10,7 +10,7 @@ namespace Site
 {
     public partial class StoryPage : System.Web.UI.Page
     {
-        //make a protected bool called bIsLoggedIn, set it's value to false
+        //make a protected bool called bIsLoggedIn, set its value to false
         protected bool bIsLoggedIn = false;
         //make a protected Chapter called chapter
         protected Chapter chapter = new Chapter();
