@@ -119,11 +119,11 @@ Public Class ReviewList
         Return result
     End Function
 
-    Private Function getByStoryID(id As Guid) As ReviewList
+    Public Function getByStoryID(id As Guid) As ReviewList
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
         db.Command.CommandType = CommandType.StoredProcedure
-        db.Command.CommandText = "tblStoryChapterReview_getByStoryID"
+        db.Command.CommandText = "tblReview_getByStoryID"
         db.Command.Parameters.Add("@StoryID", SqlDbType.UniqueIdentifier).Value = id
         ds = db.ExecuteQuery()
 
