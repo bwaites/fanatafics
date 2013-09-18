@@ -13,17 +13,15 @@ namespace Site
         {
             //if statement that will run if page is loading for the first time
             if (!Page.IsPostBack)
-            {
-                //make a guid called chapterID, set the value to ChapterID taken from query string
-                Guid chapterID = new Guid(Request.QueryString["ChapterID"]);
+            {                
                 //make a guid called storyID, set the value to StoryID taken from query string
                 Guid storyID = new Guid(Request.QueryString["StoryID"]);
                 //call getTitle to get the title of the story, passing in storyID
                 getTitle(storyID);
                 //call ddlChapterList_Populate to populate the dropdownlist of chapters, passing in storyID
                 ddlChapterList_Populate(storyID);
-                //populate the repeater that holds the reviews, passing in chapterID
-                rptReviews_Populate(chapterID);                
+                //populate the repeater that holds the reviews, passing in chapterID and a true/false value
+                rptReviews_Populate(storyID, false);                
             }
         }
         protected void getTitle(Guid storyID)
@@ -52,14 +50,24 @@ namespace Site
             //make a new guid called chapID, set it's value to the selected value of ddlChapterList
             Guid chapID = new Guid(this.ddlChapterList.SelectedValue);
             //populate the repeater of reviews, passing in new chapID
-            rptReviews_Populate(chapID);
+            rptReviews_Populate(chapID, true);
         }
-        protected void rptReviews_Populate(Guid chapID)
+        protected void rptReviews_Populate(Guid ID, bool bFilterByChapter)
         {
             //make a new ReviewList called rvwList
             ReviewList rvwList = new ReviewList();
-            //get the right list by the chapID
-            rvwList = rvwList.GetByChapterID(chapID);
+            //if statement that will run if bFilterByChapter is equal to 'true'
+            if (bFilterByChapter == true)
+            {
+                //get the reviewlist by chapter
+                rvwList = rvwList.GetByChapterID(ID);
+            }
+            //else bFilterByChapter is equal to 'false'
+            else
+            {
+                //get the reviewlist by story
+                rvwList = rvwList.getByStoryID(ID);
+            }
             //bind the list to the repeater
             rptReviews.DataSource = rvwList.List;
             rptReviews.DataBind();

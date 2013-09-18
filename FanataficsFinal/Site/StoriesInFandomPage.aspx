@@ -20,6 +20,9 @@
                     <span class="posted">Scribbler:&nbsp;
                         <asp:HyperLink ID="hlAuthor" runat="server" NavigateUrl="~/UserPage.aspx">HyperLink</asp:HyperLink>
                     </span>
+                    <div class="pull-right">
+                        <asp:HyperLink ID="hlReviews" runat="server" NavigateUrl="">Reviews</asp:HyperLink>
+                    </div>
                     <div class="entry">
                         <%# DataBinder.Eval(Container.DataItem,"Summary") %>
                     </div>
