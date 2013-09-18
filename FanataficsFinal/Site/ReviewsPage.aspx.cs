@@ -14,15 +14,25 @@ namespace Site
             if (!Page.IsPostBack)
             {
                 Guid chapterID = new Guid(Request.QueryString["ChapterID"]);
-                ddlChapterList_Populate();
-
+                Guid storyID = new Guid(Request.QueryString["StoryID"]);
+                getTitle(storyID);
+                ddlChapterList_Populate(storyID);
+                rptReviews_Populate(chapterID);
+                
             }
         }
 
-        protected void ddlChapterList_Populate()
+        protected void getTitle(Guid storyID)
         {
-            Guid storyID = new Guid(Request.QueryString["StoryID"]);
+            //make a new story object
+            Story stry = new Story();
+            //get the right story by the storyID passed in
+            stry = stry.GetById(storyID);
+            lblStoryTitle.Text = stry.Title;
+        }
 
+        protected void ddlChapterList_Populate(Guid storyID)
+        {
             ChapterList cl = new ChapterList();
 
             cl = cl.GetByStoryID(storyID);
@@ -33,13 +43,7 @@ namespace Site
         }
         protected void ddlChapterList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Guid chapterID = new Guid(this.ddlChapterList.SelectedValue);
-            rptReviews_Populate(chapterID);
-        }
-        protected void ddlChapterList_DataBound(object sender, EventArgs e)
-        {
             Guid chapID = new Guid(this.ddlChapterList.SelectedValue);
-
             rptReviews_Populate(chapID);
         }
 

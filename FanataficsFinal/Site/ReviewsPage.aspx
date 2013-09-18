@@ -5,6 +5,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="span7 well">
+        <h3>
+            Reviews for&nbsp;<asp:Label ID="lblStoryTitle" runat="server" Text="StoryTitleGoesHere"></asp:Label>
+        </h3>
         <div class="pull-right">
             <asp:DropDownList ID="ddlChapterList" runat="server" DataTextField="Title" DataValueField="ID"
                 OnSelectedIndexChanged="ddlChapterList_SelectedIndexChanged" AutoPostBack="true">
@@ -14,18 +17,15 @@
         <asp:Repeater ID="rptReviews" runat="server">
             <HeaderTemplate>
                 <div class="post">
-                    <h3>
-                        Reviews
-                    </h3>
             </HeaderTemplate>
             <ItemTemplate>
-                <span>
-                    <asp:Label ID="Label1" runat="server">Reviewer Name: </asp:Label>
+                <p>
+                    <asp:Label ID="Label1" runat="server">Name: </asp:Label>
                     <%# DataBinder.Eval(Container.DataItem,"ReviewerName" )%>
-                </span><span>
-                    <asp:Label ID="Label2" runat="server">Review:</asp:Label>
+                </p>
+                <p>
                     <%#DataBinder.Eval(Container.DataItem,"ReviewContent") %>
-                </span>
+                </p>
             </ItemTemplate>
             <SeparatorTemplate>
             </SeparatorTemplate>

@@ -13,6 +13,15 @@ namespace Site {
     public partial class ReviewsPage {
         
         /// <summary>
+        /// lblStoryTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblStoryTitle;
+        
+        /// <summary>
         /// ddlChapterList control.
         /// </summary>
         /// <remarks>

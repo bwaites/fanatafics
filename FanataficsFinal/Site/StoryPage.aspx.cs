@@ -20,10 +20,9 @@ namespace Site
             //call checkIfLoggedIn, passing in bIsLoggedIn
             checkIfLoggedIn(bIsLoggedIn);
         }
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            //if statement that will run if the page is loading for the first time   
             if (!Page.IsPostBack)
             {
                 //set storyID's guid value to the querystring from StoriesInFandomPage
@@ -34,6 +33,8 @@ namespace Site
                 getAuthor(storyID);
                 //call getTitle to get the title of the story
                 getTitle(storyID);
+                //call getReviews to get the reviews of the story
+                getReviews(storyID);
                 //call loadChapterContent to load the chapter content
                 loadChapterContent();
                 //call checkIfLoggedIn, passing in bIsLoggedIn                
@@ -82,13 +83,11 @@ namespace Site
 
             ddlChapterList.SelectedIndex = ddlChapterList.Items.IndexOf(ddlChapterList.Items.FindByValue(chapter.Id.ToString()));
         }
-
         protected void ddlChapterList_SelectedIndexChanged(object sender, EventArgs e)
         {
             //call loadChapterContent
             loadChapterContent();
         }
-
         protected void getTitle(Guid storyID)
         {
             //make a new story object
@@ -98,7 +97,6 @@ namespace Site
             //set the text of lblStoryTitle to the value of story.Title
             lblStoryTitle.Text = story.Title;
         }
-
         protected void getAuthor(Guid storyID)
         {
             //make a new user
@@ -110,7 +108,6 @@ namespace Site
             //set navigation url of hlAuthor to the appropriate userpage
             hlAuthor.NavigateUrl = "~/UserPage.aspx?UserID=" + usr.Id;
         }
-
         protected void getReviews(Guid storyID)
         {
             //make a new guid called chapterID
@@ -123,7 +120,6 @@ namespace Site
             //set hyperlink navigateurl of hlReviews to navUrl
             hlReviews.NavigateUrl = navUrl;
         }
-
         protected void loadChapterContent()
         {
             //set ddlChapterList's seletected index to the index of chapter
@@ -137,7 +133,6 @@ namespace Site
             //replace all of the '&nbsp;' with actual spaces, so the text will wrap in the div
             dvChapContent.InnerHtml = Regex.Replace(dvChapContent.InnerHtml, @"(\s*)?&nbsp;(\s*)?", " ");
         }
-
         protected void btnSubmit_Click(object sender, EventArgs e)
         {            
             //if statement that will run if the text in txtReview is NOT null
@@ -150,7 +145,6 @@ namespace Site
                 }
             }
         }
-
         protected void submitReview(bool bIsLoggedIn)
         {
             //make a new review object
