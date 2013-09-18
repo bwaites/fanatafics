@@ -10,55 +10,48 @@ namespace Site
 {
     public partial class StoryPage : System.Web.UI.Page
     {
-        //make a new story
-        protected Story story = new Story();
-        // make a new chapter
-        protected Chapter c = new Chapter();
-        //make a new chapter list 
-        protected ChapterList cl = new ChapterList();
-        //make a new user
-        protected User usr = new User();
-        //protected HiddenField hidnContent;
         protected void Page_Load(object sender, EventArgs e)
         {
-            //call getAuthor to get the author of the story            
-            getAuthor();
-            //call getTitle to get the title of the story
-            getTitle();
-
+            checkIfLoggedIn();
             if (!Page.IsPostBack)
             {
-                //call ddlChapters_Populate to populate ddlChapters
-                ddlChapters_Populate();
+                //set storyID's guid value to the querystring from StoriesInFandomPage
+                Guid storyID = new Guid(Request.QueryString["StoryID"]);
+                //call ddlChapters_Populate to populate ddlChapters, passing in storyID
+                ddlChapters_Populate(storyID);
+                //call getAuthor to get the author of the story            
+                getAuthor(storyID);
+                //call getTitle to get the title of the story
+                getTitle(storyID);
+                //call loadChapterContent to load the chapter content
                 loadChapterContent();
             }
         }
-
-        protected void loadChapterContent()
+        protected void checkIfLoggedIn()
         {
-            //make a new guid for the chapterID, getting the value from ddlChapterList selected value
-            ddlChapterList.SelectedIndex = ddlChapterList.Items.IndexOf(ddlChapterList.Items.FindByValue(c.Id.ToString()));
-            
-            Guid chapterID = new Guid(this.ddlChapterList.SelectedValue);
-            //make a new chapter object called selectedChapter
-
-            //get the selectedChapter by the ChapterID
-            c = c.GetById(chapterID);
-            //set dvChapterContent's innerhtml to the selectedChapter.ChapterContent            
-           
-            dvChapContent.InnerHtml = c.ChapterContent;
-         
-            dvChapContent.InnerHtml = Regex.Replace(dvChapContent.InnerHtml, @"(\s*)?&nbsp;(\s*)?", " ");
-
+            //make a variable called myNumb, and set its value to a converted number of Session "LoggedIn"
+            var myNumb = Convert.ToInt32(Session["LoggedIn"]);
+            //if statement that will run if myNumb value is equal to 0
+            if (myNumb == 0)
+            {
+                //if the number is zero, it must be a guest so show the textbox for the Guest to put their name in
+                txtGuestReviewer.Visible = true;
+            }
+            //else that will run if myNumb value is NOT equal to zero
+            else
+            {
+                //make a string called sUserName, set its value to the Session "UserName"
+                string sUserName = Session["UserName"].ToString();
+                //set lblReviewerName's text property to sUserName
+                lblReviewerName.Text = sUserName;
+                //change txt
+                txtGuestReviewer.Visible = false;
+            }
         }
-
-
-
-        protected void ddlChapters_Populate()
+        protected void ddlChapters_Populate(Guid storyID)
         {
-            //make a storyID guid, passing the value in a query string 
-            //(value of query string is stored in repeater on StoryByFandom page)
-            Guid storyID = new Guid(Request.QueryString["StoryID"]);
+            //make a new chapter list 
+            ChapterList cl = new ChapterList();
             //get all chapters by storyID
             cl = cl.GetByStoryID(storyID);
             //bind the list to the ddlChapter
@@ -66,71 +59,72 @@ namespace Site
             ddlChapterList.DataTextField = "Title";
             ddlChapterList.DataValueField = "ID";
             ddlChapterList.DataBind();
-
-            ddlChapterList.SelectedIndex = ddlChapterList.Items.IndexOf(ddlChapterList.Items.FindByValue(c.Id.ToString()));
-
         }
 
         protected void ddlChapterList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //call loadChapterContent
             loadChapterContent();
         }
-        protected void ddlChapterList_DataBound(object sender, EventArgs e)
-        {
-            ////get the chapter based on the id of selectedvalue from ddlChapterList
-            //c = c.GetById(new Guid(this.ddlChapterList.SelectedValue));
-            ////set dvChapterContent to equal c.chaptercontent
-            //dvChapterContent.InnerHtml = c.ChapterContent;
-        }
 
-        protected void getTitle()
+        protected void getTitle(Guid storyID)
         {
-            //make a guid for the StoryID, filling it using a querystring
-            Guid storyID = new Guid(Request.QueryString["StoryID"]);
-            //use StoryID to get the proper story
+            //make a new story object
+            Story story = new Story();
+            //find the right story object by storyID
             story = story.GetById(storyID);
-            //set the text of lblStoryTitle to story.Title
+            //set the text of lblStoryTitle to the value of story.Title
             lblStoryTitle.Text = story.Title;
         }
 
-        protected void getAuthor()
+        protected void getAuthor(Guid storyID)
         {
-            //make a new userstory
-            UserStory usrStry = new UserStory();
-            //make a StoryId and fill it with a query string
-            Guid storyID = new Guid(Request.QueryString["StoryID"]);
             //make a new user
             User usr = new User();
             //get the user by the story's id
             usr = usr.GetUserByStoryID(storyID);
             //set lblAuthor.Text to username of story
             hlAuthor.Text = usr.UserName;
+            //set navigation url of hlAuthor to the appropriate userpage
             hlAuthor.NavigateUrl = "~/UserPage.aspx?UserID=" + usr.Id;
-            
         }
 
-        protected void getReviews()
+        protected void getReviews(Guid storyID)
         {
             //make a new guid called chapterID
             Guid chapterID = new Guid();
-            //make a new guid called storyID
-            Guid storyID = new Guid();
             //set chapterID guid to the value of ddlChapterList
             chapterID = new Guid(this.ddlChapterList.SelectedValue);
-            //set story ID to the value stored in querystring on storiesbyfandompage
-            storyID = new Guid(Request.QueryString["StoryID"]);
+
             //make string called navUrl, set the value to a url with query parameters
             String navUrl = "~/ReviewsPage.aspx?ChapterID=" + chapterID + "&StoryID=" + storyID;
             //set hyperlink navigateurl of hlReviews to navUrl
             hlReviews.NavigateUrl = navUrl;
         }
 
+        protected void loadChapterContent()
+        {
+            //set ddlChapterList's seletected index to the index of chapter
+            ddlChapterList.SelectedIndex = ddlChapterList.Items.IndexOf(ddlChapterList.Items.FindByValue(chapter.Id.ToString()));
+            //make a new guid called ID
+            Guid chapterID = new Guid(this.ddlChapterList.SelectedValue);
+            // make a new chapter
+            Chapter chapter = new Chapter();
+
+            //get the chapter by the ChapterID
+            chapter = chapter.GetById(chapterID);
+            //set dvChapterContent's innerhtml to the chapter.ChapterContent            
+            dvChapContent.InnerHtml = chapter.ChapterContent;
+            //replace all of the '&nbsp;' with actual spaces, so the text will wrap in the div
+            dvChapContent.InnerHtml = Regex.Replace(dvChapContent.InnerHtml, @"(\s*)?&nbsp;(\s*)?", " ");
+        }
+
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            //checks to see if the text area containing the review isn't null
+            //if statement that will run if the text in txtReview is NOT null
             if (txtReview.Text.Trim() != null)
             {
-                //checks to see if either txtGuestReviewer or lblReviewer.Text !=null
+                //if statement that will run if either txtGuestReviewer or lblReviewerName.Text are NOT null
                 if (txtGuestReviewer.Text.Trim() != null || lblReviewerName.Text.Trim() != null)
                 {
                     //call submit review
@@ -149,6 +143,7 @@ namespace Site
             review.ReviewerName = this.txtGuestReviewer.Text;
             //call checkIfLoggedIn()
             checkIfLoggedIn();
+
             //set review content to the text area value
             review.ReviewContent = txtReview.Text;
             //check if review is savable
@@ -161,25 +156,5 @@ namespace Site
                 txtGuestReviewer.Text = null;
             }
         }
-
-        protected void checkIfLoggedIn()
-        {
-            //set usr to a new instance
-            usr = new User();
-            //try to get the user by a session called UserID (only exists if they're logged in)
-            try
-            {
-                usr = usr.GetById(new Guid(Session["UserID"].ToString()));
-                lblReviewerName.Text = usr.UserName;
-                txtGuestReviewer.Visible = false;
-            }
-            catch
-            {
-                //if it can't, then usr.Id = guid.empty
-                usr.Id = Guid.Empty;
-            }
-        }
-
-
     }
 }
