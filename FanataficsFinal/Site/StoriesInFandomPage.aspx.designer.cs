@@ -10,7 +10,7 @@
 namespace Site {
     
     
-    public partial class StoriesByFandom {
+    public partial class StoriesInFandom {
         
         /// <summary>
         /// rptStories control.

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
+﻿<%@ Page Title="Fandom Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
     CodeBehind="FandomPage.aspx.cs" Inherits="Site.FandomPage" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -14,7 +14,7 @@
                 </HeaderTemplate>
                 <ItemTemplate>
                     <li>
-                        <h3><a href='StoriesByFandomPage.aspx?FandomID=<%# DataBinder.Eval(Container.DataItem,"Id") %>'>
+                        <h3><a href='StoriesInFandomPage.aspx?FandomID=<%# DataBinder.Eval(Container.DataItem,"Id") %>'>
                             <%# DataBinder.Eval(Container.DataItem,"FandomName") %></a></h3>
                     </li>
                 </ItemTemplate>

@@ -297,7 +297,7 @@
     <Content Include="EditStory.aspx" />
     <Content Include="ReviewsPage.aspx" />
     <Content Include="ScribblersCorner.aspx" />
-    <Content Include="StoriesByFandomPage.aspx" />
+    <Content Include="StoriesInFandomPage.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="FandomPage.aspx" />
     <Content Include="Scripts\Default.aspx" />
@@ -362,12 +362,12 @@
     <Compile Include="ScribblersCorner.aspx.designer.cs">
       <DependentUpon>ScribblersCorner.aspx</DependentUpon>
     </Compile>
-    <Compile Include="StoriesByFandomPage.aspx.cs">
-      <DependentUpon>StoriesByFandomPage.aspx</DependentUpon>
+    <Compile Include="StoriesInFandomPage.aspx.cs">
+      <DependentUpon>StoriesInFandomPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="StoriesByFandomPage.aspx.designer.cs">
-      <DependentUpon>StoriesByFandomPage.aspx</DependentUpon>
+    <Compile Include="StoriesInFandomPage.aspx.designer.cs">
+      <DependentUpon>StoriesInFandomPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>

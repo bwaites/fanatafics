@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using BusinessObjects;
 namespace Site
 {
-    public partial class StoriesByFandom : System.Web.UI.Page
+    public partial class StoriesInFandom : System.Web.UI.Page
     {
         
         protected void Page_Load(object sender, EventArgs e)

@@ -1,5 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
-    CodeBehind="StoriesByFandomPage.aspx.cs" Inherits="Site.StoriesByFandom" %>
+﻿<%@ Page Title="Stories in Fandom" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
+    CodeBehind="StoriesInFandomPage.aspx.cs" Inherits="Site.StoriesInFandom" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
