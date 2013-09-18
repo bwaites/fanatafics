@@ -19,7 +19,7 @@
             <p>
                 <asp:DropDownList ID="ddlChapterList" runat="server" DataTextField="Title" DataValueField="ID"
                     OnSelectedIndexChanged="ddlChapterList_SelectedIndexChanged" AutoPostBack="true"
-                    OnDataBound="ddlChapterList_DataBound" OnClientLoad="updateContent()">
+                    OnClientLoad="updateContent()">
                     <asp:ListItem Selected="True" Text="Chapter List"></asp:ListItem>
                 </asp:DropDownList>
             </p>
@@ -27,15 +27,14 @@
     </div>
     <div class="span5 offset4">
         <div class="post">
+            <h3>
+                <asp:Label ID="Label1" runat="server" Text="Name:"></asp:Label>&nbsp;&nbsp;
+                <asp:Label ID="lblReviewerName" runat="server" Text="ReviewerNameGoesHere"></asp:Label>
+            </h3>
+            <asp:TextBox ID="txtGuestReviewer" runat="server" class="span3">Type your name here</asp:TextBox>
+            
             <p>
-                <asp:Label ID="lblReviewerName" runat="server" Text="Name of Reviewer "></asp:Label>&nbsp;&nbsp;&nbsp;
-                <asp:TextBox ID="txtGuestReviewer" runat="server" class="span3"></asp:TextBox>
-            </p>
-            <p>
-                &nbsp;
-            </p>
-            <p>
-                <asp:TextBox ID="txtReview" runat="server" TextMode="MultiLine" class="span4" Height="200px"
+                <asp:TextBox ID="txtReview" runat="server" placeholder="Type your review here!" TextMode="MultiLine" class="span4" Height="200px"
                     Style="resize: none;"></asp:TextBox>
             </p>
             <p>
