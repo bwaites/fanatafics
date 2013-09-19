@@ -19,16 +19,16 @@ namespace Site
             //if statement that will run if the page is loading for the first time
             if (!Page.IsPostBack)
             {
-                //make a variable called myNumb, set its value to
-                //the converted number of Session["LoggedIn"]
+                //make a variable called myNumb and give it a value from Session["LoggedIn"]
                 var myNumb = Convert.ToInt32(Session["LoggedIn"]);
                 //if statement will run if myNumb is equal to zero
                 if (myNumb == 0)
                 {
-                }
-                //else, the user must be logged
+                    //if myNumb is equal to zero, assume no one is logged in
+                }                
                 else
                 {
+                    //if myNumb is equal to anything else, assume user is logged in
                     //call ddlStory_populate
                     ddlStory_Populate();
                 }

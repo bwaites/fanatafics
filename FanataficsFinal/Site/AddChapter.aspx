@@ -14,7 +14,6 @@
         </div>
         <%--        Div for all the editing stuff (ddlChapter, txtChapTitle, the editor and save buttons)--%>
         <div class="span8 offset2 well">
-            <!-- Select Basic -->
             <div class="post">
                 <asp:Label ID="lblChooseStory" runat="server" Text="Choose a Story   "></asp:Label>
                 <asp:DropDownList ID="ddlStory" class="input-xlarge" DataTextField="Title" DataValueField="ID"
@@ -24,7 +23,7 @@
             </div>
             <!-- Text input-->
             <div class="post">
-                <asp:Label ID="Label1" runat="server" Text="Title of Chapter   "></asp:Label>
+                <label>Chapter Title</label>
                 <asp:TextBox ID="txtChapTitle" runat="server" class="input-large"></asp:TextBox>
             </div>
             <div class="post">
@@ -32,7 +31,7 @@
                 <asp:HiddenField ID="hidnEdit" runat="server" />
                 <div class="span1 offset3">
                     <asp:Button ID="btnAddChapter" runat="server" Text="Add Chapter" class="input-large"
-                        OnClientClick="getText()" OnClick="btnAddChapter_Click" Visible="False" />
+                        OnClientClick="getText()" OnClick="btnAddChapter_Click" />
                 </div>
             </div>
         </div>
