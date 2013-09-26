@@ -14,24 +14,44 @@ namespace Site
         protected HiddenField hidnEdit;
         //make a protected Chapter called chap
         protected Chapter chap = new Chapter();
+        //make a bool called bIsLoggedIn, set it to 'false'
+        protected bool bIsLoggedIn = false;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if statement that will run if the page is loading for the first time
+            //if statement will run if the page has NOT posted back to itself
             if (!Page.IsPostBack)
             {
-                //make a variable called myNumb and give it a value from Session["LoggedIn"]
-                var myNumb = Convert.ToInt32(Session["LoggedIn"]);
-                //if statement will run if myNumb is equal to zero
-                if (myNumb == 0)
-                {
-                    //if myNumb is equal to zero, assume no one is logged in
-                }                
-                else
-                {
-                    //if myNumb is equal to anything else, assume user is logged in
-                    //call ddlStory_populate
-                    ddlStory_Populate();
-                }
+                //call CheckIfLoggedIn, passing in bIsLoggedIn
+                CheckIfLoggedIn(bIsLoggedIn);
+            }
+        }
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            //if statement will run if Page HAS posted back to itself
+            if (Page.IsPostBack)
+            {
+                //call CheckIfLoggedIn, passing in bIsLoggedIn
+                CheckIfLoggedIn(bIsLoggedIn);
+            }
+        }
+        protected void CheckIfLoggedIn(bool bIsLoggedIn)
+        {
+            //make a variable called myNumb, and set its value to a converted number of Session "LoggedIn"
+            var myNumb = Convert.ToInt32(Session["LoggedIn"]);
+            //if statement that will run if myNumb value is equal to 0
+            if (myNumb == 0)
+            {               
+                //set bIsLoggedIn to 'false'
+                bIsLoggedIn = false;
+            }
+            //else that will run if myNumb value is NOT equal to zero
+            else
+            {
+                //set bIsLoggedIn to 'true'
+                bIsLoggedIn = true;
+                //make a new guid called userID and give it a value from session
+                ddlStory_Populate();
             }
         }
         protected void ddlStory_Populate()

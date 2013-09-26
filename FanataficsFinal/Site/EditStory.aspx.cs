@@ -21,10 +21,18 @@ namespace Site
             {
                 CheckIfLoggedIn(bIsLoggedIn);
             }
+            else
+            {
+                ddlFandom_Populate();
+            }
         }
         protected void Page_PreRender(object sender, EventArgs e)
         {
-            CheckIfLoggedIn(bIsLoggedIn);
+            if (Page.IsPostBack)
+            {
+                //call CheckIfLoggedIn, passing in bIsLoggedIn
+                CheckIfLoggedIn(bIsLoggedIn);
+            }
         }
         protected void CheckIfLoggedIn(bool bIsLoggedIn)
         {
@@ -47,7 +55,7 @@ namespace Site
                 userID = new Guid(Session["UserID"].ToString());
                 ddlStory_Populate();
                 ShowStoryDetails();
-                DropDownLists_LoadDetails();
+                DropDownLists_LoadItems();
             }
         }
         protected void DropDownLists_ClearItems()
@@ -63,7 +71,7 @@ namespace Site
             //clear items from ddlGenre2
             ddlGenre2.Items.Clear();
         }
-        protected void DropDownLists_LoadDetails()
+        protected void DropDownLists_LoadItems()
         {            
             ddlCategory_Populate();
             ddlFandom_Populate();

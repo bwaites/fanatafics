@@ -11,44 +11,84 @@ namespace Site
     public partial class NewStory : System.Web.UI.Page
     {
        
-        //Make a userStory
-        protected UserStory strysUsers = new UserStory();
-
+        //Make new UserStory called usersStories
+        protected UserStory usersStories = new UserStory();
+        //make a bool called bIsLoggedIn, set it to 'false'
+        protected bool bIsLoggedIn = false;
+        //make an empty guid called userID
+        protected Guid userID = Guid.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //runs if the page hasn't been loaded
+            //if statement will run if the page has NOT posted back
             if (!Page.IsPostBack)
             {
-                //convert LoggedIn Session to a number called myNumb
-                var myNumb = Convert.ToInt32(Session["LoggedIn"]);
-                if (myNumb == 0)
-                {
-                    //if myNumb is equal to 0 a user isn't logged in
-                }
-                else
-                {
-                    //if myNumb is equal to else, a user is logged in
-                    ddlCategory_Populate();
-                    ddlGenre1_Populate();
-                    ddlGenre2_Populate();
-                    ddlMaturity_Populate();
-                }
+                //call CheckIfLoggedIn, passing in bIsLoggedIn
+                CheckIfLoggedIn(bIsLoggedIn);
             }
             else
             {
-                //if page /has/ been loaded, then populate the ddlFandom
-                ddlFandom_Populate();
-                
+                //if page /has/ posted back, populate the ddlFandom
+                ddlFandom_Populate();                
             }
+        }
+        protected void Page_PreRender(object sender, EventArgs e)
+        {
+            if (Page.IsPostBack)
+            {
+                //call CheckIfLoggedIn, passing in bIsLoggedIn
+                CheckIfLoggedIn(bIsLoggedIn);
+            }
+        }
+        protected void CheckIfLoggedIn(bool bIsLoggedIn)
+        {
+            //make a variable called myNumb, and set its value to a converted number of Session "LoggedIn"
+            var myNumb = Convert.ToInt32(Session["LoggedIn"]);
+            //if statement that will run if myNumb value is equal to 0
+            if (myNumb == 0)
+            {
+                //call ddlList_ClearItems to clear items in all dropdownlists
+                DropDownLists_ClearItems();
+                //set bIsLoggedIn to 'false'
+                bIsLoggedIn = false;
+            }
+            //else that will run if myNumb value is NOT equal to zero
+            else
+            {
+                //set bIsLoggedIn to 'true'
+                bIsLoggedIn = true;
+                //make a new guid called userID and give it a value from session
+                userID = new Guid(Session["UserID"].ToString());
+                DropDownLists_LoadItems();
+            }
+        }
+
+        protected void DropDownLists_ClearItems()
+        {
+            //clear items from the following drop down lists
+            ddlCategory.Items.Clear();
+            ddlFandom.Items.Clear();
+            ddlGenre1.Items.Clear();
+            ddlGenre2.Items.Clear();
+            ddlMaturity.Items.Clear();
+        }
+        protected void DropDownLists_LoadItems()
+        {
+            //populate the following drop down lists
+            ddlCategory_Populate();
+            ddlFandom_Populate();
+            ddlGenre1_Populate();
+            ddlGenre2_Populate();
+            ddlMaturity_Populate();
         }
 
         protected void ddlCategory_Populate()
         {
+            //make a new CategoryList called catList
             CategoryList catList = new CategoryList();
             //Get all categories
             catList = catList.GetAll();
-            //Bind the types of Categories to ddlCategory
+            //Bind the list to ddlCategory
             ddlCategory.DataSource = catList.List;
             ddlCategory.DataTextField = "Type";
             ddlCategory.DataValueField = "ID";
@@ -56,11 +96,11 @@ namespace Site
         }
         protected void ddlFandom_Populate()
         {
-            //Check and see if the items in ddlCategory were loaded
-            if (ddlCategory.Items.Count > 0)
+            //if statement will run if selectedIndex of ddlCategory is greater or equal to zero
+            if (ddlCategory.SelectedIndex >=0)
             {
+                //make a new FandomList called fandList
                 FandomList fandList = new FandomList();
-
                 //Get fandoms based on categoryID
                 fandList = fandList.GetByCategoryID(new Guid(ddlCategory.SelectedValue));
                 //binds the list to ddlFandom
@@ -70,6 +110,7 @@ namespace Site
         }
         protected void ddlGenre1_Populate()
         {
+            //make a new GenreList called genList
             GenreList genList = new GenreList();
             //Get all of the list
             genList.GetAll();
@@ -82,6 +123,7 @@ namespace Site
 
         protected void ddlGenre2_Populate()
         {
+            //make a new GenreList called genList
             GenreList genList = new GenreList();
             //Get all of the list
             genList.GetAll();
@@ -93,6 +135,7 @@ namespace Site
         }
         protected void ddlMaturity_Populate()
         {
+            //make a new MaturityList called matList
             MaturityList matList = new MaturityList();
             //Get all of maturity levels
             matList.GetAll();
@@ -105,48 +148,57 @@ namespace Site
 
         protected void btnAddStory_Click(object sender, EventArgs e)
         {
-            //calls Add_Story method
+            //call Add_Story method
             Add_Story();
         }
         protected void Add_Story()
         {
             //make a new story object
             Story story = new Story();
-            //set title, summary, fandom id, genre id, maturity id equal to input options
+            //set story's Title property to value from txtTitle
             story.Title = this.txtTitle.Value;
+            //set story's Summary property to value from txtSummary
             story.Summary = this.txtSummary.Value;
+            //set story's FandomID property to selected value of ddlFandom
             story.FandomID = new Guid(this.ddlFandom.SelectedValue);
+            //set story's GenreID1 property to selected value of ddlGenre1
             story.GenreID1 = new Guid(this.ddlGenre1.SelectedValue);
+            //set story's GenreID2 property to selected value of ddlGenre2
             story.GenreID2 = new Guid(this.ddlGenre2.SelectedValue);
+            //set story's MaturityID property to selected value of ddlMaturityID
             story.MaturityID = new Guid(this.ddlMaturity.SelectedValue);
             //set stryUser UserID to the User's ID (stored in session)
-            strysUsers.UserID = new Guid(Session["UserID"].ToString());            
+            usersStories.UserID = userID;            
 
-            //Check if the story is savable, and if so, save it
+            //if statement will run if story.IsSavable equals true
             if (story.IsSavable() == true)
             {
+                //if the story is savable, save it
                 story = story.Save();
-                //set the storyIDs of stryUsers, stryGenre and StryFandom to be the id of the story
-                strysUsers.StoryID = story.Id;
-                //call save_Bridges
-                //get user by ID based on session 
+                //set the storyID of stryUsers to the id of story
+                usersStories.StoryID = story.Id;
+                
+                //make a new User called usr
                 User usr = new User();
-                usr = usr.GetById(new Guid(Session["UserID"].ToString()));
-                                
-                //increase storyamount by 1
+                //get the right user by userID (taken from Session["UserID"])
+                usr = usr.GetById(userID);                                
+                //set usr's StoryAmount property to equal itself plus 1
                 usr.StoryAmount = usr.StoryAmount + 1;
-                strysUsers.UserID = usr.Id;
+                //set usersStories' UserId property to value of userID
+                usersStories.UserID = userID;
+                //call save_Bridges
                 save_Bridges();
+                //redirect user to AddChapter page
                 Server.Transfer("AddChapter.aspx", true);
             }
         }
         protected void save_Bridges()
         {
-            //check if each bridge is savable, if it is, save them.
-            
-            if (strysUsers.IsSavable() == true)
+            //if statement will run if usersStories' IsSavable property equals true            
+            if (usersStories.IsSavable() == true)
             {
-                strysUsers.Save();
+                //if the bridge is savable, save it
+                usersStories.Save();
             }
         }
     }
