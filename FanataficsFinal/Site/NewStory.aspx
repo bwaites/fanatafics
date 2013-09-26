@@ -6,96 +6,101 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="form-horizontal">
         <!-- Form Name -->
-        <h2>
-            Add A Story</h2>
-        <!-- Drop down list -->
-        <div class="control-group">
-            <label class="control-label">
-                Category</label>
-            <div class="controls">
-                <asp:DropDownList ID="ddlCategory" class="input-xlarge" runat="server" AutoPostBack="True">
-                    <asp:ListItem Selected="True"></asp:ListItem>
-                </asp:DropDownList>
-            </div>
+        <div class="span6 offset3">
+            <h2 class="title">
+                Fanatical Editor&nbsp; - &nbsp;Make a New Story</h2>
         </div>
-        <asp:RequiredFieldValidator ID="rfvCategory" runat="server" ControlToValidate="ddlCategory"
-            ErrorMessage="Must pick a Category" SetFocusOnError="true">*</asp:RequiredFieldValidator>
-        <!-- Select Basic -->
-        <div class="control-group">
-            <label class="control-label">
-                Fandom</label>
-            <div class="controls">
-                <asp:DropDownList ID="ddlFandom" class="input-xlarge" runat="server" DataTextField="FandomName"
-                    DataValueField="ID">
-                    <asp:ListItem Selected="True"></asp:ListItem>
-                </asp:DropDownList>
+        <div class="span8 offset2 well">
+            <div class="post" id="dvCategories">
+                <!-- Drop down list for Categories-->
+                <span>Choose a Category</span>
+                <div class="control-group">
+                    <div class="controls">
+                        <asp:DropDownList ID="ddlCategory" class="input-xlarge" runat="server" AutoPostBack="True">
+                            <asp:ListItem Selected="True"></asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                </div>
+                <asp:RequiredFieldValidator ID="rfvCategory" runat="server" ControlToValidate="ddlCategory"
+                    ErrorMessage="Must pick a Category" SetFocusOnError="true">*</asp:RequiredFieldValidator>
             </div>
-        </div>
-        <asp:RequiredFieldValidator ID="rfvFandom" runat="server" ControlToValidate="ddlFandom"
-            ErrorMessage="Must choose a Fandom" SetFocusOnError="true">*</asp:RequiredFieldValidator>
-        <!-- Text input-->
-        <div class="control-group">
-            <label class="control-label">
-                Title</label>
-            <div class="controls">
-                <input id="txtTitle" name="txtTitle" type="text" text="(100 Characters MAX)" class="input-xlarge"
-                    required="true" runat="server" />
-                <p class="help-block">
-                </p>
+            <div class="post" id="dvFandoms">
+                <!-- Select Basic -->
+                <span>Choose a Fandom</span>
+                <div class="control-group">
+                    <div class="controls">
+                        <asp:DropDownList ID="ddlFandom" class="input-xlarge" runat="server" DataTextField="FandomName"
+                            DataValueField="ID">
+                            <asp:ListItem Selected="True"></asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                </div>
+                <asp:RequiredFieldValidator ID="rfvFandom" runat="server" ControlToValidate="ddlFandom"
+                    ErrorMessage="Must choose a Fandom" SetFocusOnError="true">*</asp:RequiredFieldValidator>
             </div>
-        </div>
-        <asp:RequiredFieldValidator ID="rfvTitle" runat="server" ControlToValidate="txtTitle"
-            ErrorMessage="Title can't be left blank" SetFocusOnError="true">*</asp:RequiredFieldValidator>
-        <!-- Text Area -->
-        <div class="control-group">
-            <label class="control-label">
-                Summary</label>
-            <div class="controls">
-                <div id="Summary" class="textarea">
-                    <textarea rows="5" cols="50" id="txtSummary" runat="server">(500 MAX)</textarea>
+            <div class="post" id="dvStoryTitle">
+                <!-- Text input-->
+                <span>Title of Story</span>
+                <div class="control-group">
+                    <div class="controls">
+                        <input id="txtTitle" name="txtTitle" type="text" text="(100 Characters MAX)" class="input-xlarge"
+                            required="true" runat="server" />
+                        <p class="help-block">
+                        </p>
+                    </div>
+                </div>
+                <asp:RequiredFieldValidator ID="rfvTitle" runat="server" ControlToValidate="txtTitle"
+                    ErrorMessage="Title can't be left blank" SetFocusOnError="true">*</asp:RequiredFieldValidator>
+                <!-- Text Area -->
+            </div>
+            <div class="post" id="dvStorySummary">
+                <span>Summary of Story</span>
+                <div class="control-group">
+                    <div class="controls">
+                        <textarea rows="5" cols="50" id="txtSummary" class="span5" style="resize: none;" runat="server">(500 MAX)</textarea>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- Select Multiple -->
-        <div class="control-group">
-            <label class="control-label">
-                Choose Genre</label>
-            <div class="controls">
-                <asp:DropDownList ID="ddlGenre1" class="input-xlarge" runat="server" AutoPostBack="True">
-                    <asp:ListItem Selected="True"></asp:ListItem>
-                </asp:DropDownList>
+            <div class="post" id="dvGenres">
+                <!-- Select Multiple -->
+                <span>Choose two Genres</span>
+                <div class="control-group">
+                    <div class="controls">
+                        <asp:DropDownList ID="ddlGenre1" class="input-xlarge" runat="server" AutoPostBack="True">
+                            <asp:ListItem Selected="True"></asp:ListItem>
+                        </asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="rfvGenre1" runat="server" ControlToValidate="ddlGenre1"
+                            ErrorMessage="Must choose at least one Genre" SetFocusOnError="true">*</asp:RequiredFieldValidator>
+                        <asp:DropDownList ID="ddlGenre2" class="input-xlarge" runat="server" AutoPostBack="True">
+                            <asp:ListItem Selected="True"></asp:ListItem>
+                        </asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="rfvGenre2" runat="server" ControlToValidate="ddlGenre2"
+                            ErrorMessage="Must choose at least one Genre" SetFocusOnError="true">*</asp:RequiredFieldValidator>
+                    </div>
+                </div>
             </div>
-        </div>
-        <asp:RequiredFieldValidator ID="rfvGenre1" runat="server" ControlToValidate="ddlGenre1"
-            ErrorMessage="Must choose at least one Genre" SetFocusOnError="true">*</asp:RequiredFieldValidator>
-        <div class="control-group">
-            <div class="controls">
-                <asp:DropDownList ID="ddlGenre2" class="input-xlarge" runat="server" AutoPostBack="True">
-                    <asp:ListItem Selected="True"></asp:ListItem>
-                </asp:DropDownList>
+            <div class="post" id="dvMaturity">
+                <!-- Select Basic -->
+                <span>Choose a Maturity Rating</span>
+                <div class="control-group">
+                    <div class="controls">
+                        <asp:DropDownList ID="ddlMaturity" class="input-xlarge" runat="server" AutoPostBack="True">
+                            <asp:ListItem Selected="True"></asp:ListItem>
+                        </asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="rfvMaturity" runat="server" ControlToValidate="ddlMaturity"
+                            ErrorMessage="Must choose a Maturity" SetFocusOnError="true">*</asp:RequiredFieldValidator>
+                    </div>
+                </div>
             </div>
-        </div>
-        <asp:RequiredFieldValidator ID="rfvGenre2" runat="server" ControlToValidate="ddlGenre2"
-            ErrorMessage="Must choose at least one Genre" SetFocusOnError="true">*</asp:RequiredFieldValidator>
-        <!-- Select Basic -->
-        <div class="control-group">
-            <label class="control-label">
-                Maturity Rating</label>
-            <div class="controls">
-                <asp:DropDownList ID="ddlMaturity" class="input-xlarge" runat="server" AutoPostBack="True">
-                    <asp:ListItem Selected="True"></asp:ListItem>
-                </asp:DropDownList>
-            </div>
-        </div>
-        <asp:RequiredFieldValidator ID="rfvMaturity" runat="server" ControlToValidate="ddlMaturity"
-            ErrorMessage="Must choose a Maturity" SetFocusOnError="true">*</asp:RequiredFieldValidator>
-        <!-- Button -->
-        <div class="control-group">
-            <label class="control-label">
-            </label>
-            <div class="controls">
-                <asp:Button runat="server" ID="btnAddStory" class="btn btn-primary" Text="Add Story"
-                    OnClick="btnAddStory_Click" />
+            <div class="post" id="dvButtons">
+                <!-- Button -->
+                <span></span>
+                <div class="control-group">
+                    <div class="controls">
+                        <asp:Button runat="server" ID="btnAddStory" class="btn btn-primary" Text="Add Story"
+                            OnClick="btnAddStory_Click" />
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -12,25 +12,24 @@
             <h2 class="title">
                 Fanatical Editor&nbsp; - &nbsp;Chapter Adding</h2>
         </div>
-        <%--        Div for all the editing stuff (ddlChapter, txtChapTitle, the editor and save buttons)--%>
         <div class="span8 offset2 well">
             <div class="post">
                 <asp:Label ID="lblChooseStory" runat="server" Text="Choose a Story   "></asp:Label>
-                <asp:DropDownList ID="ddlStory" class="input-xlarge" DataTextField="Title" DataValueField="ID"
+                <asp:DropDownList ID="ddlStory" class="input-xlarge span5" DataTextField="Title" DataValueField="ID"
                     runat="server" OnSelectedIndexChanged="ddlStory_SelectedIndexChanged" AutoPostBack="true">
                     <asp:ListItem Selected="True" Text="Choose a Story"></asp:ListItem>
                 </asp:DropDownList>
             </div>
             <!-- Text input-->
             <div class="post">
-                <label>Chapter Title</label>
-                <asp:TextBox ID="txtChapTitle" runat="server" class="input-large"></asp:TextBox>
+                <asp:Label ID="Label1" runat="server" Text="Title of Chapter  "></asp:Label>
+                <asp:TextBox ID="txtChapTitle" runat="server" class="input-large span5"></asp:TextBox>
             </div>
             <div class="post">
                 <textarea id="editor1" name="editor1"></textarea>
                 <asp:HiddenField ID="hidnEdit" runat="server" />
-                <div class="span1 offset3">
-                    <asp:Button ID="btnAddChapter" runat="server" Text="Add Chapter" class="input-large"
+                <div class="span2 offset2">
+                    <asp:Button ID="btnAddChapter" runat="server" Text="Add Chapter" class="input-large span2"
                         OnClientClick="getText()" OnClick="btnAddChapter_Click" />
                 </div>
             </div>
