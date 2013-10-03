@@ -26,11 +26,7 @@ namespace Site
                 //call CheckIfLoggedIn, passing in bIsLoggedIn
                 CheckIfLoggedIn(bIsLoggedIn);
             }
-            else
-            {
-                //if page /has/ posted back, populate the ddlFandom
-                ddlFandom_Populate();                
-            }
+
         }
         protected void Page_PreRender(object sender, EventArgs e)
         {
@@ -200,6 +196,16 @@ namespace Site
                 //if the bridge is savable, save it
                 usersStories.Save();
             }
+        }
+
+        protected void ddlFandom_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

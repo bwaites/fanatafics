@@ -4,11 +4,9 @@ Public Class Review
 
 #Region " Private Members "
     Private _ChapterID As Guid = Guid.Empty
-    Private _ReviewerName As String = String.Empty
+    Private _GuestName As String = String.Empty
     Private _UserID As Guid = Guid.Empty
     Private _ReviewContent As String = String.Empty
-
-
 #End Region
 
 #Region " Public Properties "
@@ -27,13 +25,13 @@ Public Class Review
         End Set
     End Property
 
-    Public Property ReviewerName As String
+    Public Property GuestName As String
         Get
-            Return _ReviewerName
+            Return _GuestName
         End Get
         Set(value As String)
-            If value <> _ReviewerName Then
-                _ReviewerName = value
+            If value <> _GuestName Then
+                _GuestName = value
                 MyBase.IsDirty = True
                 'Raise an Event here to notify
                 'if the object is savable
@@ -71,9 +69,6 @@ Public Class Review
             End If
         End Set
     End Property
-
-
-
 #End Region
 
 #Region " Private Methods "
@@ -88,12 +83,9 @@ Public Class Review
             MyBase.Initialize(database, Guid.Empty)
             'Add the parameter
             database.Command.Parameters.Add("@ChapterID", SqlDbType.UniqueIdentifier).Value = _ChapterID
-            database.Command.Parameters.Add("@ReviewerName", SqlDbType.VarChar).Value = _ReviewerName
+            database.Command.Parameters.Add("@GuestName", SqlDbType.VarChar).Value = _GuestName
             database.Command.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = _UserID
             database.Command.Parameters.Add("@ReviewContent", SqlDbType.VarChar).Value = _ReviewContent
-
-
-
             'Execute non query
             database.ExecuteNonQueryWithTransaction()
             'Retrieve the header data values from the command object
@@ -103,10 +95,9 @@ Public Class Review
         Catch ex As Exception
             Return False
         End Try
-
     End Function
-    Private Function Update(database As DatabaseHelper.Database) As Boolean
 
+    Private Function Update(database As DatabaseHelper.Database) As Boolean
         Try
             'Setting up the Command object
             database.Command.Parameters.Clear()
@@ -116,10 +107,9 @@ Public Class Review
             MyBase.Initialize(database, MyBase.Id)
             'Add the parameter
             database.Command.Parameters.Add("@ChapterID", SqlDbType.UniqueIdentifier).Value = _ChapterID
-            database.Command.Parameters.Add("@ReviewerName", SqlDbType.VarChar).Value = _ReviewerName
+            database.Command.Parameters.Add("@GuestName", SqlDbType.VarChar).Value = _GuestName
             database.Command.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = _UserID
             database.Command.Parameters.Add("@ReviewContent", SqlDbType.VarChar).Value = _ReviewContent
-
 
             'Execute non query
             database.ExecuteNonQueryWithTransaction()
@@ -130,10 +120,9 @@ Public Class Review
         Catch ex As Exception
             Return False
         End Try
-
     End Function
-    Private Function Delete(database As DatabaseHelper.Database) As Boolean
 
+    Private Function Delete(database As DatabaseHelper.Database) As Boolean
         Try
             database.Command.Parameters.Clear()
             database.Command.CommandType = CommandType.StoredProcedure
@@ -153,11 +142,10 @@ Public Class Review
         'ASSUME TRUE UNLESS A RULE IS BROKEN
         Dim result As Boolean = True
 
-
-        If _ReviewerName.Trim = String.Empty Then
+        If _GuestName.Trim = String.Empty Then
             result = False
         End If
-        If _ReviewerName.Length > 30 Then
+        If _GuestName.Length > 30 Then
             result = False
         End If
 
@@ -170,7 +158,6 @@ Public Class Review
         End If
 
         Return result
-
     End Function
 #End Region
 
@@ -180,7 +167,6 @@ Public Class Review
         db.BeginTransaction(My.Settings.ConnectionName)
 
         Dim result As Boolean = True
-
 
         If MyBase.IsNew = True AndAlso MyBase.IsDirty = True AndAlso IsValid() = True Then
             result = Insert(db)
@@ -195,9 +181,9 @@ Public Class Review
         Else
             db.RollbackTransaction()
         End If
-
         Return Me
     End Function
+
     Public Function IsSavable() As Boolean
         If MyBase.IsDirty = True AndAlso IsValid() = True Then
             Return True
@@ -205,8 +191,8 @@ Public Class Review
             Return False
         End If
     End Function
-    Public Function GetById(id As Guid) As Review
 
+    Public Function GetById(id As Guid) As Review
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
         db.Command.CommandType = CommandType.StoredProcedure
@@ -259,16 +245,13 @@ Public Class Review
 
     End Function
 
-
     Public Sub InitializeBusinessData(dr As DataRow)
         _ChapterID = dr("ChapterID")
-        _ReviewerName = dr("ReviewerName")
+        _GuestName = dr("GuestName")
         If IsDBNull(dr("UserID")) = False Then
             _UserID = dr("UserID")
 
         End If
-
-
         _ReviewContent = dr("ReviewContent")
 
 

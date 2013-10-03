@@ -73,7 +73,6 @@ Public Class StoryList
             End If
         End Set
     End Property
-
 #End Region
 
 #Region " Private Methods "
@@ -88,7 +87,7 @@ Public Class StoryList
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
         db.Command.CommandType = CommandType.StoredProcedure
-        db.Command.CommandText = "tblStory2_getByID"
+        db.Command.CommandText = "tblStory_getByID"
         db.Command.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = id
         ds = db.ExecuteQuery()
 
@@ -163,7 +162,7 @@ Public Class StoryList
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
         db.Command.CommandType = CommandType.StoredProcedure
-        db.Command.CommandText = "tblStory2_getByFandomID"
+        db.Command.CommandText = "tblStory_getByFandomID"
         db.Command.Parameters.Add("@FandomID", SqlDbType.UniqueIdentifier).Value = id
         ds = db.ExecuteQuery()
 
@@ -186,10 +185,9 @@ Public Class StoryList
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
         db.Command.CommandType = CommandType.StoredProcedure
-        db.Command.CommandText = "tblStory2_getByUserID"
+        db.Command.CommandText = "tblStory_getByUserID"
         db.Command.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = id
         ds = db.ExecuteQuery()
-
 
         For Each dr As DataRow In ds.Tables(0).Rows
             Dim s As New Story()
@@ -226,7 +224,7 @@ Public Class StoryList
 #Region " Construction "
     Public Sub New()
         _Criteria = New Criteria
-        _Criteria.TableName = "tblStory2"
+        _Criteria.TableName = "tblStory"
     End Sub
 #End Region
 

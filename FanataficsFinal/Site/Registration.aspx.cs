@@ -30,7 +30,8 @@ namespace Site
             user.Email = this.txtEmail.Value; 
             user.SecurityQuestion = this.txtSecurityQuestion.Value;
             //Decided to encrypt the answer for extra security
-            user.SecurityAnswer = pEncrypt.EncryptQueryString(this.txtSecurityAnswer.Value); 
+            user.SecurityAnswer = pEncrypt.EncryptQueryString(this.txtSecurityAnswer.Value);
+            user.UserBIO = string.Empty;
 
             if (user.IsSavable() == true)
             {

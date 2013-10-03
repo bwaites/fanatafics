@@ -21,12 +21,15 @@
             <ItemTemplate>
                 <p>
                     <asp:Label ID="Label1" runat="server">Name: </asp:Label>
-                    <%# DataBinder.Eval(Container.DataItem,"ReviewerName" )%>
+                    <%# DataBinder.Eval(Container.DataItem,"GuestName" )%>
                 </p>
                 <p>
                     <%#DataBinder.Eval(Container.DataItem,"ReviewContent") %>
                 </p>
             </ItemTemplate>
+            <AlternatingItemTemplate>
+            <hr />
+            </AlternatingItemTemplate>
             <SeparatorTemplate>
             </SeparatorTemplate>
             <FooterTemplate>

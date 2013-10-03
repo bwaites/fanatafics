@@ -26,6 +26,13 @@ namespace Site
                 rptStories.DataBind();
             }
         }
+
+        protected void loadStories(Guid storyID)
+        {
+            ChapterList chapList = new ChapterList();
+            
+            chapList = chapList.GetByStoryID(storyID);
+        }
         protected void rptStories_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             //if statement that will run if the event itemtype equals the item or alternating item types

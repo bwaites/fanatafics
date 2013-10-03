@@ -151,21 +151,21 @@ namespace Site
             Review review = new Review();
             //set the chapter ID to the selected value of ddlChapterList
             review.ChapterID = new Guid(this.ddlChapterList.SelectedValue);
-            //set reviewername to txtGuestReviewer.Text
-            review.ReviewerName = this.txtGuestReviewer.Text;
+            //set GuestName to txtGuestReviewer.Text
+            review.GuestName = this.txtGuestReviewer.Text;
             //if statement that will run if bIsLoggedIn is equal to 'true'
             if (bIsLoggedIn == true)
             {
-                //set ReviewerName property of review to text from lblReviewerName
-                review.ReviewerName = lblReviewerName.Text;
+                //set GuestName property of review to text from lblReviewerName
+                review.GuestName = lblReviewerName.Text;
                 //set UserId property of review to a guid taken from Session "UserID"
                 review.UserID = new Guid(Session["UserID"].ToString());
             }
             //else bIsLoggedIn is equal to 'false' so do this
             else
             {
-                //set ReviewerName property of review to text from txtGuestReviewer
-                review.ReviewerName = txtGuestReviewer.Text;
+                //set GuestName property of review to text from txtGuestReviewer
+                review.GuestName = txtGuestReviewer.Text;
                 //set UserId property of review to an empty guid
                 review.UserID = Guid.Empty;
             }        

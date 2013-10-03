@@ -23,10 +23,10 @@ Released for free under a Creative Commons Attribution 2.5 License
 .btn-primary.active {
   background-color: #004099 \9;
 }
-
+/*
 * {
    border: 1px solid red !important;
-}
+}*/
 body {
 	margin: 0;
 	padding: 0;

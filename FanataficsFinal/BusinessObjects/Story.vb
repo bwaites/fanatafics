@@ -8,7 +8,7 @@ Public Class Story
     Private _GenreID1 As Guid = Guid.Empty
     Private _GenreID2 As Guid = Guid.Empty
     Private _MaturityID As Guid = Guid.Empty
-
+    Private _HasChapters As Boolean = False
     '
     'ADD PRIVATE MEMBERS FOR CHILDREN HERE
     '
@@ -95,41 +95,22 @@ Public Class Story
         End Set
     End Property
 
+    Public Property HasChapters As Boolean
+        Get
+            Return _HasChapters
+        End Get
+        Set(value As Boolean)
+            _HasChapters = value
+            MyBase.IsDirty = True
+            'Rave event if savable
+            RaiseEvent evtIsSavable(IsSavable)
+        End Set
+    End Property
 
     '
     'ADD PUBLIC PROPERITES FOR CHILDREN HERE
     '
 
-    'Public ReadOnly Property StoryGenres As StoryGenreList
-    '    Get
-    '        If _storyGenres Is Nothing Then
-    '            _storyGenres = New StoryGenreList
-    '            _storyGenres = _storyGenres.GetByStoryID(MyBase.Id)
-    '        End If
-    '        Return _storyGenres
-    '    End Get
-
-    'End Property
-
-    'Public ReadOnly Property StoryFandoms As StoryFandomList
-    '    Get
-    '        If _storyFandoms Is Nothing Then
-    '            _storyFandoms = New StoryFandomList
-    '            _storyFandoms = _storyFandoms.GetByStoryId(MyBase.Id)
-    '        End If
-    '        Return _storyFandoms
-    '    End Get
-    'End Property
-
-    'Public ReadOnly Property StorysUsers As UserStoryList
-    '    Get
-    '        If _StorysUsers Is Nothing Then
-    '            _StorysUsers = New UserStoryList
-    '            _StorysUsers = _StorysUsers.GetByStoryID(MyBase.Id)
-    '        End If
-    '        Return _StorysUsers
-    '    End Get
-    'End Property
 
 
 #End Region
@@ -141,7 +122,7 @@ Public Class Story
             'Setting up the Command object
             database.Command.Parameters.Clear()
             database.Command.CommandType = CommandType.StoredProcedure
-            database.Command.CommandText = "tblStory2_INSERT"
+            database.Command.CommandText = "tblStory_INSERT"
             'Add the header data parameters
             MyBase.Initialize(database, Guid.Empty)
             'Add the parameter
@@ -151,7 +132,7 @@ Public Class Story
             database.Command.Parameters.Add("@GenreID1", SqlDbType.UniqueIdentifier).Value = _GenreID1
             database.Command.Parameters.Add("@GenreID2", SqlDbType.UniqueIdentifier).Value = _GenreID2
             database.Command.Parameters.Add("@MaturityID", SqlDbType.UniqueIdentifier).Value = _MaturityID
-
+            database.Command.Parameters.Add("@HasChapters", SqlDbType.Bit).Value = _HasChapters
             'CHANGE EXECUTE NON QUERY TO EXECUTE NON QUERY WITH TRANSACTION
             database.ExecuteNonQueryWithTransaction()
             'Retrieve the header data values from the command object
@@ -169,7 +150,7 @@ Public Class Story
             'Setting up the Command object
             database.Command.Parameters.Clear()
             database.Command.CommandType = CommandType.StoredProcedure
-            database.Command.CommandText = "tblStory2_UPDATE"
+            database.Command.CommandText = "tblStory_UPDATE"
             'Add the header data parameters
             MyBase.Initialize(database, MyBase.Id)
             'Add the parameter
@@ -179,6 +160,7 @@ Public Class Story
             database.Command.Parameters.Add("@GenreID1", SqlDbType.UniqueIdentifier).Value = _GenreID1
             database.Command.Parameters.Add("@GenreID2", SqlDbType.UniqueIdentifier).Value = _GenreID2
             database.Command.Parameters.Add("@MaturityID", SqlDbType.UniqueIdentifier).Value = _MaturityID
+            database.Command.Parameters.Add("@HasChapters", SqlDbType.Bit).Value = _HasChapters
 
             'Execute non query
             database.ExecuteNonQueryWithTransaction()
@@ -198,7 +180,7 @@ Public Class Story
         Try
             database.Command.Parameters.Clear()
             database.Command.CommandType = CommandType.StoredProcedure
-            database.Command.CommandText = "tblStory2_DELETE"
+            database.Command.CommandText = "tblStory_DELETE"
             MyBase.Initialize(database, MyBase.Id)
             database.ExecuteNonQueryWithTransaction()
             '
@@ -307,8 +289,8 @@ Public Class Story
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
         db.Command.CommandType = CommandType.StoredProcedure
-        db.Command.CommandText = "tblStory2_getById"
-        db.Command.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = id
+        db.Command.CommandText = "tblStory_getById"
+        db.Command.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = id
         ds = db.ExecuteQuery()
 
         If ds.Tables(0).Rows.Count = 1 Then
@@ -333,8 +315,8 @@ Public Class Story
         Dim db As New Database(My.Settings.ConnectionName)
         Dim ds As DataSet = Nothing
         db.Command.CommandType = CommandType.StoredProcedure
-        db.Command.CommandText = "tblStory2_getById"
-        db.Command.Parameters.Add("@Id", SqlDbType.UniqueIdentifier).Value = id
+        db.Command.CommandText = "tblStory_getByID"
+        db.Command.Parameters.Add("@ID", SqlDbType.UniqueIdentifier).Value = id
         ds = db.ExecuteQuery()
 
         If ds.Tables(0).Rows.Count = 1 Then
@@ -361,6 +343,7 @@ Public Class Story
         _GenreID1 = dr("GenreID1")
         _GenreID2 = dr("GenreID2")
         _MaturityID = dr("MaturityID")
+        _HasChapters = dr("HasChapters")
     End Sub
 #End Region
 

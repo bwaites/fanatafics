@@ -179,7 +179,7 @@ Public Class UserFavStory
             Return Me
         Else
             If ds.Tables(0).Rows.Count = 0 Then
-                Throw New Exception(String.Format("Favorite Story {0} was not fount", id))
+                Throw New Exception(String.Format("Favorite Story {0} was not found", id))
             Else
                 Throw New Exception(String.Format("Favorite Story {0} found multiple records", id))
             End If

@@ -26,7 +26,7 @@ namespace BusinessObjectsTest
 
             //Act
             target.GetById(reviewId);
-            String actualReviewerName = target.ReviewerName;
+            String actualReviewerName = target.GuestName;
 
             //Assert
 

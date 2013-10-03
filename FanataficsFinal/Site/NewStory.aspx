@@ -16,7 +16,8 @@
                 <span>Choose a Category</span>
                 <div class="control-group">
                     <div class="controls">
-                        <asp:DropDownList ID="ddlCategory" class="input-xlarge" runat="server" AutoPostBack="True">
+                        <asp:DropDownList ID="ddlCategory" class="input-xlarge" runat="server" 
+                            AutoPostBack="True" onselectedindexchanged="ddlCategory_SelectedIndexChanged">
                             <asp:ListItem Selected="True"></asp:ListItem>
                         </asp:DropDownList>
                     </div>
@@ -30,7 +31,8 @@
                 <div class="control-group">
                     <div class="controls">
                         <asp:DropDownList ID="ddlFandom" class="input-xlarge" runat="server" DataTextField="FandomName"
-                            DataValueField="ID">
+                            DataValueField="ID" 
+                            onselectedindexchanged="ddlFandom_SelectedIndexChanged">
                             <asp:ListItem Selected="True"></asp:ListItem>
                         </asp:DropDownList>
                     </div>

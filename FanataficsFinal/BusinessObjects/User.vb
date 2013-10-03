@@ -8,7 +8,7 @@ Public Class User
     Private _SecurityQuestion As String = String.Empty
     Private _SecurityAnswer As String = String.Empty
     Private _StoryAmount As Integer = 0
-
+    Private _UserBIO As String = String.Empty
     '
     'ADD PRIVATE MEMBERS FOR CHILDREN HERE
     '
@@ -94,6 +94,18 @@ Public Class User
             RaiseEvent evtIsSavable(IsSavable)
         End Set
     End Property
+
+    Public Property UserBIO As String
+        Get
+            Return _UserBIO
+        End Get
+        Set(ByVal value As String)
+            _UserBIO = value
+            MyBase.IsDirty = True
+            'Raise event if savable
+            RaiseEvent evtIsSavable(IsSavable)
+        End Set
+    End Property
     '
     'ADD PUBLIC PROPERITES FOR CHILDREN HERE
     '
@@ -118,6 +130,7 @@ Public Class User
             database.Command.Parameters.Add("@SecurityQuestion", SqlDbType.VarChar).Value = _SecurityQuestion
             database.Command.Parameters.Add("@SecurityAnswer", SqlDbType.VarChar).Value = _SecurityAnswer
             database.Command.Parameters.Add("@StoryAmount", SqlDbType.Int).Value = _StoryAmount
+            database.Command.Parameters.Add("@UserBIO", SqlDbType.VarChar).Value = _UserBIO
 
             'CHANGE EXECUTE NON QUERY TO EXECUTE NON QUERY WITH TRANSACTION
             database.ExecuteNonQueryWithTransaction()
@@ -146,6 +159,8 @@ Public Class User
             database.Command.Parameters.Add("@SecurityQuestion", SqlDbType.VarChar).Value = _SecurityQuestion
             database.Command.Parameters.Add("@SecurityAnswer", SqlDbType.VarChar).Value = _SecurityAnswer
             database.Command.Parameters.Add("@StoryAmount", SqlDbType.Int).Value = _StoryAmount
+            database.Command.Parameters.Add("@UserBIO", SqlDbType.VarChar).Value = _UserBIO
+
             'Execute non query
             database.ExecuteNonQueryWithTransaction()
             '
@@ -212,8 +227,6 @@ Public Class User
         If _SecurityAnswer.Length > 100 Then
             result = False
         End If
-
-
 
         Return result
 
@@ -344,30 +357,6 @@ Public Class User
             End If
         End If
     End Function
-    Public Function GetUserByFandomID(id As Guid) As User
-        Dim db As New Database(My.Settings.ConnectionName)
-        Dim ds As DataSet = Nothing
-        db.Command.CommandType = CommandType.StoredProcedure
-        db.Command.CommandText = "tblUser_getUserByFandomID"
-        db.Command.Parameters.Add("@FandomID", SqlDbType.UniqueIdentifier).Value = id
-        ds = db.ExecuteQuery()
-
-        If ds.Tables(0).Rows.Count = 1 Then
-            Dim dr As DataRow = ds.Tables(0).Rows(0)
-            MyBase.Initialize(dr)
-            InitializeBusinessData(dr)
-            MyBase.IsNew = False
-            MyBase.IsDirty = False
-
-            Return Me
-        Else
-            If ds.Tables(0).Rows.Count = 0 Then
-                Throw New Exception(String.Format("User {0} was not found", id))
-            Else
-                Throw New Exception(String.Format("User {0} found multiple records", id))
-            End If
-        End If
-    End Function
 
     Public Sub InitializeBusinessData(dr As DataRow)
         _UserName = dr("UserName")
@@ -376,6 +365,7 @@ Public Class User
         _SecurityQuestion = dr("SecurityQuestion")
         _SecurityAnswer = dr("SecurityAnswer")
         _StoryAmount = dr("StoryAmount")
+        _UserBIO = dr("UserBIO")
     End Sub
 #End Region
 

@@ -26,10 +26,10 @@ Public Class ReviewList
         End Set
     End Property
 
-    Public WriteOnly Property ReviewerName As String
+    Public WriteOnly Property GuestName As String
         Set(value As String)
             If value.Trim <> String.Empty Then
-                _Criteria.Fields.Add("ReviewerName")
+                _Criteria.Fields.Add("GuestName")
                 _Criteria.Values.Add(value)
                 _Criteria.Types.Add(DataTypeHelper.Type.DataType.String_Contains)
             End If
